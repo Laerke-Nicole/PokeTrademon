@@ -43,8 +43,8 @@ body {
 
 /* buttons */
 .btn-1 {
-  padding: 10px 20px;
-  background-color: var(--secondary-color);
+  padding: 10px;
+  background-color: var(--tertiary-color);
   font-size: 16px;
   cursor: pointer;
   border-radius: 3px;
@@ -53,11 +53,11 @@ body {
 }
 
 .btn-1:hover {
-  background-color: #5e3b8c;
+  background-color: #7c7c7c;
 }
 
 .btn-2 {
-  padding: 10px 20px;
+  padding: 10px;
   background-color: var(--primary-color);
   font-size: 16px;
   cursor: pointer;
@@ -68,4 +68,38 @@ body {
 
 .btn-2:hover {
   background-color: #272727;
+}
+
+
+/* rounded corners */
+.round-corner {
+  border-radius: 3px;
+}
+
+
+/* background */
+.dark-bg {
+  background-color: var(--primary-color)
+}
+
+.light-bg {
+  background-color: var(--tertiary-color)
+}
+
+
+/* text color */
+.light-headline {
+  color: var(--light-headline);
+}
+
+.light-text {
+  color: var(--light-text);
+}
+
+.dark-headline {
+  color: var(--dark-headline);
+}
+
+.dark-text {
+  color: var(--dark-text);
 }
