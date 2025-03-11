@@ -1,4 +1,11 @@
 @import './base.css';
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+}
 
 #app {
   max-width: 1280px;
