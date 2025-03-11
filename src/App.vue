@@ -15,12 +15,21 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/auth">Auth</RouterLink>
         <RouterLink to="/admin">Admin</RouterLink>
+        <RouterLink to="/"><button @click="logout()">Log out</button></RouterLink>
       </nav>
     </div>
   </header>
 
   <RouterView />
 </template>
+
+<script lang="ts">
+import { useUsers } from '../src/modules/auth/userModels';
+
+// fetch logout function
+const { logout } = useUsers();
+
+</script>
 
 <style scoped>
 header {
