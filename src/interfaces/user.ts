@@ -1,7 +1,9 @@
 export type User = {
-    id: string,
-    name: string,
+    _id: string,
+    username: string,
     email: string,
     password: string,
+    collection: string[],
+    trades: string[],
     registerDate: string
 };

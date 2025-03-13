@@ -7,7 +7,7 @@ export const useUsers = () => {
     const error = ref<string | null>(null);
     const user = ref<User | null>(null);
 
-    const name = ref<string>('');
+    const username = ref<string>('');
     const email = ref<string>('');
     const password = ref<string>('');
 
@@ -47,14 +47,14 @@ const fetchToken = async (email:string, password:string): Promise<void> => {
 
 
     // register user
-    const registerUser = async (name:string, email:string, password:string): Promise<void> => {
+    const registerUser = async (username:string, email:string, password:string): Promise<void> => {
         try {
             const response = await fetch('https://ments-restapi.onrender.com/api/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, email, password })
+                body: JSON.stringify({ username, email, password })
             });
     
             if (!response.ok) {
@@ -87,7 +87,7 @@ const fetchToken = async (email:string, password:string): Promise<void> => {
         isLoggedIn,
         error,
         user,
-        name,
+        username,
         email,
         password,
         fetchToken,

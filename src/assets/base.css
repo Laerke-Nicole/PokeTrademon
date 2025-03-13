@@ -35,10 +35,10 @@ body {
     color 0.5s,
     background-color 0.5s;
   line-height: 1.6;
-  font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0 5%;
 }
 
 /* buttons */
@@ -53,7 +53,7 @@ body {
 }
 
 .btn-1:hover {
-  background-color: #7c7c7c;
+  background-color: #e0e0e0;
 }
 
 .btn-2 {
