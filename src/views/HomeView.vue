@@ -7,51 +7,24 @@
           <div class="title"><p>Name</p></div>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
+      <!-- navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import Swiper from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-coverflow";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import { ref } from 'vue';
+// import swiper carousel
+import { useSwiper } from '../components/swiperCarousel/SwiperCarousel';
+
+// Initialize Swiper
+useSwiper();
 
 // Sample images
-const images = ref(Array.from({ length: 6 }, () => `https://picsum.photos/500/600?random=${Math.random()}`));
+const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/500/600?random=${i}`));
 
-onMounted(() => {
-  const swiper = new Swiper(".swiper", {
-    modules: [EffectCoverflow, Pagination],
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: 3, 
-    loop: true, 
-    speed: 600,
-    coverflowEffect: {
-      rotate: 0,
-      stretch: 60,
-      depth: 250, 
-      modifier: 1,
-      slideShadows: true,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    on: {
-      click(event) {
-        if (event.clickedIndex !== undefined) {
-          swiper.slideTo(event.clickedIndex);
-        }
-      },
-    },
-  });
-});
 </script>
 
 <style lang="scss" scoped>
@@ -60,6 +33,7 @@ onMounted(() => {
   padding: 50px 0;
   max-width: 1000px;
   margin: 0 auto;
+  position: relative;
 }
 
 .swiper-wrapper {
@@ -97,4 +71,12 @@ onMounted(() => {
   padding: 10px 18px;
   transition: 0.3s linear;
 }
+
+.swiper-button-prev, .swiper-button-next {
+  z-index: 10;
+  color: var(--light-text);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
 </style>
