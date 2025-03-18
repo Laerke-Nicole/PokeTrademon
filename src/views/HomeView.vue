@@ -1,20 +1,20 @@
 <template>
   <!-- hero section -->
-  <section class="grid grid-cols-2 five-percent gap-6 pt-24">
-    <div>
-      <h1 class="uppercase pb-4">Universe of Pokemon card trading</h1>
-      <p class="pb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut sequi necessitatibus recusandae aperiam provident culpa nam magni fugit unde dolorem, nemo, corporis eligendi.</p>
-      <button class="btn-1">GET STARTED</button>
-    </div>
-
-    <div>
-      <img src="https://picsum.photos/700/500?random=${i}" alt="Hero section">
+  <section class="hero-section">
+    <div class="hero-content five-percent">
+      <h1 class="leading-tight pb-4 dark-headline">Universe of Pokemon card trading</h1>
+      <p class="pb-6 dark-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut sequi necessitatibus recusandae aperiam provident culpa nam magni fugit unde dolorem, nemo, corporis eligendi.</p>
+      <button class="btn-2">GET STARTED</button>
     </div>
   </section>
 
 
   <!-- carousel -->
   <section class="py-24">
+    <div class="flex justify-center align-center pb-8">
+      <h2>Selected trader cards</h2>
+    </div>
+
     <div class="swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(image, index) in images" :key="index">
@@ -28,18 +28,32 @@
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
+
+    <div class="flex justify-center align-center pt-12">
+      <button class="btn-1">EXPLORE MORE</button>
+    </div>
   </section>
 
 
   <!-- top sellers -->
   <section class="five-percent pb-24">
-    <div class="flex gap-10 light-bg p-4 round-corner">
-      <div>
-        <img src="https://picsum.photos/100/100?random=${i}" alt="Traders profile picture" class="round-corner">
-      </div>
-      <div>
-        <h5 class="font-bold dark-headline">Jane Doe</h5>
-        <p class="dark-text">198 Trades</p>
+    <div class="flex justify-center align-center pb-8">
+      <h2>Top traders</h2>
+    </div>
+
+    <div class="grid grid-cols-4 gap-4">
+      <div v-for="(image, index) in images" :key="index">
+      <div class="flex gap-6 light-bg p-4 round-corner">
+        <div>
+          <img src="https://picsum.photos/100/100?random=${i}" alt="Traders profile picture" class="round-corner">
+        </div>
+        <div>
+          <h5 class="font-bold dark-headline">Jane Doe</h5>
+          <p class="dark-text">198 Trades</p>
+          <button class="pt-4 underline dark-text text-left">OPEN TRADES</button>
+        </div>
+          
+        </div>
       </div>
     </div>
   </section>
@@ -135,6 +149,22 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 </script>
 
 <style lang="scss" scoped>
+.hero-section {
+  background: url('../../public/images/hero-img.jpg');
+  width: 100%;
+  height: 95vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.hero-content {
+  max-width: 60%;
+}
+
 .swiper {
   width: 100%;
   max-width: 1000px;

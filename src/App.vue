@@ -6,12 +6,20 @@ import { RouterLink, RouterView } from 'vue-router'
   <!-- navigation -->
   <header>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/market">Market</RouterLink>
-      <RouterLink to="/auth">Log in</RouterLink>
-      <RouterLink to="/register">Register</RouterLink>
-      <RouterLink to="/admin">Admin</RouterLink>
-      <RouterLink to="/"><button @click="logout()">Log out</button></RouterLink>
+      <div>
+        <RouterLink to="/market">Market</RouterLink>
+      </div>
+
+      <div>
+        <RouterLink to="/"><img src="../public/images/pokemon-logo.png" alt="pokemon logo" class="logo"></RouterLink>
+      </div>
+
+      <div>
+        <RouterLink to="/auth">Log in</RouterLink>
+        <RouterLink to="/register">Register</RouterLink>
+        <RouterLink to="/admin">Admin</RouterLink>
+        <RouterLink to="/"><button @click="logout()">Log out</button></RouterLink>
+      </div> 
     </nav>
   </header>
 
@@ -37,11 +45,18 @@ nav {
   width: 100%;
   font-size: 14px;
   text-align: center;
-  margin-top: 2rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: var(--tertiary-color);
+  align-items: center;
+  position: fixed;
+  z-index: 100;
 }
 
 nav a.router-link-exact-active {
-  color: var(--secondary-color);
+  text-decoration: underline;
 }
 
 nav a.router-link-exact-active:hover {
@@ -51,5 +66,10 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
+  color: var(--dark-text);
+}
+
+.logo {
+  width: 150px;
 }
 </style>
