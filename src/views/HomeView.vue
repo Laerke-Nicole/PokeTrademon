@@ -4,7 +4,7 @@
     <div class="hero-content five-percent">
       <h1 class="leading-tight pb-4 dark-headline">Universe of Pokemon card trading</h1>
       <p class="pb-6 dark-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut sequi necessitatibus recusandae aperiam provident culpa nam magni fugit unde dolorem, nemo, corporis eligendi.</p>
-      <button class="btn-2">GET STARTED</button>
+      <RouterLink to="/market"><button class="btn-2">GET STARTED</button></RouterLink>
     </div>
   </section>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex justify-center align-center pt-12">
-      <button class="btn-1">EXPLORE MORE</button>
+      <RouterLink to="/market"><button class="btn-1">EXPLORE MORE</button></RouterLink>
     </div>
   </section>
 
@@ -60,7 +60,7 @@
 
 
   <!-- news -->
-  <section class="pb-24 five-percent">
+  <section class="five-percent">
     <div class="flex justify-center align-center pb-8">
       <h2>What's new at PokeTrademon</h2>
     </div>

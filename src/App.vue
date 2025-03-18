@@ -15,6 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
       </div>
 
       <div>
+        <RouterLink to="/profile">Profile</RouterLink>
         <RouterLink to="/auth">Log in</RouterLink>
         <RouterLink to="/register">Register</RouterLink>
         <RouterLink to="/admin">Admin</RouterLink>
@@ -68,11 +69,23 @@ nav {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: var(--tertiary-color);
   align-items: center;
   position: fixed;
   z-index: 100;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+nav div {
+  flex: 1; 
+  display: flex;
+  align-items: center;
+}
+
+nav div:nth-child(2) { 
+  justify-content: center;
 }
 
 nav a.router-link-exact-active {
@@ -93,6 +106,7 @@ nav a {
   width: 150px;
 }
 
-/* footer */
-
+footer {
+  margin-top: 96px;
+}
 </style>
