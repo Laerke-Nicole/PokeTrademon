@@ -60,78 +60,70 @@
 
 
   <!-- news -->
-  <section>
-    <div class="bg-gray-50 py-24 sm:py-32">
-      <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-        <p class="mx-auto mt-2 max-w-lg text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">What's new at PokeTrademon</p>
-        <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-          <div class="relative lg:row-span-2">
-            <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]" />
-            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
-              <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Mobile friendly</p>
-                <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.</p>
-              </div>
-              <div class="@container relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                <div class="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 shadow-2xl">
-                  <img class="size-full object-cover object-top" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png" alt="" />
-                </div>
-              </div>
+  <section class="pb-24 five-percent">
+    <div class="flex justify-center align-center pb-8">
+      <h2>What's new at PokeTrademon</h2>
+    </div>
+
+    <div>
+      <div class="row-news">
+        <div class="column-news pt-12">
+          <div class="round-corner light-bg">
+            <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
+            <div class="p-4">
+              <h4 class="dark-headline">Five cards to watch out for</h4>
+              <p class="dark-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat ab eveniet </p>
             </div>
-            <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]" />
           </div>
-          <div class="relative max-lg:row-start-1">
-            <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]" />
-            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
-              <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Performance</p>
-                <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit.</p>
-              </div>
-              <div class="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-                <img class="w-full max-lg:max-w-xs" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png" alt="" />
-              </div>
+
+          <div class="round-corner light-bg">
+            <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
+            <div class="p-4">
+              <h4 class="dark-headline">Five cards to watch out for</h4>
+              <p class="dark-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto omnis voluptatem fugit eum deleniti inventore, corrupti nemo, quis libero </p>
             </div>
-            <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]" />
-          </div>
-          <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
-            <div class="absolute inset-px rounded-lg bg-white" />
-            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
-              <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Security</p>
-                <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi.</p>
-              </div>
-              <div class="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
-                <img class="h-[min(152px,40cqw)] object-cover" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png" alt="" />
-              </div>
-            </div>
-            <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5" />
-          </div>
-          <div class="relative lg:row-span-2">
-            <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
-            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
-              <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">Powerful APIs</p>
-                <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida.</p>
-              </div>
-              <div class="relative min-h-[30rem] w-full grow">
-                <div class="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl">
-                  <div class="flex bg-gray-800/40 ring-1 ring-white/5">
-                    <div class="-mb-px flex text-sm/6 font-medium text-gray-400">
-                      <div class="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">NotificationSetting.jsx</div>
-                      <div class="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
-                    </div>
-                  </div>
-                  <div class="px-6 pt-6 pb-14">
-                    <!-- Your code example -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
           </div>
         </div>
+
+        <div class="column-news">
+          <div class="round-corner light-bg">
+            <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
+            <div class="p-4">
+              <h4 class="dark-headline">Five cards to watch out for</h4>
+              <p class="dark-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat ab eveniet </p>
+            </div>
+          </div>
+
+          <div class="round-corner light-bg">
+            <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
+            <div class="p-4">
+              <h4 class="dark-headline">Challenge players from around the globe in ranked battles season 28</h4>
+              <p class="dark-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum nam quos voluptatibus excepturi ad debitis sit vitae adipisci, repellendus neque, omnis unde odio ratione. </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column-news pt-6">
+          <div class="round-corner light-bg">
+            <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
+            <div class="p-4">
+              <h4 class="dark-headline">Comeplete Pokemon home pokedexes to earn a new pair of shiny pokemon</h4>
+              <p class="dark-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum nam quos voluptatibus excepturi ad debitis sit vitae adipisci, repellendus neque, omnis unde odio ratione. </p>
+            </div>
+          </div>
+
+          <div class="round-corner light-bg">
+            <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
+            <div class="p-4">
+              <h4 class="dark-headline">Five cards to watch out for</h4>
+              <p class="dark-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat ab eveniet </p>
+            </div>
+          </div>
       </div>
     </div>
+  </div>
+    
+    
   </section>
 </template>
 
@@ -146,9 +138,11 @@ useSwiper();
 // Sample images
 const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/500/600?random=${i}`));
 
+
 </script>
 
 <style lang="scss" scoped>
+// hero section
 .hero-section {
   background: url('../../public/images/hero-img.jpg');
   width: 100%;
@@ -165,6 +159,7 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   max-width: 60%;
 }
 
+// swiper
 .swiper {
   width: 100%;
   max-width: 1000px;
@@ -212,5 +207,43 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   z-index: 10;
   color: var(--light-text);
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+// news
+.row-news {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column-news {
+  flex: 33%;
+  max-width: 33%;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.column-news img {
+  margin-top: 16px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column-news {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column-news {
+    flex: 100%;
+    max-width: 100%;
+  }
 }
 </style>

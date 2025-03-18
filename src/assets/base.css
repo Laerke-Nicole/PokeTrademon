@@ -96,6 +96,10 @@ h4 {
   border-radius: 3px;
 }
 
+.round-corner-top {
+  border-radius: 3px 3px 0 0;
+}
+
 /* padding on the sides */
 .five-percent {
   padding-right: 5%;
