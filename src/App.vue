@@ -27,9 +27,29 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
   <!-- footer -->
-   <footer>
-    
-   </footer>
+  <footer class="flex justify-around five-percent pb-12 pt-12 light-bg">
+    <div>
+      <h2 class="dark-headline">PokeTrademon</h2>
+      <p class="dark-text">Kongensgade 29, 6700 Esbjerg</p>
+      <p class="dark-text">+45 23 27 21 09</p>
+      <p class="dark-text">Support@Poketrademon.com</p>
+    </div>
+
+    <div>
+      <p class="dark-text">Market</p>
+      <p class="dark-text">About PokeTrademon</p>
+      <p class="dark-text">Contact us</p>
+      <p class="dark-text">Careers</p>
+    </div>
+
+    <div>
+      <p class="dark-text">Cookie policy</p>
+      <p class="dark-text">Privacy policy</p>
+      <p class="dark-text">Cookie settings</p>
+      <p class="dark-text">Security</p>
+      <p class="dark-text">Copyright PokeTrademon 2025</p>
+    </div>
+  </footer>
 </template>
 
 <script lang="ts">
@@ -72,4 +92,7 @@ nav a {
 .logo {
   width: 150px;
 }
+
+/* footer */
+
 </style>
