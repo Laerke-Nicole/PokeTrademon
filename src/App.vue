@@ -18,8 +18,9 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/profile">Profile</RouterLink>
         <RouterLink to="/auth">Log in</RouterLink>
         <RouterLink to="/register">Register</RouterLink>
-        <RouterLink to="/admin">Admin</RouterLink>
-        <RouterLink to="/"><button @click="logout()">Log out</button></RouterLink>
+        <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
+
+        <button v-if="isLoggedIn" @click="logout">Log out</button>
       </div> 
     </nav>
   </header>
@@ -55,10 +56,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <script lang="ts">
 import { useUsers } from '../src/modules/auth/userModels';
+import { computed } from 'vue'
+import { state } from './modules/globalStates/state'
 
 // fetch logout function
 const { logout } = useUsers();
-
+const isLoggedIn = computed(() => state.isLoggedIn)
 </script>
 
 <style scoped>
