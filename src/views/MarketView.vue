@@ -1,16 +1,36 @@
 <template>
-  <div>
-    <div v-if="loading">Loading...</div>
+  <div class="pt-20">
+    <!-- filters and search -->
+    <div>
 
-    <div v-else-if="error">There is an error.</div>
+    </div>
+    
 
-    <div v-else>
-      <div v-for="card in cards" :key="card._id">
-        <router-link :to="`/cards/${card._id}`" class="btn-1">
-          <img src="" alt="Pokemon card">
-        </router-link>
+    <!-- card list -->
+    <div>
+      <div v-if="loading">Loading...</div>
+  
+      <div v-else-if="error">There is an error.</div>
+  
+      <!-- loop of cards -->
+      <div v-else class="flex flex-wrap -mx-2">
+        <div v-for="card in cards" :key="card._id" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2">
+          <div class="p-4 rounded-lg shadow-md">
+            <router-link :to="`/cards/${card._id}`">
+              <img :src="card.imageURL" alt="Pokemon card">
+              <div class="flex justify-between mt-4">
+                <button class="btn-1">See Pokemon card</button>
+              </div>
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
+
+
+
+
+
   </div>
 </template>
 
