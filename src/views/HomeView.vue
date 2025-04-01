@@ -19,9 +19,6 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(image, index) in images" :key="index">
           <img :src="image" alt="Pokemon card">
-          <div class="title">
-            <p>Name</p>
-          </div>
         </div>
       </div>
       <!-- navigation buttons -->
@@ -190,17 +187,6 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   object-fit: cover;
   border-radius: inherit;
   user-select: none;
-}
-
-.title {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  color: var(--light-headline);
-  transform: translate(-50%, 20%);
-  text-align: center;
-  padding: 10px 18px;
-  transition: 0.3s linear;
 }
 
 .swiper-button-prev, .swiper-button-next {
