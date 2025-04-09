@@ -1,47 +1,98 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
+  <!-- navigation -->
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <nav>
+      <div>
+        <RouterLink to="/market">Market</RouterLink>
+      </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div>
+        <RouterLink to="/"><img src="../public/images/pokemon-logo.png" alt="pokemon logo" class="logo"></RouterLink>
+      </div>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/auth">Auth</RouterLink>
-        <RouterLink to="/admin">Admin</RouterLink>
-      </nav>
-    </div>
+      <div>
+        <RouterLink to="/profile">Profile</RouterLink>
+        <RouterLink to="/auth">Log in</RouterLink>
+        <RouterLink to="/register">Register</RouterLink>
+        <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
+
+        <button v-if="isLoggedIn" @click="logout">Log out</button>
+      </div> 
+    </nav>
   </header>
 
   <RouterView />
+
+
+  <!-- footer -->
+  <footer class="flex justify-around five-percent pb-12 pt-12 light-bg">
+    <div>
+      <h2 class="dark-headline">PokeTrademon</h2>
+      <p class="dark-text">Kongensgade 29, 6700 Esbjerg</p>
+      <p class="dark-text">+45 23 27 21 09</p>
+      <p class="dark-text">Support@Poketrademon.com</p>
+    </div>
+
+    <div>
+      <p class="dark-text">Market</p>
+      <p class="dark-text">About PokeTrademon</p>
+      <p class="dark-text">Contact us</p>
+      <p class="dark-text">Careers</p>
+    </div>
+
+    <div>
+      <p class="dark-text">Cookie policy</p>
+      <p class="dark-text">Privacy policy</p>
+      <p class="dark-text">Cookie settings</p>
+      <p class="dark-text">Security</p>
+      <p class="dark-text">Copyright PokeTrademon 2025</p>
+    </div>
+  </footer>
 </template>
 
+<script lang="ts">
+import { useUsers } from '../src/modules/auth/userModels';
+import { computed } from 'vue'
+import { state } from './modules/globalStates/state'
+
+// fetch logout function
+const { logout } = useUsers();
+const isLoggedIn = computed(() => state.isLoggedIn)
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
   width: 100%;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
-  margin-top: 2rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--tertiary-color);
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+nav div {
+  flex: 1; 
+  display: flex;
+  align-items: center;
+}
+
+nav div:nth-child(2) { 
+  justify-content: center;
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  text-decoration: underline;
 }
 
 nav a.router-link-exact-active:hover {
@@ -51,37 +102,14 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  color: var(--dark-text);
 }
 
-nav a:first-of-type {
-  border: 0;
+.logo {
+  width: 150px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+footer {
+  margin-top: 96px;
 }
 </style>

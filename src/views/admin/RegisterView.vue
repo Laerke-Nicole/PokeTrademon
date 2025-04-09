@@ -1,18 +1,18 @@
 <template>
     <div class="pt-24 flex flex-col gap-4 five-percent">
-        <h3>Login to your account</h3>
+        <h3>Sign up</h3>
+        <input type="text" class="flex light-bg p-2 round-corner dark-text" placeholder="Name"  v-model="username"/> 
         <input type="text" class="flex light-bg p-2 round-corner dark-text" placeholder="Email"  v-model="email"/> 
         <input type="password" class="flex light-bg p-2 round-corner dark-text" placeholder="Password"  v-model="password"/>
-        <button class="btn-1" @click="fetchToken(email, password)">Login</button>
+        <button class="btn-1" @click="registerUser(username, email, password)">Register</button>
     </div>
 </template>
 
 <script setup lang="ts">
-// import user model
 import { useUsers } from '../../modules/auth/userModels';
 
-// fetch the functions needed for the login page
-const { fetchToken, email, password } = useUsers();
+// fetch the functions needed for the register page
+const { registerUser, username, email, password } = useUsers();
 
 </script>
 
