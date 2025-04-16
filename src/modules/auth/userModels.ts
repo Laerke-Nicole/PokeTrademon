@@ -1,5 +1,8 @@
 import { ref } from 'vue';
 import type { User } from '../../interfaces/user';
+import { state } from '../globalStates/state';
+
+
 
 export const useUsers = () => {
   const token = ref<string | null>(null);
@@ -34,6 +37,7 @@ export const useUsers = () => {
   
       token.value = authResponse.token;
       isLoggedIn.value = true;
+      state.isLoggedIn = true; // ✅ sync with global
   
       localStorage.setItem('isToken', authResponse.token);
       console.log('✅ Logged in! Token:', authResponse.token);
@@ -78,6 +82,7 @@ export const useUsers = () => {
     token.value = null;
     user.value = null;
     isLoggedIn.value = false;
+    state.isLoggedIn = false; // ✅ sync with global
     localStorage.removeItem('isToken');
     localStorage.removeItem('userIDToken');
     console.log('👋 User logged out');
