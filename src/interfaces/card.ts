@@ -18,11 +18,18 @@ export type newCard = Omit<Card, '_id'> & Partial<Pick<Card, '_createdBy'>>
 export interface PokemonCard {
   id: string;
   name: string;
+  supertype: string;
+  subtypes?: string[];
+  hp?: string;
+  rarity?: string;
   images: {
     small: string;
-    large: string;
+    large?: string;
   };
-  [key: string]: any; // optional: to allow other dynamic props
+  set?: {
+    name: string;
+  };
 }
+
 
   

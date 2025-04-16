@@ -18,15 +18,14 @@
       </select>
 
       <select v-model="sortBy" @change="fetchFilteredCards" class="p-2 border rounded">
-  <option value="">Sort by</option>
-  <option value="name">Name (A–Z)</option>
-  <option value="-name">Name (Z–A)</option>
-  <option value="hp">HP (Low–High)</option>
-  <option value="-hp">HP (High–Low)</option>
-  <option value="rarity">Rarity</option>
-  <option value="set.name">Set Name</option>
-</select>
-
+        <option value="">Sort by</option>
+        <option value="name">Name (A–Z)</option>
+        <option value="-name">Name (Z–A)</option>
+        <option value="hp">HP (Low–High)</option>
+        <option value="-hp">HP (High–Low)</option>
+        <option value="rarity">Rarity</option>
+        <option value="set.name">Set Name</option>
+      </select>
     </div>
 
     <!-- card list -->
@@ -35,25 +34,22 @@
 
       <div v-else-if="error">{{ error }}</div>
 
-      <!-- no results -->
       <div v-else-if="cards.length === 0">
         <p>No Pokémon cards found.</p>
       </div>
 
-      <!-- loop of cards -->
       <div v-else class="flex flex-wrap -mx-2">
         <div
           v-for="card in cards"
           :key="card.id"
-          class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2"
+          class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2 cursor-pointer"
+          @click="openModal(card)"
         >
-          <div class="p-4 rounded-lg shadow-md">
-            <router-link :to="`/cards/${card.id}`">
-              <img :src="card.images.small" :alt="card.name" />
-              <div class="flex justify-between mt-4">
-                <button class="btn-1">See Pokémon card</button>
-              </div>
-            </router-link>
+          <div class="p-4 rounded-lg shadow-md hover:shadow-xl transition">
+            <img :src="card.images.small" :alt="card.name" />
+            <div class="flex justify-between mt-4">
+              <button class="btn-1">See Pokémon card</button>
+            </div>
           </div>
         </div>
       </div>
@@ -65,12 +61,23 @@
       <span>Page {{ page }} of {{ totalPages }}</span>
       <button class="btn-1" @click="nextPage" :disabled="page >= totalPages">Next</button>
     </div>
+
+    <!-- Modal Component -->
+    <CardModal
+  v-if="showModal && selectedCard"
+  :visible="showModal"
+  :card="selectedCard"
+  @close="closeModal"
+/>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue';
 import { useCards } from '../modules/useCards';
+import CardModal from '../components/CardModal.vue';
+import type { PokemonCard } from '../interfaces/card';
 
 const { loading, error, cards, fetchCards, totalCount } = useCards();
 
@@ -79,6 +86,8 @@ const selectedSupertype = ref('');
 const page = ref(1);
 const pageSize = 20;
 const sortBy = ref('');
+const selectedCard = ref<PokemonCard | null>(null);
+const showModal = ref(false);
 
 const totalPages = computed(() => Math.ceil(totalCount.value / pageSize));
 
@@ -100,6 +109,15 @@ const prevPage = () => {
   }
 };
 
+const openModal = (card: PokemonCard) => {
+  selectedCard.value = card;
+  showModal.value = true;
+};
+
+const closeModal = () => {
+  showModal.value = false;
+};
+
 onMounted(() => {
   fetchFilteredCards();
 });
@@ -110,6 +128,6 @@ watch([searchQuery, selectedSupertype], () => {
 });
 </script>
 
-<style lang="scss" scoped>
-/* Optional: Spinner style */
+<style scoped>
+/* Optional spinner or animation */
 </style>

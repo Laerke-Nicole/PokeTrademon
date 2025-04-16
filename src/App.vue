@@ -1,6 +1,21 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+<script lang="ts">
+import { defineComponent, computed } from 'vue';
+import { useUsers } from './modules/auth/userModels';
+import { state } from './modules/globalStates/state';
+
+export default defineComponent({
+  setup() {
+    const { logout } = useUsers();
+    const isLoggedIn = computed(() => state.isLoggedIn);
+
+    return {
+      logout,
+      isLoggedIn
+    };
+  }
+});
 </script>
+
 
 <template>
   <!-- navigation -->
@@ -16,8 +31,8 @@ import { RouterLink, RouterView } from 'vue-router'
 
       <div>
         <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/auth">Log in</RouterLink>
-        <RouterLink to="/register">Register</RouterLink>
+        <RouterLink v-if="!isLoggedIn" to="/auth">Log in</RouterLink>
+        <RouterLink v-if="!isLoggedIn" to="/register">Register</RouterLink>
         <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
 
         <button v-if="isLoggedIn" @click="logout">Log out</button>
@@ -54,15 +69,6 @@ import { RouterLink, RouterView } from 'vue-router'
   </footer>
 </template>
 
-<script lang="ts">
-import { useUsers } from '../src/modules/auth/userModels';
-import { computed } from 'vue'
-import { state } from './modules/globalStates/state'
-
-// fetch logout function
-const { logout } = useUsers();
-const isLoggedIn = computed(() => state.isLoggedIn)
-</script>
 
 <style scoped>
 nav {
