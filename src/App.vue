@@ -34,6 +34,7 @@ export default defineComponent({
         <RouterLink v-if="!isLoggedIn" to="/auth">Log in</RouterLink>
         <RouterLink v-if="!isLoggedIn" to="/register">Register</RouterLink>
         <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
+        <RouterLink v-if="isLoggedIn" to="/trades">Trades</RouterLink>
 
         <button v-if="isLoggedIn" @click="logout">Log out</button>
       </div> 
