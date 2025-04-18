@@ -10,11 +10,24 @@
         <p v-if="card.hp"><strong>HP:</strong> {{ card.hp }}</p>
         <p v-if="card.set"><strong>Set:</strong> {{ card.set.name }}</p>
       </div>
+      <button class="btn-1" @click="handleAdd(card.id)">Add to Collection</button>
     </div>
   </template>
   
   <script setup lang="ts">
 import type { PokemonCard } from '../interfaces/card'; // ✅ Import the interface
+import { useCollection } from '../modules/useCollection';
+const { addCardToCollection } = useCollection();
+
+
+const handleAdd = async (cardId: string) => {
+  const uid = localStorage.getItem('userIDToken')?.replace(/"/g, '');
+
+  if (!uid) return alert('Login required');
+  await addCardToCollection(cardId); // our hook already extracts userId inside
+};
+
+
 
 defineProps<{
   visible: boolean;
