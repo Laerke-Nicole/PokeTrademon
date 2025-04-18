@@ -1,6 +1,8 @@
 export interface TradeCard {
   cardId: string;
   quantity: number;
+  name: string;
+  image: string;
 }
 
 export interface TradeOffer {
@@ -13,3 +15,9 @@ export interface TradeOffer {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface DetailedTradeCard extends TradeCard {
+  image: string;
+  name: string;
+}
+

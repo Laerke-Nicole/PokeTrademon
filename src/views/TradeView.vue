@@ -56,11 +56,14 @@
   <p>You don't own any cards.</p>
 </div>
 <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-  <div v-for="card in userCards" :key="card.cardId" class="border p-4 rounded">
-    <p><strong>Card ID:</strong> {{ card.cardId }}</p>
-    <p><strong>Quantity:</strong> {{ card.quantity }}</p>
-    <button class="btn-1 mt-2" @click="selectCardForTrade(card)">Propose Trade</button>
-  </div>
+    <div v-for="card in userCards" :key="card.cardId" class="border p-4 rounded text-center">
+  <img :src="card.image" alt="Card image" class="w-20 h-auto mx-auto mb-2 rounded" />
+  <p class="font-semibold">{{ card.name }}</p>
+  <p class="text-sm text-gray-500">ID: {{ card.cardId }}</p>
+  <p>Quantity: {{ card.quantity }}</p>
+  <button class="btn-1 mt-2" @click="selectCardForTrade(card)">Propose Trade</button>
+</div>
+
 </div>
 
 <!-- Modal Trade Form -->
@@ -109,8 +112,28 @@
     class="border p-4 rounded mb-2"
   >
     <p><strong>From:</strong> {{ trade.senderId }}</p>
-    <p><strong>Offering:</strong> {{ cardList(trade.senderCards) }}</p>
-    <p><strong>Wants:</strong> {{ cardList(trade.receiverCards) }}</p>
+    <div>
+  <strong>Offering:</strong>
+  <div class="flex gap-4 flex-wrap mt-2">
+    <div v-for="card in trade.senderCards" :key="card.cardId" class="text-center w-24">
+      <img :src="card.image" :alt="card.name" class="w-full rounded" />
+      <p class="text-sm font-medium">{{ card.name }}</p>
+      <p class="text-xs text-gray-500">x{{ card.quantity }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4">
+  <strong>Wants:</strong>
+  <div class="flex gap-4 flex-wrap mt-2">
+    <div v-for="card in trade.receiverCards" :key="card.cardId" class="text-center w-24">
+      <img :src="card.image" :alt="card.name" class="w-full rounded" />
+      <p class="text-sm font-medium">{{ card.name }}</p>
+      <p class="text-xs text-gray-500">x{{ card.quantity }}</p>
+    </div>
+  </div>
+</div>
+
     <p><strong>Status:</strong> {{ trade.status }}</p>
   </div>
 </div>
@@ -126,12 +149,13 @@
   <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { useUsers } from '../modules/auth/userModels';
-import type { TradeOffer, TradeCard } from '../interfaces/trade';
-import { fetchTradesForUser, createTradeOffer, fetchUserCollection } from '../modules/tradeApi';
+import type { TradeOffer, TradeCard, DetailedTradeCard } from '../interfaces/trade';
+import { fetchTradesForUser, createTradeOffer, fetchUserCollection, fetchCardDetails } from '../modules/tradeApi';
 
 // Auth / User
 const { user } = useUsers();
 const currentUserId = computed(() => user.value?._id ?? localStorage.getItem("userIDToken"));
+
 
 // State
 const allTrades = ref<TradeOffer[]>([]);
@@ -152,7 +176,15 @@ const receiverQuantityInput = ref(1);
 
 // Form Inputs (Option 3)
 const desiredCardId = ref('');
-const matchingTrades = ref<TradeOffer[]>([]);
+const matchingTrades = ref<Array<{
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  senderCards: DetailedTradeCard[];
+  receiverCards: DetailedTradeCard[];
+  status: string;
+}>>([]);
+
 const searchAttempted = ref(false);
 
 // Trade lists
@@ -179,9 +211,22 @@ onMounted(async () => {
     ]);
 
     allTrades.value = trades;
-    userCards.value = collection;
+
+    // 🟡 Enrich user collection with image + name
+    const enriched = await Promise.all(
+      collection.map(async (card) => {
+        const details = await fetchCardDetails(card.cardId);
+        return {
+          ...card,
+          name: details.name,
+          image: details.images.small,
+        };
+      })
+    );
+
+    userCards.value = enriched;
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to load data';
+    error.value = err instanceof Error ? err.message : "Failed to load data";
   } finally {
     loading.value = false;
   }
@@ -196,6 +241,8 @@ const parseCards = (input: string): TradeCard[] => {
       return {
         cardId: cardId.trim(),
         quantity: Number(qty?.replace(/[^\d]/g, '') || 1),
+        name: 'Unknown', // Default name
+        image: '', // Default image URL
       };
     })
     .filter(card => card.cardId);
@@ -249,7 +296,11 @@ const submitSelectedCardTrade = async () => {
       senderId: user.value._id,
       receiverId: receiverIdInput.value,
       senderCards: [{ ...selectedCardForTrade.value }],
-      receiverCards: [{ cardId: receiverCardIdInput.value, quantity: receiverQuantityInput.value }],
+      receiverCards: [{
+          cardId: receiverCardIdInput.value, quantity: receiverQuantityInput.value,
+          name: '',
+          image: ''
+      }],
     });
 
     alert('Trade offer sent!');
@@ -263,14 +314,56 @@ const submitSelectedCardTrade = async () => {
     console.error(err);
   }
 };
-const findMatchingTrades = () => {
-  matchingTrades.value = allTrades.value.filter(trade =>
+
+
+const findMatchingTrades = async () => {
+  matchingTrades.value = [];
+  searchAttempted.value = true;
+
+  if (!desiredCardId.value.trim()) {
+  alert("Please enter a card ID to search for.");
+  return;
+}
+
+  const matches = allTrades.value.filter(trade =>
     trade.receiverCards.some(c => c.cardId === desiredCardId.value) &&
     trade.senderCards.every(sc =>
       userCards.value.some(uc => uc.cardId === sc.cardId && uc.quantity >= sc.quantity)
     )
   );
-  searchAttempted.value = true;
+
+  for (const trade of matches) {
+    const detailedSender = await Promise.all(
+      trade.senderCards.map(async card => {
+        const details = await fetchCardDetails(card.cardId);
+        return {
+          ...card,
+          image: details.images.small,
+          name: details.name
+        };
+      })
+    );
+
+    const detailedReceiver = await Promise.all(
+      trade.receiverCards.map(async card => {
+        const details = await fetchCardDetails(card.cardId);
+        return {
+          ...card,
+          image: details.images.small,
+          name: details.name
+        };
+      })
+    );
+
+    // ✅ Only now push the full object with enriched cards
+    matchingTrades.value.push({
+      ...trade,
+      senderCards: detailedSender,
+      receiverCards: detailedReceiver
+    });
+  }
 };
+
+
 
 </script>
