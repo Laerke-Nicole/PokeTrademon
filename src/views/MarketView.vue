@@ -34,9 +34,9 @@
 
       <div v-else-if="error">{{ error }}</div>
 
-      <div v-else-if="cards.length === 0">
-        <p>No Pokémon cards found.</p>
-      </div>
+      <div v-else-if="!cards || cards.length === 0">
+  <p>No Pokémon cards found.</p>
+</div>
 
       <div v-else class="flex flex-wrap -mx-2">
         <div
