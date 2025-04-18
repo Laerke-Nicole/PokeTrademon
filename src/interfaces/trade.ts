@@ -9,7 +9,7 @@ export interface TradeOffer {
   receiverId: string;
   senderCards: TradeCard[];
   receiverCards: TradeCard[];
-  status: 'pending' | 'accepted' | 'declined' | 'cancelled';
+  status: "pending" | "accepted" | "declined" | "cancelled";
   createdAt: string;
   updatedAt: string;
 }
