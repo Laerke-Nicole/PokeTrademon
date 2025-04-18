@@ -50,72 +50,128 @@
   <button @click="submitTrade" class="btn-1 mt-2">Send Trade</button>
 </div>
 
+<h2 class="text-xl font-semibold mt-10 mb-2">Select from My Collection (Option 2)</h2>
+
+<div v-if="userCards.length === 0">
+  <p>You don't own any cards.</p>
+</div>
+<div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  <div v-for="card in userCards" :key="card.cardId" class="border p-4 rounded">
+    <p><strong>Card ID:</strong> {{ card.cardId }}</p>
+    <p><strong>Quantity:</strong> {{ card.quantity }}</p>
+    <button class="btn-1 mt-2" @click="selectCardForTrade(card)">Propose Trade</button>
+  </div>
+</div>
+
+<!-- Modal Trade Form -->
+<div v-if="selectedCardForTrade" class="mt-6 border p-4 rounded bg-gray-50">
+  <h3 class="text-lg font-semibold mb-2">
+    Create Offer for: {{ selectedCardForTrade.cardId }}
+  </h3>
+  <form @submit.prevent="submitSelectedCardTrade" class="space-y-2">
+    <input
+      v-model="receiverIdInput"
+      placeholder="Receiver's User ID"
+      class="input w-full"
+    />
+    <input
+      v-model="receiverCardIdInput"
+      placeholder="Receiver's Card ID"
+      class="input w-full"
+    />
+    <input
+      type="number"
+      v-model.number="receiverQuantityInput"
+      min="1"
+      placeholder="Quantity to request"
+      class="input w-full"
+    />
+    <div class="flex gap-4">
+      <button type="submit" class="btn-1">Send Offer</button>
+      <button type="button" class="btn-1" @click="cancelSelectedTrade">Cancel</button>
+    </div>
+  </form>
+</div>
+
 
 
     </div>
   </template>
   
   <script setup lang="ts">
-  import { onMounted, ref, computed } from 'vue';
-  import { useUsers } from '../modules/auth/userModels';
-  import type { TradeOffer, TradeCard } from '../interfaces/trade';
-  import { fetchTradesForUser, createTradeOffer } from '../modules/tradeApi';
+import { onMounted, ref, computed } from 'vue';
+import { useUsers } from '../modules/auth/userModels';
+import type { TradeOffer, TradeCard } from '../interfaces/trade';
+import { fetchTradesForUser, createTradeOffer, fetchUserCollection } from '../modules/tradeApi';
 
-  const { user } = useUsers(); // You should already be storing the logged-in user
-  
-  const allTrades = ref<TradeOffer[]>([]);
-  const loading = ref(true);
-  const error = ref<string | null>(null);
-    const receiverId = ref('');
+// Auth / User
+const { user } = useUsers();
+const currentUserId = computed(() => user.value?._id ?? localStorage.getItem("userIDToken"));
+
+// State
+const allTrades = ref<TradeOffer[]>([]);
+const userCards = ref<TradeCard[]>([]);
+const selectedCardForTrade = ref<TradeCard | null>(null);
+const loading = ref(true);
+const error = ref<string | null>(null);
+
+// Form Inputs (Option 1)
+const receiverId = ref('');
 const senderCardsRaw = ref('');
 const receiverCardsRaw = ref('');
-  
-  const currentUserId = computed(() => (user.value?._id ?? localStorage.getItem("userIDToken"))?.toString());
-  console.log("User ID in computed:", currentUserId.value);
-console.log("All trades:", allTrades.value);
 
-  const incoming = computed(() =>
+// Form Inputs (Option 2)
+const receiverIdInput = ref('');
+const receiverCardIdInput = ref('');
+const receiverQuantityInput = ref(1);
+
+// Trade lists
+const incoming = computed(() =>
   allTrades.value.filter(t => t.receiverId?.toString() === currentUserId.value)
 );
-
 const outgoing = computed(() =>
   allTrades.value.filter(t => t.senderId?.toString() === currentUserId.value)
 );
 
-  const cardList = (cards: TradeCard[]) =>
-    cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
-  
-  onMounted(async () => {
-    try {
-        const userId = user.value?._id || localStorage.getItem("userIDToken");
-if (!userId) throw new Error("User not found");
-const result = await fetchTradesForUser(userId);
+// Format card list for display
+const cardList = (cards: TradeCard[]) =>
+  cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
 
-      allTrades.value = result;
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        error.value = err.message;
-      } else {
-        error.value = 'Failed to fetch trades';
-      }
-    } finally {
-      loading.value = false;
-    }
-  });
+// On load: fetch trades and collection
+onMounted(async () => {
+  try {
+    const userId = currentUserId.value;
+    if (!userId) throw new Error("User not found");
 
-  const parseCards = (input: string): TradeCard[] => {
+    const [trades, collection] = await Promise.all([
+      fetchTradesForUser(userId),
+      fetchUserCollection(userId)
+    ]);
+
+    allTrades.value = trades;
+    userCards.value = collection;
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Failed to load data';
+  } finally {
+    loading.value = false;
+  }
+});
+
+// Parse raw input into TradeCard[]
+const parseCards = (input: string): TradeCard[] => {
   return input
     .split(',')
     .map(entry => {
       const [cardId, qty] = entry.split(':');
       return {
         cardId: cardId.trim(),
-        quantity: Number(qty.replace(/[^\d]/g, '') || 1),
+        quantity: Number(qty?.replace(/[^\d]/g, '') || 1),
       };
     })
     .filter(card => card.cardId);
 };
 
+// Submit from Option 1 (raw text form)
 const submitTrade = async () => {
   if (!user.value?._id || !receiverId.value) {
     alert("Missing user or receiver ID");
@@ -132,6 +188,7 @@ const submitTrade = async () => {
       senderCards,
       receiverCards
     });
+
     alert("Trade offer sent!");
     senderCardsRaw.value = '';
     receiverCardsRaw.value = '';
@@ -142,5 +199,38 @@ const submitTrade = async () => {
   }
 };
 
-  </script>
-  
+// Option 2 — From selected card in your collection
+const selectCardForTrade = (card: TradeCard) => {
+  selectedCardForTrade.value = card;
+};
+
+const cancelSelectedTrade = () => {
+  selectedCardForTrade.value = null;
+  receiverIdInput.value = '';
+  receiverCardIdInput.value = '';
+  receiverQuantityInput.value = 1;
+};
+
+const submitSelectedCardTrade = async () => {
+  if (!user.value?._id || !selectedCardForTrade.value) return;
+
+  try {
+    await createTradeOffer({
+      senderId: user.value._id,
+      receiverId: receiverIdInput.value,
+      senderCards: [{ ...selectedCardForTrade.value }],
+      receiverCards: [{ cardId: receiverCardIdInput.value, quantity: receiverQuantityInput.value }],
+    });
+
+    alert('Trade offer sent!');
+    cancelSelectedTrade();
+
+    // Refresh trades
+    const result = await fetchTradesForUser(user.value._id);
+    allTrades.value = result;
+  } catch (err) {
+    alert('Failed to send offer.');
+    console.error(err);
+  }
+};
+</script>

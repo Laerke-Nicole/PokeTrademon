@@ -8,11 +8,18 @@ export const fetchTradesForUser = async (userId: string): Promise<TradeOffer[]> 
 };
 
 export const createTradeOffer = async (trade: {
-    senderId: string;
-    receiverId: string;
-    senderCards: TradeCard[];
-    receiverCards: TradeCard[];
-  }) => {
-    const res = await axios.post('http://localhost:5004/api/trades', trade);
-    return res.data;
-  };
+  senderId: string;
+  receiverId: string;
+  senderCards: TradeCard[];
+  receiverCards: TradeCard[];
+}) => {
+  const res = await axios.post('http://localhost:5004/api/trades', trade);
+  return res.data;
+};
+
+export const fetchUserCollection = async (userId: string): Promise<TradeCard[]> => {
+  const res = await fetch(`http://localhost:5004/api/collections/${userId}`);
+  if (!res.ok) throw new Error("Failed to fetch user collection");
+  const data = await res.json();
+  return data.collection;
+};
