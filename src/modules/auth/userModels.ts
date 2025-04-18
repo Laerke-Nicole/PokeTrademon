@@ -40,6 +40,7 @@ export const useUsers = () => {
       state.isLoggedIn = true; // ✅ sync with global
   
       localStorage.setItem('isToken', authResponse.token);
+      localStorage.setItem('userIDToken', authResponse.userId);
       console.log('✅ Logged in! Token:', authResponse.token);
     } catch (err) {
       error.value = (err as Error).message || 'Login error';
