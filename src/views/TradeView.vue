@@ -93,6 +93,31 @@
   </form>
 </div>
 
+<h2 class="text-xl font-semibold mt-10 mb-2">Find Trades by Desired Card (Option 3)</h2>
+<input
+  v-model="desiredCardId"
+  placeholder="Enter card ID you want (e.g. base1-4)"
+  class="input w-full mb-2"
+/>
+<button @click="findMatchingTrades" class="btn-1">Search Offers</button>
+
+<div v-if="matchingTrades.length > 0" class="mt-4">
+  <h3 class="text-lg font-semibold mb-2">Matching Trade Offers:</h3>
+  <div
+    v-for="trade in matchingTrades"
+    :key="trade._id"
+    class="border p-4 rounded mb-2"
+  >
+    <p><strong>From:</strong> {{ trade.senderId }}</p>
+    <p><strong>Offering:</strong> {{ cardList(trade.senderCards) }}</p>
+    <p><strong>Wants:</strong> {{ cardList(trade.receiverCards) }}</p>
+    <p><strong>Status:</strong> {{ trade.status }}</p>
+  </div>
+</div>
+
+<div v-else-if="searchAttempted" class="mt-4">
+  <p>No matching trades found for "{{ desiredCardId }}"</p>
+</div>
 
 
     </div>
@@ -124,6 +149,11 @@ const receiverCardsRaw = ref('');
 const receiverIdInput = ref('');
 const receiverCardIdInput = ref('');
 const receiverQuantityInput = ref(1);
+
+// Form Inputs (Option 3)
+const desiredCardId = ref('');
+const matchingTrades = ref<TradeOffer[]>([]);
+const searchAttempted = ref(false);
 
 // Trade lists
 const incoming = computed(() =>
@@ -233,4 +263,14 @@ const submitSelectedCardTrade = async () => {
     console.error(err);
   }
 };
+const findMatchingTrades = () => {
+  matchingTrades.value = allTrades.value.filter(trade =>
+    trade.receiverCards.some(c => c.cardId === desiredCardId.value) &&
+    trade.senderCards.every(sc =>
+      userCards.value.some(uc => uc.cardId === sc.cardId && uc.quantity >= sc.quantity)
+    )
+  );
+  searchAttempted.value = true;
+};
+
 </script>
