@@ -29,6 +29,29 @@
           </div>
         </div>
       </div>
+      <div class="border p-4 rounded mb-6">
+  <h2 class="text-xl font-semibold mb-2">Create a Trade Offer, Option 1</h2>
+
+  <div class="mb-2">
+    <label class="block font-medium mb-1">Receiver ID:</label>
+    <input v-model="receiverId" type="text" class="w-full p-2 border rounded" />
+  </div>
+
+  <div class="mb-2">
+    <label class="block font-medium mb-1">Your Cards (to offer):</label>
+    <input v-model="senderCardsRaw" placeholder="cardId:x1,cardId2:x2" class="w-full p-2 border rounded" />
+  </div>
+
+  <div class="mb-2">
+    <label class="block font-medium mb-1">Requested Cards:</label>
+    <input v-model="receiverCardsRaw" placeholder="cardId:x1,cardId2:x2" class="w-full p-2 border rounded" />
+  </div>
+
+  <button @click="submitTrade" class="btn-1 mt-2">Send Trade</button>
+</div>
+
+
+
     </div>
   </template>
   
@@ -36,13 +59,16 @@
   import { onMounted, ref, computed } from 'vue';
   import { useUsers } from '../modules/auth/userModels';
   import type { TradeOffer, TradeCard } from '../interfaces/trade';
-  import { fetchTradesForUser } from '../modules/tradeApi';
-  
+  import { fetchTradesForUser, createTradeOffer } from '../modules/tradeApi';
+
   const { user } = useUsers(); // You should already be storing the logged-in user
   
   const allTrades = ref<TradeOffer[]>([]);
   const loading = ref(true);
   const error = ref<string | null>(null);
+    const receiverId = ref('');
+const senderCardsRaw = ref('');
+const receiverCardsRaw = ref('');
   
   const currentUserId = computed(() => (user.value?._id ?? localStorage.getItem("userIDToken"))?.toString());
   console.log("User ID in computed:", currentUserId.value);
@@ -56,8 +82,6 @@ const outgoing = computed(() =>
   allTrades.value.filter(t => t.senderId?.toString() === currentUserId.value)
 );
 
-
-  
   const cardList = (cards: TradeCard[]) =>
     cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
   
@@ -78,5 +102,45 @@ const result = await fetchTradesForUser(userId);
       loading.value = false;
     }
   });
+
+  const parseCards = (input: string): TradeCard[] => {
+  return input
+    .split(',')
+    .map(entry => {
+      const [cardId, qty] = entry.split(':');
+      return {
+        cardId: cardId.trim(),
+        quantity: Number(qty.replace(/[^\d]/g, '') || 1),
+      };
+    })
+    .filter(card => card.cardId);
+};
+
+const submitTrade = async () => {
+  if (!user.value?._id || !receiverId.value) {
+    alert("Missing user or receiver ID");
+    return;
+  }
+
+  const senderCards = parseCards(senderCardsRaw.value);
+  const receiverCards = parseCards(receiverCardsRaw.value);
+
+  try {
+    await createTradeOffer({
+      senderId: user.value._id,
+      receiverId: receiverId.value,
+      senderCards,
+      receiverCards
+    });
+    alert("Trade offer sent!");
+    senderCardsRaw.value = '';
+    receiverCardsRaw.value = '';
+    receiverId.value = '';
+  } catch (err) {
+    console.error("Failed to create trade", err);
+    alert("Failed to send trade.");
+  }
+};
+
   </script>
   
