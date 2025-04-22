@@ -41,20 +41,21 @@ export default defineComponent({
     </nav>
   </header>
 
+
   <RouterView />
 
 
   <!-- footer -->
-  <footer class="flex justify-around five-percent pb-12 pt-12 light-bg">
+  <footer class="flex justify-around five-percent pb-12 bg-white">
     <div>
-      <h2 class="dark-headline">PokeTrademon</h2>
+      <h3 class="dark-headline pb-2">PokeTrademon</h3>
       <p class="dark-text">Kongensgade 29, 6700 Esbjerg</p>
       <p class="dark-text">+45 23 27 21 09</p>
       <p class="dark-text">Support@Poketrademon.com</p>
     </div>
 
     <div>
-      <p class="dark-text">Market</p>
+      <RouterLink to="/market"><p class="dark-text">Market</p></RouterLink>
       <p class="dark-text">About PokeTrademon</p>
       <p class="dark-text">Contact us</p>
       <p class="dark-text">Careers</p>
@@ -70,36 +71,29 @@ export default defineComponent({
   </footer>
 </template>
 
+<script lang="ts">
+import { computed, ref } from 'vue'
+import { state } from './modules/globalStates/state'
+import UserDropdown from '../src/components/user/UserDropdownView.vue'
+
+// fetch logout function
+const isLoggedIn = computed(() => state.isLoggedIn)
+const isHovered = ref(false)
+</script>
 
 <style scoped>
+header {
+  padding: 0 24px;
+}
+
 nav {
+  font-size: 15px;
   width: 100%;
-  font-size: 14px;
-  text-align: center;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--tertiary-color);
-  align-items: center;
-  position: fixed;
-  z-index: 100;
-  padding-right: 2rem;
-  padding-left: 2rem;
-}
-
-nav div {
-  flex: 1; 
-  display: flex;
-  align-items: center;
-}
-
-nav div:nth-child(2) { 
-  justify-content: center;
 }
 
 nav a.router-link-exact-active {
   text-decoration: underline;
+  color: red;
 }
 
 nav a.router-link-exact-active:hover {
@@ -112,11 +106,12 @@ nav a {
   color: var(--dark-text);
 }
 
-.logo {
-  width: 150px;
+
+.user-icon {
+  padding: 0 1rem;
 }
 
-footer {
-  margin-top: 96px;
+i {
+  color: var(--dark-text);
 }
 </style>
