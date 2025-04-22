@@ -1,97 +1,104 @@
 import { ref } from 'vue';
 import type { User } from '../../interfaces/user';
+import { state } from '../globalStates/state';
+
+
 
 export const useUsers = () => {
-    const token = ref<string | null>(null);
-    const isLoggedIn = ref<boolean>(false);
-    const error = ref<string | null>(null);
-    const user = ref<User | null>(null);
+  const token = ref<string | null>(null);
+  const isLoggedIn = ref<boolean>(false);
+  const error = ref<string | null>(null);
+  const user = ref<User | null>(null);
 
-    const username = ref<string>('');
-    const email = ref<string>('');
-    const password = ref<string>('');
+  const username = ref<string>('');
+  const email = ref<string>('');
+  const password = ref<string>('');
 
-const fetchToken = async (email:string, password:string): Promise<void> => {
+  const BASE_URL = 'http://localhost:5004/api/auth';
+
+  // ✅ LOGIN
+  const fetchToken = async (email: string, password: string): Promise<void> => {
     try {
-        const response = await fetch('https://ments-restapi.onrender.com/api/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': localStorage.getItem('isToken') || ''
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            console.log(errorResponse.error || 'Error');
-            throw new Error('Error');
-        }
-
-        const authResponse = await response.json();
-        token.value = authResponse.data.token;
-        user.value = authResponse.data.user;
-        isLoggedIn.value = true;
-
-        localStorage.setItem('isToken', authResponse.data.token);
-        localStorage.setItem('userIDToken', JSON.stringify(authResponse.data.userId));
-        console.log('user is logged in: ', authResponse);
-        console.log('token: ', token.value);
+      const response = await fetch(`${BASE_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })
+      });
+  
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        console.error(errorResponse.error || 'Login failed');
+        throw new Error(errorResponse.error || 'Login failed');
+      }
+  
+      const authResponse = await response.json();
+  
+      token.value = authResponse.token;
+      isLoggedIn.value = true;
+      state.isLoggedIn = true; // ✅ sync with global
+  
+      localStorage.setItem('isToken', authResponse.token);
+      localStorage.setItem('userIDToken', authResponse.userId);
+      console.log('✅ Logged in! Token:', authResponse.token);
+    } catch (err) {
+      error.value = (err as Error).message || 'Login error';
+      isLoggedIn.value = false;
     }
+  };
+  
 
-    catch (err) {
-        error.value = (err as Error).message || 'Error';
-        isLoggedIn.value = false;
+  // ✅ REGISTER
+  const registerUser = async (username: string, email: string, password: string): Promise<void> => {
+    try {
+      const response = await fetch(`${BASE_URL}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+  
+      console.log('✅ User registered successfully:', data);
+  
+      // You can optionally redirect or clear inputs here
+      isLoggedIn.value = false; // Still false until login
+      error.value = null;
+    } catch (err) {
+      error.value = (err as Error).message || 'Error registering';
+      console.error('❌ Register Error:', error.value);
     }
-    }
+  };
+  
 
+  // ✅ LOGOUT
+  const logout = () => {
+    token.value = null;
+    user.value = null;
+    isLoggedIn.value = false;
+    state.isLoggedIn = false; // ✅ sync with global
+    localStorage.removeItem('isToken');
+    localStorage.removeItem('userIDToken');
+    console.log('👋 User logged out');
+  };
 
-    // register user
-    const registerUser = async (username:string, email:string, password:string): Promise<void> => {
-        try {
-            const response = await fetch('https://ments-restapi.onrender.com/api/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, email, password })
-            });
-    
-            if (!response.ok) {
-                throw new Error('Error');
-            }
-    
-            const authResponse = await response.json();
-            token.value = authResponse.data.token;
-            user.value = authResponse.data.user;
-    
-            localStorage.setItem('isToken', authResponse.data.token);
-            console.log('user created: ', authResponse);
-        }
-    
-        catch (err) {
-            error.value = (err as Error).message || 'Error';
-        }
-        }
-
-        const logout = () => {
-            token.value = null;
-            user.value = null;
-            isLoggedIn.value = false;
-            localStorage.removeItem('isToken');
-            console.log("User is logged out")
-        }
-
-    return {
-        token,
-        isLoggedIn,
-        error,
-        user,
-        username,
-        email,
-        password,
-        fetchToken,
-        registerUser,
-        logout
-    }
-}
+  return {
+    token,
+    isLoggedIn,
+    error,
+    user,
+    username,
+    email,
+    password,
+    fetchToken,
+    registerUser,
+    logout,
+  };
+};
