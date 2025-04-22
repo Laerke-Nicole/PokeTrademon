@@ -4,84 +4,47 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <!-- navigation -->
-   <!-- Navigation Bar -->
-   <nav
-      class="max-w-6xl mx-auto bg-white rounded-full px-8 py-3 mt-6 flex items-center justify-between shadow-lg"
-    >
-      <div class="flex items-center space-x-8">
-        <div class="pokemon-logo">
-          <img
-            src="../public/images/pokemon-logo.png"
-            alt="Pokemon Logo"
-            class="h-10"
-          />
-        </div>
-        <div class="nav-links flex items-center space-x-6">
-          <RouterLink to="/">Home</Routerlink>
-          <RouterLink to="/market">Market</Routerlink>
-          <RouterLink to="/profile">Collection</Routerlink>
-          <RouterLink to="/auth">Log in</RouterLink>
-          <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
-          <button v-if="isLoggedIn" @click="logout">Log out</button>
-        </div>
-      </div>
-
-      <!-- icons -->
-      <div class="flex items-center space-x-4">
-        <!-- user icon -->
-        <!-- <div class="flex items-center space-x-1">
-          <i class="fa-solid fa-user text-gray-600 text-lg"></i>
-        </div> -->
-        <div
-          class="relative flex items-center space-x-1 group"
-        >
-          <i class="fas fa-user text-gray-600 text-lg cursor-pointer"></i>
-
-          <!-- Dropdown shown on hover -->
-          <div class="hidden group-hover:block absolute top-full right-0">
-            <UserDropdown />
+  <header class="fixed top-6 left-0 right-0 z-50">
+    <nav class="w-full">
+      <div class="max-w-screen-xl mx-auto bg-white rounded-full px-8 py-3 flex items-center justify-between shadow-lg">
+        <div class="flex items-center space-x-8">
+          <div class="pokemon-logo">
+            <img
+              src="../public/images/pokemon-logo.png"
+              alt="Pokemon Logo"
+              class="h-10"
+            />
+          </div>
+          <div class="nav-links flex items-center space-x-6 pl-6">
+            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/market">Market</RouterLink>
+            <RouterLink to="/profile">Collection</RouterLink>
+            <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
           </div>
         </div>
 
-        <!-- <div class="flex items-center space-x-1">
-          <span class="text-gray-700">3</span>
-          <i class="fas fa-sync text-gray-600"></i>
-        </div>
+        <!-- icons -->
+        <div class="flex space-x-8">
+          <div class="user-icon relative flex space-x-1" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+            <RouterLink to="/auth">
+              <i class="fas fa-user text-lg cursor-pointer"></i>
+            </RouterLink>
+            <div v-if="isHovered" class="absolute top-full right-0 z-50">
+              <div class="w-40">
+                <UserDropdown />
+              </div>
+            </div>
+          </div>
 
-        <div class="flex items-center space-x-1">
-          <span class="text-gray-700">65</span>
-          <i class="fa-regular fa-box-open text-gray-600"></i>
-        </div> -->
-
-        <!-- notification bell -->
-        <div class="flex justify-end relative">
-          <i class="fa-regular fa-bell text-gray-600 text-lg"></i>
-          <!-- <div v-if="hasNotification"> -->
+          <div class="flex relative">
+            <i class="fa-regular fa-bell text-lg"></i>
             <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-2 h-2"></span>
-          <!-- </div> -->
+          </div>
         </div>
       </div>
     </nav>
-  <!-- <header>
-    <nav>
-      <div>
-        <RouterLink to="/market">Market</RouterLink>
-      </div>
+  </header>
 
-      <div>
-        <RouterLink to="/"><img src="../public/images/pokemon-logo.png" alt="pokemon logo" class="logo"></RouterLink>
-      </div>
-
-      <div>
-        <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/auth">Log in</RouterLink>
-        <RouterLink to="/register">Register</RouterLink>
-        <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
-
-        <button v-if="isLoggedIn" @click="logout">Log out</button>
-      </div> 
-    </nav>
-  </header> -->
 
   <RouterView />
 
@@ -113,46 +76,28 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script lang="ts">
-import { useUsers } from '../src/modules/auth/userModels';
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { state } from './modules/globalStates/state'
 import UserDropdown from '../src/components/user/UserDropdownView.vue'
 
 // fetch logout function
-const { logout } = useUsers();
 const isLoggedIn = computed(() => state.isLoggedIn)
-
+const isHovered = ref(false)
 </script>
 
 <style scoped>
+header {
+  padding: 0 24px;
+}
+
 nav {
+  font-size: 15px;
   width: 100%;
-  font-size: 14px;
-  text-align: center;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--tertiary-color);
-  align-items: center;
-  position: fixed;
-  z-index: 100;
-  padding-right: 2rem;
-  padding-left: 2rem;
-}
-
-nav div {
-  flex: 1; 
-  display: flex;
-  align-items: center;
-}
-
-nav div:nth-child(2) { 
-  justify-content: center;
 }
 
 nav a.router-link-exact-active {
   text-decoration: underline;
+  color: red;
 }
 
 nav a.router-link-exact-active:hover {
@@ -169,7 +114,16 @@ nav a {
   width: 150px;
 }
 
+.user-icon {
+  padding: 0 1rem;
+}
+
+i {
+  color: var(--dark-text);
+}
+
 footer {
   margin-top: 96px;
 }
+
 </style>
