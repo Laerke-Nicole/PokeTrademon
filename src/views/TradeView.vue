@@ -12,17 +12,23 @@
         <div v-if="incoming.length > 0">
           <h2 class="text-xl font-semibold mt-4 mb-2">Incoming Offers</h2>
           <div v-for="trade in incoming" :key="trade._id" class="border p-4 mb-2 rounded">
-            <p><strong>From:</strong> {{ trade.senderId }}</p>
-            <p><strong>They offer:</strong> {{ cardList(trade.senderCards) }}</p>
-            <p><strong>They want:</strong> {{ cardList(trade.receiverCards) }}</p>
-            <p><strong>Status:</strong> {{ trade.status }}</p>
-          </div>
+            <p><strong>From:</strong> {{ trade.senderId.username }}</p>
+       <p><strong>They offer:</strong> {{ cardList(trade.senderCards) }}</p>
+  <p><strong>They want:</strong> {{ cardList(trade.receiverCards) }}</p>
+  <p><strong>Status:</strong> {{ trade.status }}</p>
+
+  <div v-if="trade.status === 'pending'" class="mt-2 flex gap-4">
+    <button class="btn-1" @click="acceptTrade(trade._id)">Accept</button>
+    <button class="btn-1" @click="declineTrade(trade._id)">Decline</button>
+  </div>
+</div>
+
         </div>
   
         <div v-if="outgoing.length > 0">
           <h2 class="text-xl font-semibold mt-6 mb-2">Outgoing Offers</h2>
           <div v-for="trade in outgoing" :key="trade._id" class="border p-4 mb-2 rounded">
-            <p><strong>To:</strong> {{ trade.receiverId }}</p>
+            <p><strong>To:</strong> {{ trade.receiverId.username }}</p>
             <p><strong>You offer:</strong> {{ cardList(trade.senderCards) }}</p>
             <p><strong>You want:</strong> {{ cardList(trade.receiverCards) }}</p>
             <p><strong>Status:</strong> {{ trade.status }}</p>
@@ -111,8 +117,8 @@
     :key="trade._id"
     class="border p-4 rounded mb-2"
   >
-    <p><strong>From:</strong> {{ trade.senderId }}</p>
-    <div>
+  <p><strong>To:</strong> {{ trade.receiverId.username }}</p>
+  <div>
   <strong>Offering:</strong>
   <div class="flex gap-4 flex-wrap mt-2">
     <div v-for="card in trade.senderCards" :key="card.cardId" class="text-center w-24">
@@ -149,13 +155,19 @@
   <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { useUsers } from '../modules/auth/userModels';
-import type { TradeOffer, TradeCard, DetailedTradeCard } from '../interfaces/trade';
-import { fetchTradesForUser, createTradeOffer, fetchUserCollection, fetchCardDetails } from '../modules/tradeApi';
+import type { TradeOffer, TradeCard } from '../interfaces/trade';
+import {
+  fetchTradesForUser,
+  createTradeOffer,
+  fetchUserCollection,
+  fetchCardDetails,
+  acceptTradeOffer,
+  declineTradeOffer
+} from '../modules/tradeApi';
 
-// Auth / User
+// User logic
 const { user } = useUsers();
-const currentUserId = computed(() => user.value?._id ?? localStorage.getItem("userIDToken"));
-
+const userId = computed(() => user.value?._id ?? localStorage.getItem("userIDToken") ?? '');
 
 // State
 const allTrades = ref<TradeOffer[]>([]);
@@ -164,62 +176,64 @@ const selectedCardForTrade = ref<TradeCard | null>(null);
 const loading = ref(true);
 const error = ref<string | null>(null);
 
-// Form Inputs (Option 1)
+// Form Inputs
 const receiverId = ref('');
 const senderCardsRaw = ref('');
 const receiverCardsRaw = ref('');
 
-// Form Inputs (Option 2)
 const receiverIdInput = ref('');
 const receiverCardIdInput = ref('');
 const receiverQuantityInput = ref(1);
 
-// Form Inputs (Option 3)
 const desiredCardId = ref('');
-const matchingTrades = ref<Array<{
-  _id: string;
-  senderId: string;
-  receiverId: string;
-  senderCards: DetailedTradeCard[];
-  receiverCards: DetailedTradeCard[];
-  status: string;
-}>>([]);
-
+const matchingTrades = ref<TradeOffer[]>([]);
 const searchAttempted = ref(false);
 
-// Trade lists
+// Trade groupings
 const incoming = computed(() =>
-  allTrades.value.filter(t => t.receiverId?.toString() === currentUserId.value)
+  allTrades.value.filter(t => t.receiverId._id === userId.value)
 );
 const outgoing = computed(() =>
-  allTrades.value.filter(t => t.senderId?.toString() === currentUserId.value)
+  allTrades.value.filter(t => t.senderId._id === userId.value)
 );
 
-// Format card list for display
+// Helpers
 const cardList = (cards: TradeCard[]) =>
   cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
 
-// On load: fetch trades and collection
+const parseCards = (input: string): TradeCard[] =>
+  input
+    .split(',')
+    .map(entry => {
+      const [cardId, qty] = entry.split(':');
+      return {
+        cardId: cardId.trim(),
+        quantity: Number(qty?.replace(/[^\d]/g, '') || 1),
+        name: 'Unknown',
+        image: ''
+      };
+    })
+    .filter(card => card.cardId);
+
+// Initial load
 onMounted(async () => {
   try {
-    const userId = currentUserId.value;
-    if (!userId) throw new Error("User not found");
+    if (!userId.value) throw new Error("User not found");
 
     const [trades, collection] = await Promise.all([
-      fetchTradesForUser(userId),
-      fetchUserCollection(userId)
+      fetchTradesForUser(userId.value),
+      fetchUserCollection(userId.value)
     ]);
 
     allTrades.value = trades;
 
-    // 🟡 Enrich user collection with image + name
     const enriched = await Promise.all(
       collection.map(async (card) => {
         const details = await fetchCardDetails(card.cardId);
         return {
           ...card,
           name: details.name,
-          image: details.images.small,
+          image: details.images.small
         };
       })
     );
@@ -232,51 +246,34 @@ onMounted(async () => {
   }
 });
 
-// Parse raw input into TradeCard[]
-const parseCards = (input: string): TradeCard[] => {
-  return input
-    .split(',')
-    .map(entry => {
-      const [cardId, qty] = entry.split(':');
-      return {
-        cardId: cardId.trim(),
-        quantity: Number(qty?.replace(/[^\d]/g, '') || 1),
-        name: 'Unknown', // Default name
-        image: '', // Default image URL
-      };
-    })
-    .filter(card => card.cardId);
-};
-
-// Submit from Option 1 (raw text form)
+// Submit Option 1
 const submitTrade = async () => {
-  if (!user.value?._id || !receiverId.value) {
+  if (!userId.value || !receiverId.value) {
     alert("Missing user or receiver ID");
     return;
   }
 
-  const senderCards = parseCards(senderCardsRaw.value);
-  const receiverCards = parseCards(receiverCardsRaw.value);
-
   try {
     await createTradeOffer({
-      senderId: user.value._id,
+      senderId: userId.value,
       receiverId: receiverId.value,
-      senderCards,
-      receiverCards
+      senderCards: parseCards(senderCardsRaw.value),
+      receiverCards: parseCards(receiverCardsRaw.value)
     });
 
     alert("Trade offer sent!");
     senderCardsRaw.value = '';
     receiverCardsRaw.value = '';
     receiverId.value = '';
+
+    allTrades.value = await fetchTradesForUser(userId.value);
   } catch (err) {
     console.error("Failed to create trade", err);
     alert("Failed to send trade.");
   }
 };
 
-// Option 2 — From selected card in your collection
+// Submit Option 2
 const selectCardForTrade = (card: TradeCard) => {
   selectedCardForTrade.value = card;
 };
@@ -289,41 +286,39 @@ const cancelSelectedTrade = () => {
 };
 
 const submitSelectedCardTrade = async () => {
-  if (!user.value?._id || !selectedCardForTrade.value) return;
+  if (!userId.value || !selectedCardForTrade.value) return;
 
   try {
     await createTradeOffer({
-      senderId: user.value._id,
+      senderId: userId.value,
       receiverId: receiverIdInput.value,
       senderCards: [{ ...selectedCardForTrade.value }],
       receiverCards: [{
-          cardId: receiverCardIdInput.value, quantity: receiverQuantityInput.value,
-          name: '',
-          image: ''
-      }],
+        cardId: receiverCardIdInput.value,
+        quantity: receiverQuantityInput.value,
+        name: '',
+        image: ''
+      }]
     });
 
     alert('Trade offer sent!');
     cancelSelectedTrade();
-
-    // Refresh trades
-    const result = await fetchTradesForUser(user.value._id);
-    allTrades.value = result;
+    allTrades.value = await fetchTradesForUser(userId.value);
   } catch (err) {
     alert('Failed to send offer.');
     console.error(err);
   }
 };
 
-
+// Option 3
 const findMatchingTrades = async () => {
   matchingTrades.value = [];
   searchAttempted.value = true;
 
   if (!desiredCardId.value.trim()) {
-  alert("Please enter a card ID to search for.");
-  return;
-}
+    alert("Please enter a card ID to search for.");
+    return;
+  }
 
   const matches = allTrades.value.filter(trade =>
     trade.receiverCards.some(c => c.cardId === desiredCardId.value) &&
@@ -336,26 +331,17 @@ const findMatchingTrades = async () => {
     const detailedSender = await Promise.all(
       trade.senderCards.map(async card => {
         const details = await fetchCardDetails(card.cardId);
-        return {
-          ...card,
-          image: details.images.small,
-          name: details.name
-        };
+        return { ...card, image: details.images.small, name: details.name };
       })
     );
 
     const detailedReceiver = await Promise.all(
       trade.receiverCards.map(async card => {
         const details = await fetchCardDetails(card.cardId);
-        return {
-          ...card,
-          image: details.images.small,
-          name: details.name
-        };
+        return { ...card, image: details.images.small, name: details.name };
       })
     );
 
-    // ✅ Only now push the full object with enriched cards
     matchingTrades.value.push({
       ...trade,
       senderCards: detailedSender,
@@ -364,6 +350,26 @@ const findMatchingTrades = async () => {
   }
 };
 
+// Accept / Decline
+const acceptTrade = async (tradeId: string) => {
+  try {
+    await acceptTradeOffer(tradeId);
+    alert("Trade accepted");
+    allTrades.value = await fetchTradesForUser(userId.value);
+  } catch (err) {
+    alert("Failed to accept trade.");
+    console.error(err);
+  }
+};
 
-
+const declineTrade = async (tradeId: string) => {
+  try {
+    await declineTradeOffer(tradeId);
+    alert("Trade declined.");
+    allTrades.value = await fetchTradesForUser(userId.value);
+  } catch (err) {
+    alert("Failed to decline trade.");
+    console.error(err);
+  }
+};
 </script>

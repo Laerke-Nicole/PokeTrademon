@@ -33,3 +33,26 @@ export const fetchCardDetails = async (cardId: string) => {
   const data = await res.json();
   return data.data;
 };
+
+export const acceptTradeOffer = async (tradeId: string) => {
+  const res = await fetch(`http://localhost:5004/api/trades/${tradeId}/accept`, {
+    method: 'PATCH',
+  });
+  if (!res.ok) throw new Error('Failed to accept trade');
+  return res.json();
+};
+
+export const declineTradeOffer = async (tradeId: string) => {
+  const res = await fetch(`http://localhost:5004/api/trades/${tradeId}/decline`, {
+    method: 'PATCH',
+  });
+  if (!res.ok) throw new Error('Failed to decline trade');
+  return res.json();
+};
+
+/* // 👇 Fetch user by username
+export async function fetchUserByUsername(username: string) {
+  const res = await axios.get(`${API_URL}/users/username/${username}`);
+  return res.data; // should return the full user object with _id
+}
+ */
