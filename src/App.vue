@@ -4,7 +4,65 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <!-- navigation -->
-  <header>
+   <!-- Navigation Bar -->
+   <nav
+      class="max-w-6xl mx-auto bg-white rounded-full px-8 py-3 mt-6 flex items-center justify-between shadow-lg"
+    >
+      <div class="flex items-center space-x-8">
+        <div class="pokemon-logo">
+          <img
+            src="../public/images/pokemon-logo.png"
+            alt="Pokemon Logo"
+            class="h-10"
+          />
+        </div>
+        <div class="nav-links flex items-center space-x-6">
+          <RouterLink to="/">Home</Routerlink>
+          <RouterLink to="/market">Market</Routerlink>
+          <RouterLink to="/profile">Collection</Routerlink>
+          <RouterLink to="/auth">Log in</RouterLink>
+          <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
+          <button v-if="isLoggedIn" @click="logout">Log out</button>
+        </div>
+      </div>
+
+      <!-- icons -->
+      <div class="flex items-center space-x-4">
+        <!-- user icon -->
+        <!-- <div class="flex items-center space-x-1">
+          <i class="fa-solid fa-user text-gray-600 text-lg"></i>
+        </div> -->
+        <div
+          class="relative flex items-center space-x-1 group"
+        >
+          <i class="fas fa-user text-gray-600 text-lg cursor-pointer"></i>
+
+          <!-- Dropdown shown on hover -->
+          <div class="hidden group-hover:block absolute top-full right-0">
+            <UserDropdown />
+          </div>
+        </div>
+
+        <!-- <div class="flex items-center space-x-1">
+          <span class="text-gray-700">3</span>
+          <i class="fas fa-sync text-gray-600"></i>
+        </div>
+
+        <div class="flex items-center space-x-1">
+          <span class="text-gray-700">65</span>
+          <i class="fa-regular fa-box-open text-gray-600"></i>
+        </div> -->
+
+        <!-- notification bell -->
+        <div class="flex justify-end relative">
+          <i class="fa-regular fa-bell text-gray-600 text-lg"></i>
+          <!-- <div v-if="hasNotification"> -->
+            <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-2 h-2"></span>
+          <!-- </div> -->
+        </div>
+      </div>
+    </nav>
+  <!-- <header>
     <nav>
       <div>
         <RouterLink to="/market">Market</RouterLink>
@@ -23,7 +81,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <button v-if="isLoggedIn" @click="logout">Log out</button>
       </div> 
     </nav>
-  </header>
+  </header> -->
 
   <RouterView />
 
@@ -58,10 +116,12 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useUsers } from '../src/modules/auth/userModels';
 import { computed } from 'vue'
 import { state } from './modules/globalStates/state'
+import UserDropdown from '../src/components/user/UserDropdownView.vue'
 
 // fetch logout function
 const { logout } = useUsers();
 const isLoggedIn = computed(() => state.isLoggedIn)
+
 </script>
 
 <style scoped>
