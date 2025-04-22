@@ -8,13 +8,15 @@ import { RouterLink, RouterView } from 'vue-router'
     <nav class="w-full">
       <div class="max-w-screen-xl mx-auto bg-white rounded-full px-8 py-3 flex items-center justify-between shadow-lg">
         <div class="flex items-center space-x-8">
-          <div class="pokemon-logo">
+          <RouterLink to="/">
+          <div class="logo">
             <img
               src="../public/images/pokemon-logo.png"
               alt="Pokemon Logo"
               class="h-10"
             />
           </div>
+        </RouterLink>
           <div class="nav-links flex items-center space-x-6 pl-6">
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/market">Market</RouterLink>
@@ -36,10 +38,12 @@ import { RouterLink, RouterView } from 'vue-router'
             </div>
           </div>
 
+          <RouterLink to="/notification">
           <div class="flex relative">
-            <i class="fa-regular fa-bell text-lg"></i>
-            <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-2 h-2"></span>
-          </div>
+              <i class="fa-regular fa-bell text-lg"></i>
+              <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-2 h-2"></span>
+            </div>
+          </RouterLink>
         </div>
       </div>
     </nav>
@@ -110,9 +114,6 @@ nav a {
   color: var(--dark-text);
 }
 
-.logo {
-  width: 150px;
-}
 
 .user-icon {
   padding: 0 1rem;
