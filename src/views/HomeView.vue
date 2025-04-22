@@ -3,16 +3,17 @@
   <section class="hero-section">
     <div class="hero-content five-percent">
       <h1 class="leading-tight pb-4 dark-headline">Universe of Pokemon card trading</h1>
-      <p class="pb-6 dark-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut sequi necessitatibus recusandae aperiam provident culpa nam magni fugit unde dolorem, nemo, corporis eligendi.</p>
-      <RouterLink to="/market"><button class="btn-2">GET STARTED</button></RouterLink>
+      <p class="pb-6 dark-text">Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters</p>
+      <RouterLink to="/market"><button class="btn-2">Explore</button></RouterLink>
     </div>
   </section>
 
 
   <!-- carousel -->
   <section class="py-24">
-    <div class="flex justify-center align-center pb-8">
-      <h2>Selected trader cards</h2>
+    <div class="flex flex-col justify-center align-center pb-8">
+      <h2 class="text-center">Selected trader cards</h2>
+      <p class="text-center">A few of the many Pokemon cards you can collect</p>
     </div>
 
     <div class="swiper">
@@ -27,7 +28,7 @@
     </div>
 
     <div class="flex justify-center align-center pt-12">
-      <RouterLink to="/market"><button class="btn-1">EXPLORE MORE</button></RouterLink>
+      <RouterLink to="/market"><button class="btn-1">Explore more</button></RouterLink>
     </div>
   </section>
 
@@ -47,7 +48,7 @@
         <div>
           <h5 class="font-bold dark-headline">Jane Doe</h5>
           <p class="dark-text">198 Trades</p>
-          <button class="pt-4 underline dark-text text-left">OPEN TRADES</button>
+          <button class="pt-4 underline dark-text text-left">Open trades</button>
         </div>
           
         </div>
@@ -56,10 +57,31 @@
   </section>
 
 
+  <!-- explore market -->
+  <section>
+    <div class="light-bg grid grid-cols-2 five-percent gap-12 pt-18 pb-18">
+      <!-- Image side -->
+      <div class="flex items-center justify-center">
+        <img src="../../public/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
+      </div>
+
+      <!-- Text side -->
+      <div class="flex flex-col justify-center space-y-4 px-8">
+        <p class="yellow-text">Collect cards today</p>
+        <h2 class="dark-headline pb-6">More than 3000 cards to trade</h2>
+        <p class="dark-text pb-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet perferendis voluptatum ab! Sed odit quia doloremque sapiente dicta maxime, accusantium repellat, ullam dolorem mollitia explicabo, dolorum a molestiae laboriosam laudantium.</p>
+        <button class="btn-1">Start trading</button>
+      </div>
+    </div>
+  </section>
+
+
+
   <!-- news -->
-  <section class="five-percent">
-    <div class="flex justify-center align-center pb-8">
-      <h2>What's new at PokeTrademon</h2>
+  <section class="five-percent dark-bg pt-18 pb-18">
+    <div class="flex flex-col justify-center align-center pb-8">
+      <h2 class="dark-headline text-center">What's new at PokeTrademon</h2>
+      <p class="dark-text text-center">Lorem ipsum dolor sit, amet.</p>
     </div>
 
     <div>
@@ -141,7 +163,7 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 <style lang="scss" scoped>
 // hero section
 .hero-section {
-  background: url('../../public/images/hero-img.jpg');
+  background: url('/images/hero-img.jpg');
   width: 100%;
   height: 95vh;
   background-position: center;

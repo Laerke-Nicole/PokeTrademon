@@ -1,15 +1,15 @@
 /* color palette */
 :root {
-  --primary-color: #1b1b1b;
-  --secondary-color: #7649a0;
-  --tertiary-color: #e9e9e9;
+  --primary-color: #B9D6E5;
+  --secondary-color: #FDF3EB;
+  --tertiary-color: #FFCC1E;
 
   /* for text */
-  --light-headline: #ffffff;
-  --light-text: #d9d9d9;
+  --light-headline: #eeecec;
+  --light-text: #cecbcb;
 
-  --dark-headline: #1b1b1b;
-  --dark-text: #333333;
+  --dark-headline: #383539;
+  --dark-text: #A4A1A0;
 }
 
 
@@ -30,7 +30,7 @@
 body {
   min-height: 100vh;
   color: var(--light-text);
-  background: var(--primary-color);
+  background: var(--secondary-color);
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -67,13 +67,13 @@ h4 {
   background-color: var(--tertiary-color);
   font-size: 16px;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 20px;
   color: var(--dark-headline);
   transition: 0.3s;
 }
 
 .btn-1:hover {
-  background-color: #e0e0e0;
+  background-color: #d1ab2e;
 }
 
 .btn-2 {
@@ -81,23 +81,23 @@ h4 {
   background-color: var(--primary-color);
   font-size: 16px;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 20px;
   color: var(--light-headline);
   transition: 0.3s;
 }
 
 .btn-2:hover {
-  background-color: #272727;
+  background-color: #a2bbc8;
 }
 
 
 /* rounded corners */
 .round-corner {
-  border-radius: 3px;
+  border-radius: 20px;
 }
 
 .round-corner-top {
-  border-radius: 3px 3px 0 0;
+  border-radius: 20px 20px 0 0;
 }
 
 /* padding on the sides */
@@ -112,7 +112,7 @@ h4 {
 }
 
 .light-bg {
-  background-color: var(--tertiary-color)
+  background-color: var(--secondary-color)
 }
 
 
@@ -131,4 +131,8 @@ h4 {
 
 .dark-text {
   color: var(--dark-text);
+}
+
+.yellow-text {
+  color: var(--tertiary-color);
 }
