@@ -1,10 +1,24 @@
 <template>
   <!-- hero section -->
-  <section class="hero-section">
+  <!-- <section class="hero-section">
     <div class="hero-content five-percent">
       <h1 class="leading-tight pb-4 dark-headline">Universe of Pokemon card trading</h1>
       <p class="pb-6 dark-text">Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters</p>
       <RouterLink to="/market"><button class="btn-2">Explore</button></RouterLink>
+    </div>
+  </section> -->
+
+  <section class="dark-bg pt-18 pb-18">
+    <div class="hero-content five-percent">
+      <div>
+        <h1 class="leading-tight pb-4 dark-headline">Universe of Pokemon card trading</h1>
+        <p class="pb-6 dark-text">Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters</p>
+        <RouterLink to="/market"><button class="btn-1">Explore</button></RouterLink>
+      </div>
+      
+      <div>
+        <img src="" alt="">
+      </div>
     </div>
   </section>
 
