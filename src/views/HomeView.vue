@@ -8,7 +8,7 @@
         <RouterLink to="/market"><button class="btn-1">Explore</button></RouterLink>
       </div>
 
-      <div>
+      <div class="pikachu-model-container">
         <!-- pikachu 3D -->
         <PikachuModel />
       </div>
@@ -181,7 +181,19 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 }
 
 .hero-content {
-  max-width: 60%;
+  max-width: 90%;
+  display: flex; /* Using flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+// pikachu model
+.pikachu-model-container {
+  width: 100%;  /* Full width of the div, adjust as needed */
+  height: 300px;  /* Set a fixed height or adjust as needed */
+  display: flex; /* Use flexbox to align the model */
+  justify-content: center; /* Center the Pikachu model horizontally */
+  align-items: center;
 }
 
 // swiper
