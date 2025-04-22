@@ -12,7 +12,7 @@
   <!-- carousel -->
   <section class="py-24">
     <div class="flex flex-col justify-center align-center pb-8">
-      <h2 class="text-center">Selected trader cards</h2>
+      <h2 class="text-center dark-headline">Selected trader cards</h2>
       <p class="text-center">A few of the many Pokemon cards you can collect</p>
     </div>
 
@@ -34,9 +34,9 @@
 
 
   <!-- top sellers -->
-  <section class="five-percent pb-24">
+  <section class="five-percent pb-24 dark-bg pt-18">
     <div class="flex justify-center align-center pb-8">
-      <h2>Top traders</h2>
+      <h2 class="dark-headline">Top traders</h2>
     </div>
 
     <div class="grid grid-cols-4 gap-4">
@@ -62,7 +62,7 @@
     <div class="light-bg grid grid-cols-2 five-percent gap-12 pt-18 pb-18">
       <!-- Image side -->
       <div class="flex items-center justify-center">
-        <img src="../../public/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
+        <img src="/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
       </div>
 
       <!-- Text side -->
@@ -70,7 +70,7 @@
         <p class="yellow-text">Collect cards today</p>
         <h2 class="dark-headline pb-6">More than 3000 cards to trade</h2>
         <p class="dark-text pb-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet perferendis voluptatum ab! Sed odit quia doloremque sapiente dicta maxime, accusantium repellat, ullam dolorem mollitia explicabo, dolorum a molestiae laboriosam laudantium.</p>
-        <button class="btn-1">Start trading</button>
+        <RouterLink to="/market"><button class="btn-1">Start trading</button></RouterLink>
       </div>
     </div>
   </section>
@@ -78,7 +78,7 @@
 
 
   <!-- news -->
-  <section class="five-percent dark-bg pt-18 pb-18">
+  <section class="five-percent dark-bg pt-18">
     <div class="flex flex-col justify-center align-center pb-8">
       <h2 class="dark-headline text-center">What's new at PokeTrademon</h2>
       <p class="dark-text text-center">Lorem ipsum dolor sit, amet.</p>
@@ -141,9 +141,11 @@
       </div>
     </div>
   </div>
-    
-    
   </section>
+
+  <div class="bg-white">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#B9D6E5" fill-opacity="1" d="M0,160L34.3,144C68.6,128,137,96,206,106.7C274.3,117,343,171,411,197.3C480,224,549,224,617,197.3C685.7,171,754,117,823,128C891.4,139,960,213,1029,224C1097.1,235,1166,181,1234,181.3C1302.9,181,1371,235,1406,261.3L1440,288L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path></svg>
+  </div>
 </template>
 
 <script setup lang="ts">
