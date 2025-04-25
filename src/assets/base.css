@@ -9,7 +9,7 @@
   --light-text: #cecbcb;
 
   --dark-headline: #383539;
-  --dark-text: #A4A1A0;
+  --dark-text: #5b5b5b;
 }
 
 
@@ -81,7 +81,7 @@ p {
 }
 
 .btn-1:hover {
-  background-color: #d1ab2e;
+  background-color: #eac345;
 }
 
 .btn-2 {

@@ -20,7 +20,7 @@
   <section class="py-24">
     <div class="flex flex-col justify-center align-center pb-8">
       <h2 class="text-center dark-headline">Selected trader cards</h2>
-      <p class="text-center">A few of the many Pokemon cards you can collect</p>
+      <p class="text-center dark-text">A few of the many Pokemon cards you can collect</p>
     </div>
 
     <div class="swiper">
@@ -149,17 +149,13 @@
     </div>
   </div>
   </section>
-
-  <div class="bg-white">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#B9D6E5" fill-opacity="1" d="M0,160L34.3,144C68.6,128,137,96,206,106.7C274.3,117,343,171,411,197.3C480,224,549,224,617,197.3C685.7,171,754,117,823,128C891.4,139,960,213,1029,224C1097.1,235,1166,181,1234,181.3C1302.9,181,1371,235,1406,261.3L1440,288L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path></svg>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 // import swiper carousel
 import { useSwiper } from '../components/swiperCarousel/SwiperCarousel';
-import PikachuModel from '../components/threejs/pikachuModel.vue'
+import PikachuModel from '../components/threejs/PikachuModel.vue'
 
 // Initialize Swiper
 useSwiper();
@@ -182,17 +178,8 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 
 .hero-content {
   max-width: 90%;
-  display: flex; /* Using flexbox */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-// pikachu model
-.pikachu-model-container {
-  width: 100%;  /* Full width of the div, adjust as needed */
-  height: 300px;  /* Set a fixed height or adjust as needed */
-  display: flex; /* Use flexbox to align the model */
-  justify-content: center; /* Center the Pikachu model horizontally */
+  display: flex; 
+  justify-content: center; 
   align-items: center;
 }
 
@@ -243,7 +230,6 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   padding: 0 4px;
 }
 
-/* Create four equal columns that sits next to each other */
 .column-news {
   flex: 33%;
   max-width: 33%;
@@ -257,7 +243,8 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   width: 100%;
 }
 
-/* Responsive layout - makes a two column-layout instead of four columns */
+
+// responsive
 @media screen and (max-width: 800px) {
   .column-news {
     flex: 50%;
@@ -265,7 +252,6 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   }
 }
 
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .column-news {
     flex: 100%;
