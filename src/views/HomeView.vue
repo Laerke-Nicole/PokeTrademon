@@ -201,6 +201,7 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   aspect-ratio: 3/4;
   border-radius: 3px;
   transition: transform 0.3s ease;
+  border-radius: 10px;
 }
 
 .swiper-slide-active {

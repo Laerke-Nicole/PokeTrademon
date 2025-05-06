@@ -101,11 +101,11 @@ p {
 
 /* rounded corners */
 .round-corner {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .round-corner-top {
-  border-radius: 20px 20px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 /* padding on the sides */
