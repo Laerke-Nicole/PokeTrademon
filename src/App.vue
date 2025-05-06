@@ -4,13 +4,15 @@
     <nav class="w-full">
       <div class="max-w-screen-xl mx-auto bg-white rounded-full px-8 py-3 flex items-center justify-between shadow-lg">
         <div class="flex items-center space-x-8">
-          <div class="pokemon-logo">
-            <img
-              src="../public/images/pokemon-logo.png"
-              alt="Pokemon Logo"
-              class="h-10"
-            />
-          </div>
+          <RouterLink to="/">
+            <div class="pokemon-logo">
+              <img
+                src="../public/images/pokemon-logo.png"
+                alt="Pokemon Logo"
+                class="h-10"
+              />
+            </div>
+          </RouterLink>
           <div class="nav-links flex items-center space-x-6 pl-6">
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/market">Market</RouterLink>
