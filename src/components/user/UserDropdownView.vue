@@ -7,9 +7,11 @@
             </RouterLink>
         </div>
   
-        <div v-if="!isLoggedIn">
-            <li class="w-full px-4 py-2 underline cursor-pointer">Register now</li>
-        </div>
+        <RouterLink to="/register">
+          <div v-if="!isLoggedIn">
+              <li class="w-full px-4 py-2 underline cursor-pointer">Register now</li>
+          </div>
+        </RouterLink>
   
         <RouterLink to="/profile">
           <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
