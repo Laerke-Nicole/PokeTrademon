@@ -60,14 +60,14 @@
       <p class="dark-text">Support@Poketrademon.com</p>
     </div>
 
-    <div>
+    <div class="flex flex-col gap-2">
       <RouterLink to="/market"><p class="dark-text">Market</p></RouterLink>
       <p class="dark-text">About PokeTrademon</p>
       <p class="dark-text">Contact us</p>
       <p class="dark-text">Careers</p>
     </div>
 
-    <div>
+    <div class="flex flex-col gap-2">
       <p class="dark-text">Cookie policy</p>
       <p class="dark-text">Privacy policy</p>
       <p class="dark-text">Cookie settings</p>
