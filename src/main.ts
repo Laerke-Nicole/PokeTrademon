@@ -11,6 +11,26 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-app.use(MotionPlugin)
+
+// custom animation
+app.use(MotionPlugin, {
+    directives: {
+      'fade-slide': {
+        initial: {
+          opacity: 0,
+          y: 100,
+        },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 500,
+            type: 'keyframes',
+            ease: 'linear',
+          },
+        },
+      },
+    },
+  })
 
 app.mount('#app')
