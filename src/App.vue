@@ -17,7 +17,7 @@
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/market">Market</RouterLink>
             <RouterLink to="/profile">Collection</RouterLink>
-            <RouterLink v-if="isLoggedIn" to="/admin">Admin</RouterLink>
+            <RouterLink v-if="state.isLoggedIn" to="/admin">Admin</RouterLink>
           </div>
         </div>
 
