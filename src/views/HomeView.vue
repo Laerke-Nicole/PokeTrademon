@@ -88,7 +88,7 @@
   <section class="five-percent dark-bg pt-18">
     <div class="flex flex-col justify-center align-center pb-8">
       <h2 class="dark-headline text-center">What's new at PokeTrademon</h2>
-      <p class="dark-text text-center">Lorem ipsum dolor sit, amet.</p>
+      <p class="dark-text text-center">Exciting news at us</p>
     </div>
 
     <div>

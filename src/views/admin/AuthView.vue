@@ -1,5 +1,5 @@
 <template>
-  <section class="dark-bg pt-24">
+  <section class="dark-bg pt-16">
     <div class="flex items-center justify-center">
       <div class="pt-24 flex flex-col gap-4 max-w-md mx-auto">
         <h3 class="text-xl font-semibold dark-headline text-center">Login to your account</h3>
