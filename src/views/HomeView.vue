@@ -1,16 +1,26 @@
 <template>
   <!-- hero section -->
-  <section class="dark-bg hero-section">
-    <div class="hero-content five-percent grid grid-cols-2">
-      <div>
-        <h1 class="leading-tight pb-4 dark-headline">Universe of Pokemon card trading</h1>
-        <p class="pb-6 dark-text">Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters</p>
-        <RouterLink to="/market"><button class="btn-1">Explore</button></RouterLink>
+  <section class="hero-section">
+    <div class="hero-content five-percent grid grid-cols-3">
+      <!-- left side with headline -->
+      <div class="w-1/3">
+        <h1 class="leading-tight pb-10 dark-headline">Universe of Pokemon card trading</h1>
+        
+        <div class="flex gap-4">
+          <RouterLink to="/market"><button class="btn-1">Explore</button></RouterLink>
+          <RouterLink to="/market"><button class="btn-3">Your collection</button></RouterLink>  
+        </div>
       </div>
 
-      <div class="pikachu-model-container">
+      <!-- pikachu model -->
+      <div class="pikachu-model-container w-1/3">
         <!-- pikachu 3D -->
         <PikachuModel />
+      </div>
+
+      <!-- right side with welcome text -->
+      <div class="w-1/3">
+        <p class="dark-text">Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters.</p>
       </div>
     </div>
   </section>
@@ -167,15 +177,41 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 <style lang="scss" scoped>
 // hero section
 .hero-section {
+  position: relative;
   height: 90vh;
   padding-top: 70px;
   display: flex;
   align-items: center;
   flex-direction: row;
+  z-index: 0;
+  overflow: hidden; 
+  background-color: var(--primary-color-dark);
 }
 
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--primary-color);
+  clip-path: polygon(65% 0, 100% 0%, 100% 100%, 35% 100%);
+  z-index: -1; 
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; // adjust based on how deep the curve should go
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: var(--secondary-color);
+  border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+  z-index: -1;
+}
+
+
+
 .hero-content {
-  max-width: 90%;
   display: flex; 
   justify-content: center; 
   align-items: center;
@@ -185,9 +221,14 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   width: 100%;
   height: 400px;
   min-height: 400px;
-  border: 2px solid red;
 }
 
+.pikachu-model-container {
+  height: 400px;
+  position: relative;
+  width: 30%;
+  cursor: pointer;
+}
 
 
 // swiper

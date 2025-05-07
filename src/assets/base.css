@@ -3,6 +3,7 @@
   --primary-color: #B9D6E5;
   --secondary-color: #FDF3EB;
   --tertiary-color: #FFCC1E;
+  --primary-color-dark: #a2bbc8;
 
   /* for text */
   --light-headline: #eeecec;
@@ -96,6 +97,21 @@ p {
 
 .btn-2:hover {
   background-color: #a2bbc8;
+}
+
+
+.btn-3 {
+  padding: 8px 20px;
+  border: 2px solid var(--tertiary-color);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  color: var(--dark-headline);
+  transition: 0.3s;
+}
+
+.btn-3:hover {
+  background-color: #eac345;
 }
 
 
