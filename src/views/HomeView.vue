@@ -161,7 +161,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 // import swiper carousel
 import { useSwiper } from '../components/swiperCarousel/SwiperCarousel';
 import PikachuModel from '../components/threejs/PikachuModel.vue'
@@ -172,7 +173,10 @@ useSwiper();
 // Sample images
 const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/500/600?random=${i}`));
 
-
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style lang="scss" scoped>

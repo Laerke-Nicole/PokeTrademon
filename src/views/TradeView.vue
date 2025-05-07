@@ -164,6 +164,12 @@ import {
   acceptTradeOffer,
   declineTradeOffer
 } from '../modules/tradeApi';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 
 // User logic
 const { user } = useUsers();

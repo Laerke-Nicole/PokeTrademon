@@ -78,6 +78,12 @@ import { ref, onMounted, watch, computed } from 'vue';
 import { useCards } from '../modules/useCards';
 import CardModal from '../components/CardModal.vue';
 import type { PokemonCard } from '../interfaces/card';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 
 const { loading, error, cards, fetchCards, totalCount } = useCards();
 

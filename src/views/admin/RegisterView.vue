@@ -21,8 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
+import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 
 // fetch the functions needed for the register page
 const { registerUser, username, email, password } = useUsers();
