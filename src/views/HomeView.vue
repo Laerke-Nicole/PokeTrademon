@@ -8,7 +8,7 @@
         
         <div class="flex gap-4">
           <RouterLink to="/market"><button class="btn-1">Explore</button></RouterLink>
-          <RouterLink to="/market"><button class="btn-3">Your collection</button></RouterLink>  
+          <RouterLink to="/profile"><button class="btn-3">Your collection</button></RouterLink>  
         </div>
       </div>
 
