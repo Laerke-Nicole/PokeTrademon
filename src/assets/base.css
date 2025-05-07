@@ -3,13 +3,14 @@
   --primary-color: #B9D6E5;
   --secondary-color: #FDF3EB;
   --tertiary-color: #FFCC1E;
+  --primary-color-dark: #a2bbc8;
 
   /* for text */
   --light-headline: #eeecec;
   --light-text: #cecbcb;
 
   --dark-headline: #383539;
-  --dark-text: #A4A1A0;
+  --dark-text: #5b5b5b;
 }
 
 
@@ -81,7 +82,7 @@ p {
 }
 
 .btn-1:hover {
-  background-color: #d1ab2e;
+  background-color: #eac345;
 }
 
 .btn-2 {
@@ -90,7 +91,7 @@ p {
   font-size: 16px;
   cursor: pointer;
   border-radius: 20px;
-  color: var(--light-headline);
+  color: var(--dark-headline);
   transition: 0.3s;
 }
 
@@ -99,13 +100,28 @@ p {
 }
 
 
+.btn-3 {
+  padding: 8px 20px;
+  border: 2px solid var(--tertiary-color);
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  color: var(--dark-headline);
+  transition: 0.3s;
+}
+
+.btn-3:hover {
+  background-color: #eac345;
+}
+
+
 /* rounded corners */
 .round-corner {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .round-corner-top {
-  border-radius: 20px 20px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 /* padding on the sides */
@@ -121,6 +137,10 @@ p {
 
 .light-bg {
   background-color: var(--secondary-color)
+}
+
+.white-bg {
+  background-color: #ffffff;
 }
 
 
