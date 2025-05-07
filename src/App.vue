@@ -60,14 +60,14 @@
       <p class="dark-text">Support@Poketrademon.com</p>
     </div>
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 footer-links">
       <RouterLink to="/market"><p class="dark-text">Market</p></RouterLink>
       <p class="dark-text">About PokeTrademon</p>
       <p class="dark-text">Contact us</p>
       <p class="dark-text">Careers</p>
     </div>
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 footer-links">
       <p class="dark-text">Cookie policy</p>
       <p class="dark-text">Privacy policy</p>
       <p class="dark-text">Cookie settings</p>
@@ -120,5 +120,17 @@ nav a {
 
 i {
   color: var(--dark-text);
+}
+
+
+/* footer */
+.footer-links p {
+  transition: 0.3s;
+}
+
+.footer-links p:hover {
+  color: var(--dark-text);
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

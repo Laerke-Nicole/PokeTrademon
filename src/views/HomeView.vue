@@ -17,7 +17,7 @@
 
 
   <!-- carousel -->
-  <section class="py-24">
+  <section class="py-18">
     <div class="flex flex-col justify-center align-center pb-8">
       <h2 class="text-center dark-headline">Selected trader cards</h2>
       <p class="text-center dark-text">A few of the many Pokemon cards you can collect</p>
@@ -41,28 +41,26 @@
 
 
   <!-- top sellers -->
-  <section class="five-percent pb-24 dark-bg pt-18">
+  <section class="top-traders-banner pt-18 pb-18 overflow-hidden">
     <div class="flex justify-center align-center pb-8">
       <h2 class="dark-headline">Top traders</h2>
     </div>
-
-    <div class="grid grid-cols-4 gap-4">
-      <div v-for="(image, index) in images" :key="index">
-      <div class="flex gap-6 light-bg p-4 round-corner">
-        <div>
-          <img src="https://picsum.photos/100/100?random=${i}" alt="Traders profile picture" class="round-corner">
-        </div>
+    
+    <div class="animate-scroll whitespace-nowrap flex items-center gap-6">
+      <div
+        v-for="(image, index) in images.concat(images)"
+        :key="index"
+        class="trader-card flex items-center gap-4 white-bg p-4 round-corner min-w-[250px] shadow-lg"
+      >
+        <img :src="`https://picsum.photos/100/100?random=${index}`" alt="Trader" class="round-corner w-16 h-16" />
         <div>
           <h5 class="font-bold dark-headline">Jane Doe</h5>
           <p class="dark-text">198 Trades</p>
-          <button class="pt-4 underline dark-text text-left">Open trades</button>
-        </div>
-          
+          <button class="pt-2 underline dark-text text-left">Open trades</button>
         </div>
       </div>
     </div>
   </section>
-
 
   <!-- explore market -->
   <section>
@@ -221,6 +219,21 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   z-index: 10;
   color: var(--light-text);
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+// top traders
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
 }
 
 
