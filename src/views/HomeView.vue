@@ -51,7 +51,7 @@
 
 
   <!-- top sellers -->
-  <section class="top-traders-banner pt-18 pb-18 overflow-hidden">
+  <section class="top-traders-banner py-18 overflow-hidden">
     <div class="flex justify-center align-center pb-8">
       <h2 class="dark-headline" v-motion-fade-slide>Top traders</h2>
     </div>
@@ -75,7 +75,7 @@
 
   <!-- explore market -->
   <section>
-    <div class="light-bg grid grid-cols-2 five-percent gap-12 pt-18 pb-18">
+    <div class="light-bg grid grid-cols-2 five-percent gap-12 py-18">
       <!-- Image side -->
       <div class="flex items-center justify-center">
         <img src="/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />

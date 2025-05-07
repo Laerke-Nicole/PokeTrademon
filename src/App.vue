@@ -63,7 +63,7 @@
     <div class="flex flex-col gap-2 footer-links">
       <RouterLink to="/market"><p class="dark-text">Market</p></RouterLink>
       <p class="dark-text">About PokeTrademon</p>
-      <p class="dark-text">Contact us</p>
+      <RouterLink to="/contact"><p class="dark-text">Contact us</p></RouterLink>
       <p class="dark-text">Careers</p>
     </div>
 
