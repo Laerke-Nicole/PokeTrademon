@@ -4,11 +4,11 @@
     <div class="hero-content five-percent grid grid-cols-3">
       <!-- left side with headline -->
       <div class="w-1/3">
-        <h1 class="leading-tight pb-10 dark-headline">Universe of Pokemon card trading</h1>
+        <h1 class="leading-tight pb-10 dark-headline" v-motion-fade-slide>Universe of Pokemon card trading</h1>
         
         <div class="flex gap-4">
-          <RouterLink to="/market"><button class="btn-1">Explore</button></RouterLink>
-          <RouterLink to="/market"><button class="btn-3">Your collection</button></RouterLink>  
+          <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore</button></RouterLink>
+          <RouterLink to="/profile"><button class="btn-3" v-motion-fade-slide>Your collection</button></RouterLink>  
         </div>
       </div>
 
@@ -20,7 +20,7 @@
 
       <!-- right side with welcome text -->
       <div class="w-1/3">
-        <p class="dark-text">Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters.</p>
+        <p class="dark-text" v-motion-fade-slide>Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters.</p>
       </div>
     </div>
   </section>
@@ -28,12 +28,12 @@
 
   <!-- carousel -->
   <section class="py-18">
-    <div class="flex flex-col justify-center align-center pb-8">
+    <div class="flex flex-col justify-center align-center pb-8" v-motion-fade-slide>
       <h2 class="text-center dark-headline">Selected trader cards</h2>
       <p class="text-center dark-text">A few of the many Pokemon cards you can collect</p>
     </div>
 
-    <div class="swiper">
+    <div class="swiper" v-motion-fade-slide>
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(image, index) in images" :key="index">
           <img :src="image" alt="Pokemon card">
@@ -45,7 +45,7 @@
     </div>
 
     <div class="flex justify-center align-center pt-12">
-      <RouterLink to="/market"><button class="btn-1">Explore more</button></RouterLink>
+      <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore more</button></RouterLink>
     </div>
   </section>
 
@@ -53,7 +53,7 @@
   <!-- top sellers -->
   <section class="top-traders-banner pt-18 pb-18 overflow-hidden">
     <div class="flex justify-center align-center pb-8">
-      <h2 class="dark-headline">Top traders</h2>
+      <h2 class="dark-headline" v-motion-fade-slide>Top traders</h2>
     </div>
     
     <div class="animate-scroll whitespace-nowrap flex items-center gap-6">
@@ -61,6 +61,7 @@
         v-for="(image, index) in images.concat(images)"
         :key="index"
         class="trader-card flex items-center gap-4 white-bg p-4 round-corner min-w-[250px] shadow-lg"
+        v-motion-fade-slide
       >
         <img :src="`https://picsum.photos/100/100?random=${index}`" alt="Trader" class="round-corner w-16 h-16" />
         <div>
@@ -82,10 +83,10 @@
 
       <!-- Text side -->
       <div class="flex flex-col justify-center space-y-4 px-8">
-        <p class="yellow-text">Collect cards today</p>
-        <h2 class="dark-headline pb-6">More than 3000 cards to trade</h2>
-        <p class="dark-text pb-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet perferendis voluptatum ab! Sed odit quia doloremque sapiente dicta maxime, accusantium repellat, ullam dolorem mollitia explicabo, dolorum a molestiae laboriosam laudantium.</p>
-        <RouterLink to="/market"><button class="btn-1">Start trading</button></RouterLink>
+        <p class="yellow-text" v-motion-fade-slide>Collect cards today</p>
+        <h2 class="dark-headline pb-6" v-motion-fade-slide>More than 3000 cards to trade</h2>
+        <p class="dark-text pb-10" v-motion-fade-slide>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet perferendis voluptatum ab! Sed odit quia doloremque sapiente dicta maxime, accusantium repellat, ullam dolorem mollitia explicabo, dolorum a molestiae laboriosam laudantium.</p>
+        <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Start trading</button></RouterLink>
       </div>
     </div>
   </section>
@@ -94,13 +95,13 @@
 
   <!-- news -->
   <section class="five-percent dark-bg pt-18">
-    <div class="flex flex-col justify-center align-center pb-8">
+    <div class="flex flex-col justify-center align-center pb-8" v-motion-fade-slide>
       <h2 class="dark-headline text-center">What's new at PokeTrademon</h2>
       <p class="dark-text text-center">Exciting news at us</p>
     </div>
 
     <div>
-      <div class="row-news">
+      <div class="row-news" v-motion-fade-slide>
         <div class="column-news pt-12">
           <div class="round-corner light-bg">
             <img src="https://picsum.photos/600/300?random=1" class="round-corner-top">
@@ -200,7 +201,7 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 .hero-section::after {
   content: '';
   position: absolute;
-  bottom: -50px; // adjust based on how deep the curve should go
+  bottom: -50px; 
   left: 0;
   width: 100%;
   height: 100px;
@@ -209,14 +210,13 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   z-index: -1;
 }
 
-
-
 .hero-content {
   display: flex; 
   justify-content: center; 
   align-items: center;
 }
 
+// pikachu model
 .model-container {
   width: 100%;
   height: 400px;
