@@ -19,9 +19,21 @@
   </template>
   
   <script setup lang="ts">
-  import { onMounted } from 'vue';
+  import { onMounted, computed } from 'vue';
+  import { useRouter } from 'vue-router'
   import { useCollection } from '../modules/useCollection';
   import CollectionCard from '../components/CollectionCard.vue';
+  import { state } from '../modules/globalStates/state'
+
+  // go to login page if user isnt logged in
+  const router = useRouter()
+
+  onMounted(() => {
+  if (!state.isLoggedIn) {
+    router.push('/auth')
+  }
+})
+
   
   const {
     collection,
