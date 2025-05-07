@@ -200,7 +200,7 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
 .hero-section::after {
   content: '';
   position: absolute;
-  bottom: -50px; // adjust based on how deep the curve should go
+  bottom: -50px; 
   left: 0;
   width: 100%;
   height: 100px;
@@ -209,14 +209,13 @@ const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/50
   z-index: -1;
 }
 
-
-
 .hero-content {
   display: flex; 
   justify-content: center; 
   align-items: center;
 }
 
+// pikachu model
 .model-container {
   width: 100%;
   height: 400px;
