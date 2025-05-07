@@ -123,6 +123,10 @@ p {
   background-color: var(--secondary-color)
 }
 
+.white-bg {
+  background-color: #ffffff;
+}
+
 
 /* text color */
 .light-headline {

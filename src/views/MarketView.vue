@@ -1,23 +1,23 @@
 <template>
-  <div class="pt-20 five-percent">
+  <div class="pt-30 five-percent dark-bg">
     <!-- filters and search -->
     <div class="mb-4 flex flex-col md:flex-row gap-4">
       <input
         type="text"
         placeholder="Search Pokémon..."
-        class="p-2 border rounded"
+        class="p-2 border rounded white-bg round-corner dark-text"
         v-model="searchQuery"
         @input="fetchFilteredCards"
       />
 
-      <select v-model="selectedSupertype" @change="fetchFilteredCards" class="p-2 border rounded">
-        <option value="">All Supertypes</option>
-        <option value="Pokémon">Pokémon</option>
-        <option value="Trainer">Trainer</option>
-        <option value="Energy">Energy</option>
+      <select v-model="selectedSupertype" @change="fetchFilteredCards" class="p-2 border rounded white-bg round-corner dark-text">
+        <option value="" class="dark-text">All Supertypes</option>
+        <option value="Pokémon" class="dark-text">Pokémon</option>
+        <option value="Trainer" class="dark-text">Trainer</option>
+        <option value="Energy" class="dark-text">Energy</option>
       </select>
 
-      <select v-model="sortBy" @change="fetchFilteredCards" class="p-2 border rounded">
+      <select v-model="sortBy" @change="fetchFilteredCards" class="p-2 border rounded white-bg round-corner dark-text">
         <option value="">Sort by</option>
         <option value="name">Name (A–Z)</option>
         <option value="-name">Name (Z–A)</option>
@@ -30,13 +30,13 @@
 
     <!-- card list -->
     <div>
-      <div v-if="loading">Loading...</div>
+      <div v-if="loading" class="dark-text p-2">Loading...</div>
 
-      <div v-else-if="error">{{ error }}</div>
+      <div v-else-if="error" class="dark-text p-2">{{ error }}</div>
 
       <div v-else-if="!cards || cards.length === 0">
-  <p>No Pokémon cards found.</p>
-</div>
+      <p class="dark-text p-2">No Pokémon cards found.</p>
+    </div>
 
       <div v-else class="flex flex-wrap -mx-2">
         <div
@@ -64,11 +64,11 @@
 
     <!-- Modal Component -->
     <CardModal
-  v-if="showModal && selectedCard"
-  :visible="showModal"
-  :card="selectedCard"
-  @close="closeModal"
-/>
+      v-if="showModal && selectedCard"
+      :visible="showModal"
+      :card="selectedCard"
+      @close="closeModal"
+    />
 
   </div>
 </template>
