@@ -60,6 +60,9 @@ export const useNews = () => {
             subTitle: news.subTitle || 'New news sub title default',
             text: news.text || 'New news text default',
             imageURL: news.imageURL || 'https://picsum.photos/500/500',
+            date: news.date || new Date().toISOString(),
+            theme: news.theme || 'New news theme default',
+            author: news.author || userId,
             isHidden: news.isHidden || false
         }
     }

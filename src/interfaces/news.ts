@@ -4,6 +4,9 @@ export type News = {
     subTitle: string;
     text: string;
     imageURL: string;
+    date: string;
+    theme: string;
+    author: string;
     isHidden: boolean;
 }
 
@@ -12,5 +15,8 @@ export type newNews = {
     subTitle: string;
     text: string;
     imageURL: string;
+    date: string;
+    theme: string;
+    author: string;
     isHidden: boolean;
 }

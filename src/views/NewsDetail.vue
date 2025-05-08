@@ -7,7 +7,10 @@
             <div class="w-1/2 p-4">
                 <h2 class="text-slate-200 text-2xl font-bold mb-4">{{ news[0].title }}</h2>
                 <p class="mb-4">{{ news[0].subTitle }}</p>
-                <p class="text-green-500 font-bold">$ {{ news[0].text }}</p>
+                <p class="text-green-500 font-bold">{{ news[0].text }}</p>
+                <p class="text-green-500 font-bold">{{ news[0].date }}</p>
+                <p class="text-green-500 font-bold">{{ news[0].theme }}</p>
+                <p class="text-green-500 font-bold">{{ news[0].author }}</p>
             </div>
         </div>
         <div v-else>
