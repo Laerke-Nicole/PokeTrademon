@@ -19,6 +19,12 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCards } from '../../modules/useCards';
 import type { Card } from '../../interfaces/card';
+import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 
 const route = useRoute();
 const card = ref<Card[] | null>(null);
