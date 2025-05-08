@@ -1,21 +1,35 @@
-import axios from 'axios';
 import type { TradeOffer, TradeCard } from '../interfaces/trade';
 
+const apiUrl = 'http://localhost:5004/api'; // ✅ Add this
+
 export const fetchTradesForUser = async (userId: string): Promise<TradeOffer[]> => {
-  const res = await fetch(`http://localhost:5004/api/trades/${userId}`);
+  const res = await fetch(`${apiUrl}/trades/${userId}`);
   if (!res.ok) throw new Error('Failed to fetch trade offers');
   return await res.json();
 };
 
-export const createTradeOffer = async (trade: {
+
+export const createTradeOffer = async (offer: {
   senderId: string;
-  receiverId: string;
+  receiverUsername: string; // changed from receiverId
   senderCards: TradeCard[];
   receiverCards: TradeCard[];
 }) => {
-  const res = await axios.post('http://localhost:5004/api/trades', trade);
-  return res.data;
+  const response = await fetch(`${apiUrl}/trades`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(offer)
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to create trade offer');
+  }
+
+  return await response.json();
 };
+
 
 export const fetchUserCollection = async (userId: string): Promise<TradeCard[]> => {
   const res = await fetch(`http://localhost:5004/api/collections/${userId}`);
