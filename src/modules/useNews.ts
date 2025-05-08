@@ -1,13 +1,14 @@
 import { ref } from 'vue';
-import type { News, newProduct } from '../interfaces/news';
+import type { News, newNews } from '../interfaces/news';
+import { sub } from 'three/tsl';
 
-export const useProducts = () => {
+export const useNews = () => {
     const error = ref<string | null>(null);
     const loading = ref<boolean>(false);
-    const products = ref<Product[]>([]);
+    const news = ref<News[]>([]);
 
-    // fetch products
-    const fetchProducts = async (): Promise<void> => {
+    // fetch news
+    const fetchNews = async (): Promise<void> => {
         loading.value = true;
 
         try {
@@ -16,10 +17,9 @@ export const useProducts = () => {
                 throw new Error('No data available');
             }
 
-            const data: Product[] = await response.json();
-
-            products.value = data;
-            console.log("products fetched", products.value);
+            const data: News[] = await response.json();
+            news.value = data;
+            console.log("News fetched", news.value);
         } 
         catch (err) {
             error.value = (err as Error).message;
@@ -32,7 +32,7 @@ export const useProducts = () => {
 
     // get token and user ID
     const getTokenAndUserId = (): { token: string, userId: string } => {
-        const token = localStorage.getItem('isToken');
+        const token = localStorage.getItem('lsToken');
         const userId = localStorage.getItem('userIDToken');
 
         if (!token) {
@@ -45,36 +45,32 @@ export const useProducts = () => {
     }
 
 
-    // validate product
-    const validateProduct = (product: newProduct): void => {
-        if (product.name) {
-            throw new Error('Product name is required');
+    // validate news
+    const validateNews = (news: newNews): void => {
+        if (news.title) {
+            throw new Error('News title is required');
         }
     }
 
 
     // set default values
-    const setDefaultValues = (product: newProduct, userId: string) => {
+    const setDefaultValues = (news: newNews, userId: string) => {
         return {
-            name: product.name,
-            description: product.description || 'New product description default',
-            imageURL: product.imageURL || 'https://picsum.photos/500/500',
-            price: product.price || 5,
-            stock: product.stock || 50,
-            discount: product.discount || false,
-            discountPct: product.discountPct || 0,
-            isHidden: product.isHidden || false,
-            _created: userId
+            title: news.title,
+            subTitle: news.subTitle || 'New news sub title default',
+            text: news.text || 'New news text default',
+            imageURL: news.imageURL || 'https://picsum.photos/500/500',
+            isHidden: news.isHidden || false
         }
     }
 
 
-    // add product
-    const addProduct = async (product: newProduct): Promise<void> => {
+    // add news
+    const addNews = async (news: newNews): Promise<void> => {
         try {
             const { token, userId } = getTokenAndUserId();
-            validateProduct(product)
-            const productWithDefaults = setDefaultValues(product, userId);
+            validateNews(news)
+            const newsWithDefaults = setDefaultValues(news, userId);
 
             const response = await fetch('https://ments-restapi.onrender.com/api/products', {
                 method: 'POST',
@@ -82,7 +78,7 @@ export const useProducts = () => {
                     'Content-Type': 'application/json',
                     'auth-token': token
                 },
-                body: JSON.stringify(productWithDefaults)
+                body: JSON.stringify(newsWithDefaults)
             })
 
             if (!response.ok) {
@@ -91,10 +87,10 @@ export const useProducts = () => {
                 throw new Error(errorResponse.error || 'No data available');
             }
 
-            const newProduct: Product = await response.json();
-            products.value.push(newProduct);
-            console.log("product added", newProduct);
-            await fetchProducts();
+            const newNews: News = await response.json();
+            news.value.push(newNews);
+            console.log("News added", newNews);
+            await fetchNews();
         }   
         catch (err) {
             error.value = (err as Error).message;
@@ -102,7 +98,7 @@ export const useProducts = () => {
     }
 
 
-    const deleteProductFromServer = async (id: string, token: string): Promise<void> => {
+    const deleteNewsFromServer = async (id: string, token: string): Promise<void> => {
         const response = await fetch(`https://ments-restapi.onrender.com/api/products/${id}`, {
             method: 'DELETE',
             headers: {
@@ -111,24 +107,24 @@ export const useProducts = () => {
         })
 
         if (!response.ok) {
-            console.log('Error deleting product');
+            console.log('Error deleting news');
             throw new Error('No data available');
         }
     }
 
-    const removeProductFromState = (id: string): void => {
-        products.value = products.value.filter(product => product._id !== id);
-        console.log("products deleted", id);
+    const removeNewsFromState = (id: string): void => {
+        news.value = news.value.filter(news => news._id !== id);
+        console.log("News deleted", id);
     }
 
 
-    // delete product
-    const deleteProduct = async (id: string): Promise<void> => {
+    // delete news
+    const deleteNews = async (id: string): Promise<void> => {
         try {
             // check if user is logged in to give access to delete
             const { token } = getTokenAndUserId();
-            await deleteProductFromServer(id, token);
-            removeProductFromState(id);
+            await deleteNewsFromServer(id, token);
+            removeNewsFromState(id);
 
             console.log("id test", id);
         }
@@ -137,14 +133,14 @@ export const useProducts = () => {
         }
     }
 
-    const updateProductOnServer = async ( id: string, updatedProduct: Partial<Product>, token: string ): Promise<Product> => {
+    const updateNewsOnServer = async ( id: string, updatedNews: Partial<News>, token: string ): Promise<News> => {
         const response = await fetch(`https://ments-restapi.onrender.com/api/products/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'auth-token': token
             },
-            body: JSON.stringify(updatedProduct)
+            body: JSON.stringify(updatedNews)
         })
         if (!response.ok) {
             throw new Error('No data available');
@@ -156,26 +152,26 @@ export const useProducts = () => {
         }
         catch {
             // convert into an unknown
-            return { message: responseText } as unknown as Product;
+            return { message: responseText } as unknown as News;
         }
         // convert into json cuz it cant read javascript
         // return await response.json();
     }
 
-    const updateProductInState = (id: string, updatedProduct: Product) => {
-        const index = products.value.findIndex(product => product._id === id);
-        // if index is not found. if id is not -1 the product is found
+    const updateNewsInState = (id: string, updatedNews: News) => {
+        const index = news.value.findIndex(news => news._id === id);
+        // if index is not found. if id is not -1 the news is found
         if (index !== -1) {
-            products.value[index] = updatedProduct;
+            news.value[index] = updatedNews;
         }
     }
 
-    const updatedProduct = async (id: string, updatedProduct: Partial<Product>): Promise<void> => {
+    const updatedNews = async (id: string, updatedNews: Partial<News>): Promise<void> => {
         try {
             const { token } = getTokenAndUserId();
-            const updatedProductResponse = await updateProductOnServer(id, updatedProduct, token);
-            updateProductInState(id, updatedProductResponse);
-            await fetchProducts();
+            const updatedNewsResponse = await updateNewsOnServer(id, updatedNews, token);
+            updateNewsInState(id, updatedNewsResponse);
+            await fetchNews();
         }
         catch (err) {
             error.value = (err as Error).message;
@@ -183,21 +179,21 @@ export const useProducts = () => {
     }
 
     // filter correct things
-    const fetchProductById = async(id: string): Promise<Product[] | null> => {
+    const fetchNewsById = async(id: string): Promise<News[] | null> => {
         try {
             const response = await fetch(`https://ments-restapi.onrender.com/api/products/${id}`);
             if (!response.ok) {
                 throw new Error('No data available');
             }
 
-            const data: Product[] = await response.json();
-            console.log("products fetched", data);
-            // return data/ product if it exists
+            const data: News[] = await response.json();
+            console.log("News fetched", data);
+            // return data/ news if it exists
             return data;
         }
         catch (err) {
             console.log(err);
-            // if its null then return null since fetchProductById can either be null or Product[]
+            // if its null then return null since fetchNewsById can either be null or News[]
             return null;
         }
     }
@@ -205,12 +201,12 @@ export const useProducts = () => {
     return { 
         error, 
         loading, 
-        products, 
-        fetchProducts,
-        deleteProduct,
-        addProduct,
-        updatedProduct,
+        news, 
+        fetchNews,
+        deleteNews,
+        addNews,
+        updatedNews,
         getTokenAndUserId,
-        fetchProductById
+        fetchNewsById
     }
 }
