@@ -51,7 +51,7 @@
 
 
   <!-- top sellers -->
-  <section class="top-traders-banner pt-18 pb-18 overflow-hidden">
+  <section class="top-traders-banner py-18 overflow-hidden">
     <div class="flex justify-center align-center pb-8">
       <h2 class="dark-headline" v-motion-fade-slide>Top traders</h2>
     </div>
@@ -75,7 +75,7 @@
 
   <!-- explore market -->
   <section>
-    <div class="light-bg grid grid-cols-2 five-percent gap-12 pt-18 pb-18">
+    <div class="light-bg grid grid-cols-2 five-percent gap-12 py-18">
       <!-- Image side -->
       <div class="flex items-center justify-center">
         <img src="/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
@@ -161,7 +161,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 // import swiper carousel
 import { useSwiper } from '../components/swiperCarousel/SwiperCarousel';
 import PikachuModel from '../components/threejs/PikachuModel.vue'
@@ -172,14 +173,17 @@ useSwiper();
 // Sample images
 const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/500/600?random=${i}`));
 
-
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style lang="scss" scoped>
 // hero section
 .hero-section {
   position: relative;
-  height: 90vh;
+  height: 97vh;
   padding-top: 70px;
   display: flex;
   align-items: center;

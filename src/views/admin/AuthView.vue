@@ -23,7 +23,14 @@
 </template>
   
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
+import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 
 // for input fields to fetch
 const { fetchToken, email, password, error, isLoggedIn } = useUsers();

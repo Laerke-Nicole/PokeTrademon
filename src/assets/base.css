@@ -30,7 +30,6 @@
 
 body {
   min-height: 100vh;
-  color: var(--light-text);
   background: var(--secondary-color);
   transition:
     color 0.5s,
@@ -128,6 +127,11 @@ p {
 .five-percent {
   padding-right: 5%;
   padding-left: 5%;
+}
+
+.three-percent {
+  padding-right: 3%;
+  padding-left: 3%;
 }
 
 /* background */

@@ -12,7 +12,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-// custom animation
+// custom animation named fade-slide
 app.use(MotionPlugin, {
     directives: {
       'fade-slide': {
@@ -20,7 +20,7 @@ app.use(MotionPlugin, {
           opacity: 0,
           y: 100,
         },
-        visible: {
+        visibleOnce: {
           opacity: 1,
           y: 0,
           transition: {
@@ -32,5 +32,6 @@ app.use(MotionPlugin, {
       },
     },
   })
+  
 
 app.mount('#app')
