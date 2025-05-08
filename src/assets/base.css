@@ -95,7 +95,7 @@ p {
 }
 
 .btn-2:hover {
-  background-color: #a2bbc8;
+  background-color: var(--primary-color-dark);
 }
 
 
@@ -124,6 +124,11 @@ p {
 }
 
 /* padding on the sides */
+.ten-percent {
+  padding-right: 10%;
+  padding-left: 10%;
+}
+
 .five-percent {
   padding-right: 5%;
   padding-left: 5%;
@@ -145,6 +150,10 @@ p {
 
 .white-bg {
   background-color: #ffffff;
+}
+
+.extra-dark-bg {
+  background-color: var(--primary-color-dark);
 }
 
 
