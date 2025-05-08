@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 import type { News, newNews } from '../interfaces/news';
-import { sub } from 'three/tsl';
 
 export const useNews = () => {
     const error = ref<string | null>(null);
@@ -62,7 +61,6 @@ export const useNews = () => {
             imageURL: news.imageURL || 'https://picsum.photos/500/500',
             date: news.date || new Date().toISOString(),
             theme: news.theme || 'New news theme default',
-            author: news.author || userId,
             isHidden: news.isHidden || false
         }
     }

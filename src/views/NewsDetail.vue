@@ -1,16 +1,19 @@
 <template>
     <section class="dark-bg pt-30">
-        <div v-if="news && news.length > 0" class="flex flex-wrap">
-            <div class="w-1/2 p-4">
-                <img :src="news[0].imageURL" alt="news image" class="w-full rounded-lg object-cover h-full" />
-            </div>
-            <div class="w-1/2 p-4">
-                <h2 class="text-slate-200 text-2xl font-bold mb-4">{{ news[0].title }}</h2>
-                <p class="mb-4">{{ news[0].subTitle }}</p>
-                <p class="text-green-500 font-bold">{{ news[0].text }}</p>
-                <p class="text-green-500 font-bold">{{ news[0].date }}</p>
-                <p class="text-green-500 font-bold">{{ news[0].theme }}</p>
-                <p class="text-green-500 font-bold">{{ news[0].author }}</p>
+        <div v-if="news && news.length > 0" class="flex flex-col ten-percent">
+            <div class="extra-dark-bg three-percent py-10 round-corner">
+                <div class="ten-percent flex flex-col">
+                    <p>- {{ news[0].theme }}theme</p>
+                    <h1 class="pt-2 font-bold">{{ news[0].title }}title</h1>
+                    <h3 class="pb-6">{{ news[0].subTitle }}sub title</h3>
+                </div>
+
+                <img :src="news[0].imageURL" alt="news image" class="news-image round-corner" />
+                
+                <div class="ten-percent">
+                    <p class="text-xs pt-6 text-gray-700">{{ news[0].date }}18-05-2020</p>
+                    <p class="pt-2">{{ news[0].text }}text</p>
+                </div>
             </div>
         </div>
         <div v-else>
@@ -41,5 +44,10 @@ onMounted(async() => {
 </script>
 
 <style scoped>
-
+.news-image {
+    height: 80vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 </style>

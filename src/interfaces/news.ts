@@ -6,7 +6,6 @@ export type News = {
     imageURL: string;
     date: string;
     theme: string;
-    author: string;
     isHidden: boolean;
 }
 
@@ -17,6 +16,5 @@ export type newNews = {
     imageURL: string;
     date: string;
     theme: string;
-    author: string;
     isHidden: boolean;
 }
