@@ -63,21 +63,26 @@
         <h2 class="dark-headline" v-motion-fade-slide>Top traders</h2>
       </div>
       
-      <div class="animate-scroll whitespace-nowrap flex items-center gap-6">
-        <div
-          v-for="(image, index) in images.concat(images)"
-          :key="index"
-          class="trader-card flex items-center gap-4 white-bg p-4 round-corner min-w-[250px] shadow-lg"
-          v-motion-fade-slide
-        >
-          <img :src="`https://picsum.photos/100/100?random=${index}`" alt="Trader" class="round-corner w-16 h-16" />
-          <div>
-            <h5 class="font-bold dark-headline">Jane Doe</h5>
-            <p class="dark-text">198 Trades</p>
-            <button class="pt-2 underline dark-text text-left">Open trades</button>
+      <div v-if="loading" class="text-center">Loading...</div>
+        <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
+
+        <div v-else>
+          <div class="animate-scroll whitespace-nowrap flex items-center gap-6">
+            <div
+              v-for="(image, index) in images.concat(images)"
+              :key="index"
+              class="trader-card flex items-center gap-4 white-bg p-4 round-corner min-w-[250px] shadow-lg"
+              v-motion-fade-slide
+            >
+              <img :src="`https://picsum.photos/100/100?random=${index}`" alt="Trader" class="round-corner w-16 h-16" />
+              <div>
+                <h5 class="font-bold dark-headline">Jane Doe</h5>
+                <p class="dark-text">198 Trades</p>
+                <button class="pt-2 underline dark-text text-left">Open trades</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
     </section>
 
     <!-- explore market -->
