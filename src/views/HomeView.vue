@@ -183,7 +183,7 @@ onMounted(() => {
 // hero section
 .hero-section {
   position: relative;
-  height: 90vh;
+  height: 97vh;
   padding-top: 70px;
   display: flex;
   align-items: center;

@@ -129,6 +129,11 @@ p {
   padding-left: 5%;
 }
 
+.three-percent {
+  padding-right: 3%;
+  padding-left: 3%;
+}
+
 /* background */
 .dark-bg {
   background-color: var(--primary-color)
