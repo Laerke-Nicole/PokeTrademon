@@ -19,17 +19,22 @@
             <p><strong>They offer:</strong> {{ formatCards(trade.senderCards) }}</p>
             <p><strong>They want:</strong> {{ formatCards(trade.receiverCards) }}</p>
 
-            <div class="flex gap-2 mt-2">
+            <div class="flex gap-2 mt-2 items-center">
               <button
                 v-if="trade.senderId?._id !== currentUserId"
                 @click="$emit('accept', trade._id)"
-                class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded"
+                :disabled="!canTrade(trade)"
+                class="px-4 py-1 rounded text-white"
+                :class="canTrade(trade) ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-400 cursor-not-allowed'"
               >
                 Accept
               </button>
+              <span v-if="trade.senderId?._id !== currentUserId && !canTrade(trade)" class="text-sm text-red-500">
+                You don't have the necessary cards to make this trade
+              </span>
               <button
-                v-else
-                @click="$emit('decline', trade._id)"
+                v-else-if="trade.senderId?._id === currentUserId"
+                @click="$emit('decline', trade._id, currentUserId)"
                 class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
               >
                 Cancel Offer
@@ -45,24 +50,28 @@
 <script setup lang="ts">
 import type { TradeCard, TradeOffer } from '../interfaces/trade';
 
-defineProps<{
+const props = defineProps<{
   visible: boolean;
   offers: TradeOffer[];
   loading: boolean;
   error: string | null;
   currentUserId: string;
+  userCollection: TradeCard[];
 }>();
 
 defineEmits<{
   (e: 'close'): void;
   (e: 'accept', tradeId: string): void;
-  (e: 'decline', tradeId: string): void;
+  (e: 'decline', tradeId: string, userId: string): void;
 }>();
 
 const formatCards = (cards: TradeCard[]): string =>
   cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
-</script>
 
-<style scoped>
-/* Add modal transitions or styles as needed */
-</style>
+const canTrade = (trade: TradeOffer): boolean => {
+  return trade.receiverCards.every(reqCard => {
+    const userCard = props.userCollection.find(c => c.cardId === reqCard.cardId);
+    return userCard && userCard.quantity >= reqCard.quantity;
+  });
+};
+</script>

@@ -48,13 +48,20 @@ export const fetchCardDetails = async (cardId: string) => {
   return data.data;
 };
 
-export const acceptTradeOffer = async (tradeId: string) => {
+export const acceptTradeOffer = async (tradeId: string, userId: string) => {
   const res = await fetch(`http://localhost:5004/api/trades/${tradeId}/accept`, {
     method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId }) // ✅ Send it
   });
-  if (!res.ok) throw new Error('Failed to accept trade');
-  return res.json();
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to accept trade');
+  }
+  
 };
+
 
 export const declineTradeOffer = async (tradeId: string) => {
   const res = await fetch(`http://localhost:5004/api/trades/${tradeId}/decline`, {

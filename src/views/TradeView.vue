@@ -130,15 +130,17 @@
   
       <!-- Modal -->
       <OpenTradeModal
-        :visible="showModal"
-        :offers="openOffers"
-        :loading="openLoading"
-        :error="openError"
-        :current-user-id="userId"
-        @close="showModal = false"
-        @accept="acceptOpenOffer"
-        @decline="declineTrade"
-      />
+  :visible="showModal"
+  :offers="openOffers"
+  :loading="openLoading"
+  :error="openError"
+  :current-user-id="userId"
+  :user-collection="userCollection"
+  @close="showModal = false"
+  @accept="acceptOpenOffer"
+  @decline="declineTrade"
+/>
+
     </div>
   </template>
  <script setup lang="ts">
@@ -148,7 +150,7 @@
  import CardSelector from '../components/CardSelector.vue';
  import OpenTradeModal from '../components/OpenTradeModal.vue';
  import { useUsers } from '../modules/auth/userModels';
- import { createTradeOffer, fetchTradesForUser, acceptTradeOffer, declineTradeOffer } from '../modules/tradeApi';
+ import { createTradeOffer, fetchTradesForUser, acceptTradeOffer } from '../modules/tradeApi';
  import { getUserCollection } from '../modules/collectionApi';
  
  const tabs = ['incoming', 'outgoing', 'completed'] as const;
@@ -236,24 +238,41 @@
  };
  
  const acceptTrade = async (id: string) => {
-   await acceptTradeOffer(id);
-   showToast('Trade accepted', 'success');
-   await loadTrades();
- };
+  try {
+    await acceptTradeOffer(id, userId.value);
+    showToast('Trade accepted', 'success');
+    await loadTrades();
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      showToast(err.message, 'error');
+    } else {
+      showToast('Failed to accept trade', 'error');
+    }
+  }
+};
+
+
  
- const declineTrade = async (id: string) => {
-   await declineTradeOffer(id);
-   showToast('Trade declined', 'success');
-   await loadTrades();
- };
+const declineTrade = async (tradeId: string, actingUserId?: string) => {
+  await fetch(`http://localhost:5004/api/trades/${tradeId}/decline`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId: actingUserId || userId.value }) // ✅ this now works
+  });
+  showToast('Trade declined', 'success');
+  await loadTrades();
+  await fetchOpenOffers();
+};
+
+
  
- const acceptOpenOffer = async (tradeId: string) => {
-   await acceptTradeOffer(tradeId);
-   showToast('Trade accepted from marketplace', 'success');
-   showModal.value = false;
-   await fetchOpenOffers();
-   await loadTrades();
- };
+const acceptOpenOffer = async (tradeId: string) => {
+  await acceptTradeOffer(tradeId, userId.value); // ✅ send userId
+  showToast('Trade accepted from marketplace', 'success');
+  showModal.value = false;
+  await fetchOpenOffers();
+  await loadTrades();
+};
  
  function debounce<T extends (...args: string[]) => void>(fn: T, delay: number): (...args: Parameters<T>) => void {
    let timer: ReturnType<typeof setTimeout>;
