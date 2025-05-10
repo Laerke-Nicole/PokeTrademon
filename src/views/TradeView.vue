@@ -293,11 +293,15 @@ const acceptOpenOffer = async (tradeId: string) => {
  }, 500));
  
  onMounted(async () => {
-   const res = await getUserCollection(userId.value);
-   userCollection.value = res.collection;
-   await loadTrades();
-   await fetchOpenOffers();
- });
+  console.log("🔎 userId:", userId.value);
+  try {
+    const res = await getUserCollection(userId.value);
+    console.log("✅ Collection response:", res);
+    userCollection.value = res.collection;
+  } catch (err) {
+    console.error("❌ Failed to fetch collection in TradeView:", err);
+  }
+});
  </script>
  
  <style scoped>

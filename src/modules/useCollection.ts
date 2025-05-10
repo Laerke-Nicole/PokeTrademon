@@ -1,8 +1,8 @@
-// src/modules/useCollection.ts
 import { ref } from 'vue';
 
-const COLLECTION_URL = 'http://localhost:5004/api/collections';
-const CARD_URL = 'http://localhost:5004/api/pokemon/cards';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004';
+const COLLECTION_URL = `${BASE_URL}/collections`;
+const CARD_URL = `${BASE_URL}/pokemon/cards`;
 
 export interface CollectionItem {
   cardId: string;
@@ -11,7 +11,6 @@ export interface CollectionItem {
   image: string;
 }
 
-// 🧠 Helper to always get the latest userId from localStorage
 const getUserId = (): string | null =>
   localStorage.getItem('userIDToken')?.replace(/"/g, '') || null;
 
