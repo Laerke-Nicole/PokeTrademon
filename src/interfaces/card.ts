@@ -20,6 +20,7 @@ export interface PokemonCard {
   name: string;
   supertype: string;
   subtypes?: string[];
+  types?: string[]; // ✅ Add this to fix the error
   hp?: string;
   rarity?: string;
   images: {
@@ -30,6 +31,7 @@ export interface PokemonCard {
     name: string;
   };
 }
+
 
 
   

@@ -14,7 +14,9 @@ export const useUsers = () => {
   const email = ref<string>('');
   const password = ref<string>('');
 
-  const BASE_URL = 'http://localhost:5004/api/auth';
+  const BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/auth`
+  : 'http://localhost:5004/auth';
 
   // ✅ LOGIN
   const fetchToken = async (email: string, password: string): Promise<void> => {
