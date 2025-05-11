@@ -3,7 +3,7 @@
     <section class="hero-section">
       <div class="hero-content five-percent grid grid-cols-3">
         <!-- left side with headline -->
-        <div class="w-1/3">
+        <div class="w-1/3 hero-title">
           <h1 class="leading-tight pb-10 dark-headline" v-motion-fade-slide>Universe of Pokemon card trading</h1>
           
           <div class="flex gap-4">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- right side with welcome text -->
-        <div class="w-1/3">
+        <div class="w-1/3 hero-text">
           <p class="dark-text" v-motion-fade-slide>Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters.</p>
         </div>
       </div>
@@ -85,9 +85,10 @@
         </div>
     </section>
 
+
     <!-- explore market -->
     <section>
-      <div class="light-bg grid grid-cols-2 five-percent gap-12 py-18">
+      <div class="explore-container light-bg grid grid-cols-2 five-percent gap-12 py-18">
         <!-- Image side -->
         <div class="flex items-center justify-center">
           <img src="/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
@@ -328,6 +329,31 @@
 
   // responsive
   @media screen and (max-width: 800px) {
+    .hero-content {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      flex-direction: column;
+    }
+
+    .hero-content div {
+      width: 100%;
+    }
+
+    .pikachu-model-container {
+      display: none;
+    }
+
+    .hero-title h1 {
+      padding-bottom: 20px;
+    }
+
+    .hero-text {
+      padding-top: 40px;
+    }
+
+    .explore-container {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
     .column-news {
       flex: 50%;
       max-width: 50%;
