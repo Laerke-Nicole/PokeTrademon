@@ -39,8 +39,8 @@
         <div v-else v-motion-fade-slide>
           <div class="swiper" v-motion-fade-slide>
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(image, index) in images" :key="index">
-                <img :src="image" alt="Pokemon card" />
+              <div class="swiper-slide" v-for="card in cards" :key="card.id">
+                <img :src="card.images.small || card.images.large" alt="Pokemon card" />
               </div>
             </div>
 
@@ -68,19 +68,19 @@
 
         <div v-else>
           <div class="animate-scroll whitespace-nowrap flex items-center gap-6">
-            <div
-              v-for="(image, index) in images.concat(images)"
-              :key="index"
+            <!-- <div
+              v-for="user in users"
+              :key="user"
               class="trader-card flex items-center gap-4 white-bg p-4 round-corner min-w-[250px] shadow-lg"
               v-motion-fade-slide
             >
-              <img :src="`https://picsum.photos/100/100?random=${index}`" alt="Trader" class="round-corner w-16 h-16" />
+              <img :src="user.imageURL" alt="Trader" class="round-corner w-16 h-16" />
               <div>
                 <h5 class="font-bold dark-headline">Jane Doe</h5>
                 <p class="dark-text">198 Trades</p>
                 <button class="pt-2 underline dark-text text-left">Open trades</button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
     </section>
@@ -150,33 +150,47 @@
   import { watch } from 'vue';
   import { nextTick } from 'vue';
   import { useSwiper } from '../components/swiperCarousel/SwiperCarousel';
-
   import PikachuModel from '../components/threejs/PikachuModel.vue'
+  import { useCards } from '../modules/useCards'
   import { useNews } from '../modules/useNews'
+  // import { useUsers } from '../modules/useUsers'
 
-  // Sample images
-  const images = ref(Array.from({ length: 6 }, (_, i) => `https://picsum.photos/500/600?random=${i}`));
+  // cards fetching
+  const { loading, error, cards, fetchCards } = useCards();
 
-  // start at the top of the page
   onMounted(() => {
-    scrollToTop(); 
-  });
+    fetchCards();
+  })
+
 
   // fetch the data from news
-  const { loading, error, news, fetchNews } = useNews();
+  const { news, fetchNews } = useNews();
 
   onMounted(() => {
     fetchNews();
   })
 
+
+  // // fetch the data from user
+  // const { users, fetchUsers } = useUsers();
+
+  // onMounted(() => {
+  //   fetchUsers();
+  // })
+
   // initialize Swiper after its loaded
   watch(loading, async (isLoading) => {
-  if (!isLoading) {
-    await nextTick(); 
-    // initialize Swiper
-    useSwiper();
-  }
-});
+    if (!isLoading) {
+      await nextTick(); 
+      // initialize Swiper
+      useSwiper();
+    }
+  });
+
+  // start at the top of the page
+  onMounted(() => {
+    scrollToTop(); 
+  });
   </script>
 
   <style lang="scss" scoped>
