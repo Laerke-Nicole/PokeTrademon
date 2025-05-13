@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import type { User } from '../../interfaces/user';
 import { state } from '../globalStates/state';
-
+import { useRouter } from 'vue-router';
 
 
 export const useUsers = () => {
@@ -17,6 +17,8 @@ export const useUsers = () => {
   const BASE_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/auth`
   : 'http://localhost:5004/auth';
+
+  const router = useRouter();
 
   // ✅ LOGIN
   const fetchToken = async (email: string, password: string): Promise<void> => {
@@ -89,6 +91,9 @@ export const useUsers = () => {
     localStorage.removeItem('isToken');
     localStorage.removeItem('userIDToken');
     console.log('👋 User logged out');
+
+    // go to home page after logging out
+    router.push('/');
   };
 
   return {
