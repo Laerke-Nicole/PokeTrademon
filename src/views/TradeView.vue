@@ -309,10 +309,14 @@ const acceptOpenOffer = async (tradeId: string) => {
     const res = await getUserCollection(userId.value);
     console.log("✅ Collection response:", res);
     userCollection.value = res.collection;
+
+    // ✅ Fetch trades after getting collection
+    await loadTrades();
   } catch (err) {
     console.error("❌ Failed to fetch collection in TradeView:", err);
   }
 });
+
  </script>
  
  <style scoped>
