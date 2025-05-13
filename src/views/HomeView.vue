@@ -52,7 +52,7 @@
         </div>
 
       <div class="flex justify-center align-center pt-12">
-        <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore more</button></RouterLink>
+        <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Start your collection now</button></RouterLink>
       </div>
     </section>
 

@@ -9,6 +9,9 @@ export const useCards = () => {
 
   // ✅ Dynamically use environment-based API URL
   const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004/api';
+  console.log('✅ BASE_URL =', BASE_URL);
+
+
 
   const fetchCards = async (
     search = '',
