@@ -15,7 +15,7 @@
           </RouterLink>
           <div class="nav-links flex items-center space-x-6 pl-6">
             <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/market">Market</RouterLink>
+            <RouterLink v-if="state.isLoggedIn" to="/market">Market</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/profile">My Collection</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/trades">Trade</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/admin">Admin</RouterLink>
