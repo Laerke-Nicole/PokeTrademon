@@ -24,7 +24,7 @@
 
             <button class="btn-1 mt-2">
               <RouterLink to="/profile">
-                <span class="text-sm underline">Go to your profile</span>
+                Go to your profile
               </RouterLink>
             </button>
           </div>

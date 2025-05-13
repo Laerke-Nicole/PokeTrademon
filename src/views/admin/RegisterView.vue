@@ -15,7 +15,10 @@
             
                 <!-- handle msg whether user signed up or not -->
                 <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
-                <p v-if="isLoggedIn" class="text-green-500 text-sm mt-2">Registering user successful</p>
+                <div v-if="registrationSuccess">
+                  <p class="text-sm text-green-500 mt-2">Registering user successful!</p>
+                  <RouterLink to="/auth"><button class="btn-1">Go to log in page</button></RouterLink>
+                </div>
             </div>
         </div>
   </section>
@@ -44,6 +47,22 @@ onMounted(() => {
 const { registerUser, username, email, password } = useUsers();
 
 const error = ref('');
+
+
+const registrationSuccess = ref(false);
+
+// check if user registered successfully
+const handleRegister = async () => {
+  registrationSuccess.value = false;
+  error.value = '';
+  try {
+    await registerUser(username.value, email.value, password.value);
+    registrationSuccess.value = true;
+  } catch (err: any) {
+    error.value = err.message || 'Something went wrong.';
+  }
+};
+
 
 </script>
 
