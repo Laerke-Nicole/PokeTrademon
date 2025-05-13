@@ -15,17 +15,18 @@
           </RouterLink>
           <div class="nav-links flex items-center space-x-6 pl-6">
             <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/market">Market</RouterLink>
+            <RouterLink v-if="state.isLoggedIn" to="/market">Market</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/profile">My Collection</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/trades">Trade</RouterLink>
-            <RouterLink v-if="state.isLoggedIn" to="/admin">Admin</RouterLink>
+            <!-- only admins can accesss -->
+            <RouterLink v-if="state.userRole === 'admin'" to="/admin">Admin</RouterLink>
           </div>
         </div>
 
         <!-- icons -->
         <div class="flex space-x-8">
           <div class="user-icon relative flex space-x-1" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-            <RouterLink to="/auth">
+            <RouterLink to="/profile">
               <i class="fas fa-user text-lg cursor-pointer"></i>
             </RouterLink>
             <div v-if="isHovered" class="absolute top-full right-0 z-50">
@@ -63,7 +64,7 @@
     </div>
 
     <div class="flex flex-col gap-2 footer-links">
-      <RouterLink to="/market"><p class="dark-text">Market</p></RouterLink>
+      <RouterLink v-if="state.isLoggedIn" to="/market"><p class="dark-text">Market</p></RouterLink>
       <RouterLink to="/about"><p class="dark-text">About PokeTrademon</p></RouterLink>
       <RouterLink to="/contact"><p class="dark-text">Contact us</p></RouterLink>
       <p class="dark-text">Careers</p>
@@ -81,6 +82,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useUsers } from './modules/auth/userModels'
 import UserDropdown from '../src/components/user/UserDropdownView.vue'
 import { state } from './modules/globalStates/state'
 

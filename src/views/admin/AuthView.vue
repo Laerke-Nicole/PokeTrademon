@@ -16,16 +16,38 @@
     
         <!-- handle msg whether user got signed in or not -->
         <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
-        <p v-if="isLoggedIn" class="text-green-500 text-sm mt-2">Login successful</p>
-      </div>
+
+        <!-- after logging in -->
+        <p v-if="isLoggedIn">
+          <div>
+            <p class="text-green-500 text-sm mt-2">Login successful</p>
+
+            <button class="btn-1 mt-2">
+              <RouterLink to="/profile">
+                Go to your profile
+              </RouterLink>
+            </button>
+          </div>
+          
+          </p>
+        </div>
     </div>
   </section>
 </template>
   
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { state } from '../../modules/globalStates/state';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+
+const router = useRouter();
+
+// redirect to homepage if user is logged in and try to access log in page
+if (state.isLoggedIn) {
+  router.push('/');
+}
 
 // start at the top of the page
 onMounted(() => {
