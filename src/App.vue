@@ -26,7 +26,7 @@
         <!-- icons -->
         <div class="flex space-x-8">
           <div class="user-icon relative flex space-x-1" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-            <RouterLink to="/auth">
+            <RouterLink to="/profile">
               <i class="fas fa-user text-lg cursor-pointer"></i>
             </RouterLink>
             <div v-if="isHovered" class="absolute top-full right-0 z-50">
@@ -82,6 +82,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useUsers } from './modules/auth/userModels'
 import UserDropdown from '../src/components/user/UserDropdownView.vue'
 import { state } from './modules/globalStates/state'
 

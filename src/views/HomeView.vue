@@ -27,7 +27,7 @@
 
 
     <!-- carousel -->
-    <section class="py-18">
+    <section class="py-18 five-percent">
       <div class="flex flex-col justify-center align-center pb-8" v-motion-fade-slide>
         <h2 class="text-center dark-headline">Selected trader cards</h2>
         <p class="text-center dark-text">A few of the many Pokemon cards you can collect</p>
