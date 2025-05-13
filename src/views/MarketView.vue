@@ -13,10 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import type { PokemonCard } from '../interfaces/card';
 import CardSelector from '../components/CardSelector.vue';
 import CardModal from '../components/CardModal.vue';
+import { state } from '../modules/globalStates/state';
 
 const selectedCard = ref<PokemonCard | null>(null);
 const showModal = ref(false);
@@ -29,6 +31,14 @@ const openModal = (card: PokemonCard) => {
 const closeModal = () => {
   showModal.value = false;
 };
+
+
+const router = useRouter();
+
+// redirect to homepage if user isnt logged in and try to access the page
+if (!state.isLoggedIn) {
+  router.push('/');
+}
 </script>
 
 <style scoped>
