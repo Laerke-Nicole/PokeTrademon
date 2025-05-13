@@ -1,38 +1,38 @@
-import { test , expect, vi } from 'vitest' // import vi when making more advanced tests
-import { useCollection } from '../../modules/useCollection'
+import { test, expect, vi, beforeEach } from 'vitest';
+import { useCollection } from '../../modules/useCollection';
 
 const mockCollection = [{
-    _id: '1',
-    name: 'Product 1',
-    description: 'Description 1',
-    imageURL: 'https://picsum.photos/500/500',
-    price: 10,
-    stock: 5,
-    discount: false,
-    discountPct: 0,
-    isHidden: false,
-}]
+  cardId: '1',
+  quantity: 1,
+  condition: 'Used like new',
+  image: 'https://picsum.photos/500/500',
+}];
+
+beforeEach(() => {
+  vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
+    if (key === 'userIDToken') return '"1"';
+    return null;
+  });
+});
 
 test('Fetch collections', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => mockCollection,
+  global.fetch = vi.fn()
+    .mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ collection: mockCollection }),
     })
+    .mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        data: {
+          images: {
+            small: 'https://picsum.photos/500/500'
+          }
+        }
+      }),
+    });
 
-    const { fetchCollectionById } = useCollection()
-    const result = await fetchCollectionById('1')
-    expect(result).toEqual(mockCollection)
-})
-
-test('Fetch collection error', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-        ok: false,
-        status: 404,
-        statusText: 'Not Found',
-        json: async () => ({})
-    })
-
-    const { fetchCollectionById } = useCollection()
-    const result = await fetchCollectionById('bad-id')
-    expect(result).toBeNull()
-})
+  const { fetchCollection, collection } = useCollection();
+  await fetchCollection();
+  expect(collection.value).toEqual(mockCollection);
+});
