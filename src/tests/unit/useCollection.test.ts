@@ -7,7 +7,7 @@ const mockCollection = [{
   condition: 'Used like new',
   image: 'https://picsum.photos/500/500',
 }];
-
+    
 beforeEach(() => {
   vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
     if (key === 'userIDToken') return '"1"';
