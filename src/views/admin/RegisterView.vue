@@ -15,6 +15,7 @@
             
                 <!-- handle msg whether user signed up or not -->
                 <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
+                <p v-if="isLoggedIn" class="text-green-500 text-sm mt-2">Registering user successful</p>
             </div>
         </div>
   </section>
@@ -22,8 +23,17 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+import { state } from '../../modules/globalStates/state';
+
+const router = useRouter();
+
+// redirect to homepage if user is logged in and try to access register page
+if (state.isLoggedIn) {
+  router.push('/');
+}
 
 // start at the top of the page
 onMounted(() => {

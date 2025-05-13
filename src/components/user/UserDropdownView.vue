@@ -30,7 +30,7 @@
           </div>
         </RouterLink>
   
-        <button v-if="state.isLoggedIn" @click="logout" class="w-full text-left px-4 py-2 underline">Log out</button>
+        <button v-if="state.isLoggedIn" @click="logout" class="hover:bg-gray-100 w-full text-left px-4 py-2 underline cursor-pointer">Log out</button>
       </ul>
     </div>
 
@@ -46,29 +46,16 @@ import { state } from '../../modules/globalStates/state';
 
 // fetch needed stuff from users
 const { username, logout } = useUsers();
-
-onMounted(() => {
-  if (state.isLoggedIn) {
-    const username = localStorage.getItem('username');
-    if (username) {
-      username(username);
-    }
-  }
-});
-
-
-console.log('User:', username);
-
 </script>
 
 <style scoped>
 .dropdown {
-    border: 1px solid var(--dark-headline);
-    width: 200px;
+  border: 1px solid var(--dark-headline);
+  width: 200px;
 }
 
 .dropdown ul {
-    width: 100%;
+  width: 100%;
 }
 </style>
   
