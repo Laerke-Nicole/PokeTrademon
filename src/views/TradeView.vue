@@ -161,8 +161,19 @@
  const userId = computed(() => user?.value?._id ?? localStorage.getItem("userIDToken") ?? '');
  
  const allTrades = ref<TradeOffer[]>([]);
- const incoming = computed(() => allTrades.value.filter(t => t.receiverId?._id === userId.value));
- const outgoing = computed(() => allTrades.value.filter(t => t.senderId._id === userId.value));
+  const incoming = computed(() =>
+  allTrades.value.filter(t => {
+    const receiver = typeof t.receiverId === 'string' ? t.receiverId : t.receiverId?._id;
+    return receiver === userId.value;
+  })
+);
+
+const outgoing = computed(() =>
+  allTrades.value.filter(t => {
+    const sender = typeof t.senderId === 'string' ? t.senderId : t.senderId?._id;
+    return sender === userId.value;
+  })
+);
  const cardList = (cards: TradeCard[]) => cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
  
  const toast = ref({ message: '', type: 'success' as 'success' | 'error', visible: false });
@@ -298,10 +309,14 @@ const acceptOpenOffer = async (tradeId: string) => {
     const res = await getUserCollection(userId.value);
     console.log("✅ Collection response:", res);
     userCollection.value = res.collection;
+
+    // ✅ Fetch trades after getting collection
+    await loadTrades();
   } catch (err) {
     console.error("❌ Failed to fetch collection in TradeView:", err);
   }
 });
+
  </script>
  
  <style scoped>
