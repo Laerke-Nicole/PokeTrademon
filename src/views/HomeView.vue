@@ -39,7 +39,7 @@
         <div v-else v-motion-fade-slide>
           <div class="swiper" v-motion-fade-slide>
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="card in cards" :key="card.id">
+              <div v-for="card in limitedCards" :key="card.id" class="swiper-slide" >
                 <img :src="card.images.small || card.images.large" alt="Pokemon card" />
               </div>
             </div>
@@ -52,37 +52,8 @@
         </div>
 
       <div class="flex justify-center align-center pt-12">
-        <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Start your collection now</button></RouterLink>
+        <RouterLink to="/auth"><button class="btn-1" v-motion-fade-slide>Start your collection now</button></RouterLink>
       </div>
-    </section>
-
-
-    <!-- top sellers -->
-    <section class="top-traders-banner py-18 overflow-hidden">
-      <div class="flex justify-center align-center pb-8">
-        <h2 class="dark-headline" v-motion-fade-slide>Top traders</h2>
-      </div>
-      
-      <div v-if="loading" class="text-center">Loading...</div>
-        <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
-
-        <div v-else>
-          <div class="animate-scroll whitespace-nowrap flex items-center gap-6">
-            <!-- <div
-              v-for="user in users"
-              :key="user"
-              class="trader-card flex items-center gap-4 white-bg p-4 round-corner min-w-[250px] shadow-lg"
-              v-motion-fade-slide
-            >
-              <img :src="user.imageURL" alt="Trader" class="round-corner w-16 h-16" />
-              <div>
-                <h5 class="font-bold dark-headline">Jane Doe</h5>
-                <p class="dark-text">198 Trades</p>
-                <button class="pt-2 underline dark-text text-left">Open trades</button>
-              </div>
-            </div> -->
-          </div>
-        </div>
     </section>
 
 
@@ -145,7 +116,7 @@
   </template>
 
   <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, computed } from 'vue';
   import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
   // import swiper carousel
   import { watch } from 'vue';
@@ -154,7 +125,7 @@
   import PikachuModel from '../components/threejs/PikachuModel.vue'
   import { useCards } from '../modules/useCards'
   import { useNews } from '../modules/useNews'
-  // import { useUsers } from '../modules/useUsers'
+
 
   // cards fetching
   const { loading, error, cards, fetchCards } = useCards();
@@ -162,6 +133,12 @@
   onMounted(() => {
     fetchCards();
   })
+
+  // only display 15 random cards
+  const limitedCards = computed(() => {
+    if (!cards.value) return [];
+    return [...cards.value].sort(() => Math.random() - 0.5).slice(0, 15);
+  });
 
 
   // fetch the data from news
@@ -171,13 +148,6 @@
     fetchNews();
   })
 
-
-  // // fetch the data from user
-  // const { users, fetchUsers } = useUsers();
-
-  // onMounted(() => {
-  //   fetchUsers();
-  // })
 
   // initialize Swiper after its loaded
   watch(loading, async (isLoading) => {
@@ -264,8 +234,7 @@
 
   .swiper-slide {
     position: relative;
-    width: 180px;
-    aspect-ratio: 3/4;
+    width: auto;
     border-radius: 3px;
     transition: transform 0.3s ease;
     border-radius: 10px;
@@ -288,21 +257,6 @@
     z-index: 10;
     color: var(--light-text);
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  }
-
-
-  // top traders
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  .animate-scroll {
-    animation: scroll 30s linear infinite;
   }
 
 
