@@ -123,8 +123,8 @@
               <div class="round-corner light-bg hover:shadow-lg transition-shadow duration-300">
                 <img :src="news.imageURL" class="round-corner-top w-full object-cover" />
                 <div class="p-4">
-                  <h4 class="dark-headline">{{ news.title }}</h4>
-                  <p class="dark-text">{{ news.subTitle }}</p>
+                  <h4 class="dark-headline">{{ news.title.trim() }}</h4>
+                  <p class="dark-text">{{ news.subTitle.trim() }}</p>
                 </div>
               </div>
             </RouterLink>

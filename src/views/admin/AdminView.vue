@@ -91,8 +91,6 @@
           </div>
         </div>
       </div>
-        <!-- Custom confirmation dialog -->
-
       </div>
     </div>
 
