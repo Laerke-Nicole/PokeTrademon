@@ -3,16 +3,16 @@
         <div v-if="news && news.length > 0" class="flex flex-col ten-percent">
             <div class="extra-dark-bg three-percent py-10 round-corner">
                 <div class="ten-percent flex flex-col">
-                    <p class="dark-text">- {{ news[0].theme }}theme</p>
-                    <h1 class="pt-2 font-bold dark-headline">{{ news[0].title }}title</h1>
-                    <h3 class="pb-6 dark-text">{{ news[0].subTitle }}sub title</h3>
+                    <p class="dark-text">- {{ news[0].theme.trim() }}theme</p>
+                    <h1 class="pt-2 font-bold dark-headline">{{ news[0].title.trim() }}title</h1>
+                    <h3 class="pb-6 dark-text">{{ news[0].subTitle.trim() }}sub title</h3>
                 </div>
 
-                <img :src="news[0].imageURL" alt="news image" class="news-image round-corner" />
+                <img :src="news[0].imageURL.trim()" alt="news image" class="news-image round-corner" />
                 
                 <div class="ten-percent">
-                    <p class="text-xs pt-6 dark-text">{{ news[0].date }}18-05-2020</p>
-                    <p class="pt-2 dark-headline">{{ news[0].text }}text</p>
+                    <p class="text-xs pt-6 dark-text">{{ news[0].date.trim() }}18-05-2020</p>
+                    <p class="pt-2 dark-headline">{{ news[0].text.trim() }}text</p>
                 </div>
             </div>
         </div>

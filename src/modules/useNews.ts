@@ -24,13 +24,18 @@ export const useNews = () => {
     }
   };
 
-  const getTokenAndUserId = () => {
+  const getTokenAndUserId = (): { token: string, userId: string } => {
     const token = localStorage.getItem('lsToken');
     const userId = localStorage.getItem('userIDToken');
 
-    if (!token || !userId) throw new Error('Missing token or user ID');
+    if (!token) {
+        throw new Error('No token available');
+    }
+    if (!userId) {
+        throw new Error('No user ID available');
+    }
     return { token, userId };
-  };
+  }
 
   const addNews = async (newsData: newNews): Promise<void> => {
     try {
@@ -119,6 +124,7 @@ export const useNews = () => {
     }
   };
 
+
   return {
     news,
     loading,
@@ -128,5 +134,6 @@ export const useNews = () => {
     addNews,
     deleteNews,
     updateNews,
+    getTokenAndUserId,
   };
 };
