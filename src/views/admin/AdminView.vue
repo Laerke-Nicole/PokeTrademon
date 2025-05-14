@@ -114,7 +114,6 @@ import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
 import { state } from '../../modules/globalStates/state';
 import { useNews } from '../../modules/useNews';
 import type { News } from '../../interfaces/news';
-import { sub } from 'three/tsl';
 
 const router = useRouter();
 
@@ -147,23 +146,25 @@ const newNews = ref({
   date: '',
   theme: '',
   isHidden: false,
-  _createdBy: '', 
+  userId: '',
 });
 
 
+// handling adding new news
 const addNewsHandler = async () => {
   // import userId from the useNews
   const { userId } = getTokenAndUserId();
   // attach to new news
-  newNews.value._createdBy = userId;
+  newNews.value.userId = userId;
   await addNews(newNews.value)
   newNews.value = {
     ...newNews.value,
   }
 }
 
+// handling updating news
 const updateNewsHandler = async (news: News) => {
-  const updateNews = {
+  const updatedNews = {
     title: news.title,
     subTitle: news.subTitle,
     text: news.text,
@@ -172,7 +173,7 @@ const updateNewsHandler = async (news: News) => {
     theme: news.theme,
     isHidden: news.isHidden,
   }
-  await updateNews(news._id, updateNews)
+  await updateNews(news._id, updatedNews)
 }
 
 </script>

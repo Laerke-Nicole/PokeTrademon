@@ -7,6 +7,7 @@ export type News = {
     date: string;
     theme: string;
     isHidden: boolean;
+    userId: string;
 }
 
 export type newNews = {
@@ -17,4 +18,5 @@ export type newNews = {
     date: string;
     theme: string;
     isHidden: boolean;
+    userId: string;
 }
