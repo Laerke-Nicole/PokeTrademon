@@ -70,7 +70,26 @@
           <p class="yellow-text" v-motion-fade-slide>Collect cards today</p>
           <h2 class="dark-headline pb-6" v-motion-fade-slide>More than 3000 cards to trade</h2>
           <p class="dark-text pb-10" v-motion-fade-slide>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet perferendis voluptatum ab! Sed odit quia doloremque sapiente dicta maxime, accusantium repellat, ullam dolorem mollitia explicabo, dolorum a molestiae laboriosam laudantium.</p>
-          <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Start trading</button></RouterLink>
+          <RouterLink to="/profile"><button class="btn-1" v-motion-fade-slide>Start trading</button></RouterLink>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- about poketrademon -->
+    <section>
+      <div class="light-bg grid grid-cols-2 five-percent pt-18 about-poketrademon">
+        <div>
+          <h3 class="pb-6 text-center">Trade Pokémon cards!</h3>
+          <p class="text-center text-lg">Find your dream cards, trade, and battle with fellow Trainers!</p>
+          <p class="text-center text-lg">Poketrademon made trading quick and easy.</p>
+          
+          <div class="flex justify-center align-center pt-10">
+            <RouterLink to="/about"><button class="btn-1">Learn more</button></RouterLink>
+          </div>
+        </div>
+        <div>
+          <img src="../../public/images/pikachu-card.png" alt="">
         </div>
       </div>
     </section>
@@ -257,6 +276,12 @@
     z-index: 10;
     color: var(--light-text);
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+
+  // about
+  .about-poketrademon h3 {
+    font-size: 30px;
   }
 
 
