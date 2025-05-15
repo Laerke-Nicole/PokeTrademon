@@ -36,3 +36,19 @@ test('Fetch collections', async () => {
   await fetchCollection();
   expect(collection.value).toEqual(mockCollection);
 });
+
+
+
+// test fetching collection with an error
+test('Fetch collection error', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 404,
+      statusText: 'Not Found',
+      json: async () => ({ collection: [] })
+    })
+
+    const { fetchCollection, error } = useCollection()
+    const result = await fetchCollection()
+    expect(result).toBeUndefined()
+})

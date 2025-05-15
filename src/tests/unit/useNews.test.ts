@@ -1,5 +1,6 @@
 import { test , expect, vi } from 'vitest' // import vi when making more advanced tests
 import { useNews } from '../../modules/useNews'
+import { nextTick } from 'vue';
 
 
 const mockNews = [{
@@ -13,6 +14,7 @@ const mockNews = [{
     isHidden: false,
 }]
 
+// test fetching news
 test('Fetch news', async () => {
     global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -24,6 +26,8 @@ test('Fetch news', async () => {
     expect(result).toEqual(mockNews)
 })
 
+
+// test fetching news with an error
 test('Fetch news error', async () => {
     global.fetch = vi.fn().mockResolvedValue({
         ok: false,
@@ -36,3 +40,4 @@ test('Fetch news error', async () => {
     const result = await fetchNewsById('bad-id')
     expect(result).toBeNull()
 })
+

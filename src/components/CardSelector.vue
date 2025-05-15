@@ -40,6 +40,7 @@
           class="p-2 border rounded white-bg round-corner dark-text"
           v-model="searchQuery"
           @input="fetchFilteredCards"
+          data-testid="search-input"
         />
   
         <select
@@ -91,7 +92,7 @@
               </span>
   
               <div class="mt-2 flex justify-between items-center">
-                <button class="btn-1" @click="handleCardClick(card)">
+                <button class="btn-1" @click="handleCardClick(card)" data-testid="select-card-button">
                   {{ mode === 'select' ? 'Select Card' : 'See Card' }}
                 </button>
               </div>

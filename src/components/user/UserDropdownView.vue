@@ -45,7 +45,7 @@ import { useUsers } from '../../modules/auth/userModels';
 import { state } from '../../modules/globalStates/state';
 
 // fetch needed stuff from users
-const { username, logout } = useUsers();
+const { user, logout } = useUsers();
 </script>
 
 <style scoped>

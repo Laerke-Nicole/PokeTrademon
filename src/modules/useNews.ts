@@ -121,6 +121,8 @@ export const useNews = () => {
     } catch (err) {
       error.value = (err as Error).message;
       return null;
+    } finally {
+      loading.value = false; 
     }
   };
 
