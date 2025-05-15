@@ -6,7 +6,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4">
-      <h1 class="text-3xl font-bold text-center text-gray-800 mb-10">My Trade Offers</h1>
+      <h1 class="text-3xl font-bold text-center text-gray-800 mb-10" data-testid="my-trade-offers">My Trade Offers</h1>
 
       <!-- Tabs -->
       <div class="flex justify-center mb-6 space-x-4 items-center">
@@ -70,7 +70,7 @@
           <!-- Mode Toggle -->
           <div class="mb-4 flex gap-4 items-center">
             <label class="flex items-center gap-2">
-              <input type="radio" value="direct" v-model="tradeMode" /> Direct
+              <input type="radio" value="direct" v-model="tradeMode" data-testid="direct-toggle"/> Direct
             </label>
             <label class="flex items-center gap-2">
               <input type="radio" value="open" v-model="tradeMode" /> Open
@@ -80,7 +80,7 @@
           <!-- Username -->
           <div v-if="tradeMode === 'direct'">
             <label class="block text-sm font-medium text-gray-700 mb-1">Receiver Username:</label>
-            <input v-model="username" placeholder="Receiver Username" class="rounded p-2 border w-full" />
+            <input v-model="username" placeholder="Receiver Username" class="rounded p-2 border w-full" data-testid="receiver-username"/>
             <p v-if="userExists === true" class="text-green-600 text-sm mt-1">✅ User exists</p>
             <p v-else-if="userExists === false" class="text-red-600 text-sm mt-1">❌ User not found</p>
           </div>
@@ -89,14 +89,14 @@
           <div class="mt-6">
             <label class="block text-sm font-medium text-gray-700 mb-1">Select Your Cards:</label>
             <div class="flex items-center gap-3 mb-2">
-              <select v-model="selectedCardId" class="border rounded p-1">
+              <select v-model="selectedCardId" class="border rounded p-1" data-testid="user-card-dropdown">
                 <option disabled value="">-- Choose a card --</option>
                 <option v-for="card in userCollection" :key="card.cardId" :value="card.cardId" :disabled="card.quantity === 0">
                   {{ card.cardId }} (You have: {{ card.quantity }})
                 </option>
               </select>
               <input type="number" v-model.number="selectedQuantity" :min="1" :max="getCardMax(selectedCardId)" class="w-20 p-1 border rounded" :disabled="!selectedCardId" />
-              <button @click="addCardToSelection" class="bg-green-600 text-white px-3 py-1 rounded disabled:opacity-50" :disabled="!selectedCardId || selectedQuantity < 1">Add</button>
+              <button @click="addCardToSelection" class="bg-green-600 text-white px-3 py-1 rounded disabled:opacity-50" :disabled="!selectedCardId || selectedQuantity < 1" data-testid="user-card-add">Add</button>
             </div>
             <ul class="text-sm text-gray-800 ml-1">
               <li v-for="(qty, id) in selectedSender" :key="id" class="flex justify-between items-center w-60">
@@ -120,7 +120,7 @@
   
           <!-- Submit -->
           <div class="mt-6 text-center">
-            <button @click="submitTrade" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            <button @click="submitTrade" data-testid="submit-trade" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="(tradeMode === 'direct' && (!userExists || !username)) || getSelectedSenderCards().length === 0 || getSelectedReceiverCards().length === 0">
               {{ tradeMode === 'direct' ? 'Send Trade Offer' : 'Create Open Offer' }}
             </button>
