@@ -13,6 +13,7 @@ const mockNews = [{
     isHidden: false,
 }]
 
+// test fetching news
 test('Fetch news', async () => {
     global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -24,6 +25,8 @@ test('Fetch news', async () => {
     expect(result).toEqual(mockNews)
 })
 
+
+// test fetching news with an error
 test('Fetch news error', async () => {
     global.fetch = vi.fn().mockResolvedValue({
         ok: false,
@@ -35,4 +38,23 @@ test('Fetch news error', async () => {
     const { fetchNewsById } = useNews()
     const result = await fetchNewsById('bad-id')
     expect(result).toBeNull()
+})
+
+
+// test if loading is working during the fetch
+test('Test loading during the fetch', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => mockNews
+    })
+
+    const { fetchNewsById, loading } = useNews()
+    
+    const fetchPromise = fetchNewsById('1')
+    // check if loading is true before the fetch
+    expect(loading.value).toBe(true)
+
+    await fetchPromise
+    // check if loading is false after the fetch
+    expect(loading.value).toBe(false)
 })
