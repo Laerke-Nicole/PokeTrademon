@@ -47,7 +47,6 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
 import { useNews } from '../../modules/useNews';
 import type { News } from '../../interfaces/news';
 
