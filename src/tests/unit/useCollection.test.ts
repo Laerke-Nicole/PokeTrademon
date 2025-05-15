@@ -36,3 +36,38 @@ test('Fetch collections', async () => {
   await fetchCollection();
   expect(collection.value).toEqual(mockCollection);
 });
+
+
+
+// test fetching collection with an error
+test('Fetch collection error', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        json: async () => ({})
+    })
+
+    const { fetchCollection } = useCollection()
+    const result = await fetchCollection()
+    expect(result).toBeNull()
+})
+
+
+// test if loading is working during the fetch
+test('Test loading during the fetch', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => mockCollection
+    })
+
+    const { fetchCollection, loading } = useCollection()
+    
+    const fetchPromise = fetchCollection()
+    // check if loading is true before the fetch
+    expect(loading.value).toBe(true)
+
+    await fetchPromise
+    // check if loading is false after the fetch
+    expect(loading.value).toBe(false)
+})
