@@ -157,8 +157,7 @@
 
   // only display 15 random cards
   const limitedCards = computed(() => {
-    if (!cards.value) return [];
-    return [...cards.value].sort(() => Math.random() - 0.5).slice(0, 15);
+    return cards.value || [];
   });
 
 
