@@ -107,7 +107,7 @@
         <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
         <div v-else class="grid grid-cols-3 gap-4" v-motion-fade-slide>
-          <div v-for="(news, index) in news" :key="news._id" 
+          <div v-for="(newsItem, index) in news.filter(n => !n.isHidden)" :key="newsItem._id" 
             :class="[
               'w-full',
               // left column with extra padding top ONLY on the first row
@@ -119,12 +119,12 @@
               index < 3 && index % 3 === 2 ? 'pt-6' : ''
             ]">
             <!-- btn linking to news detail page -->
-            <RouterLink :to="`/news/${news._id}`" class="block no-underline">
+            <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
               <div class="round-corner light-bg hover:shadow-lg transition-shadow duration-300">
-                <img :src="news.imageURL" class="round-corner-top w-full object-cover" />
+                <img :src="newsItem.imageURL" class="round-corner-top w-full object-cover" />
                 <div class="p-4">
-                  <h4 class="dark-headline">{{ news.title.trim() }}</h4>
-                  <p class="dark-text">{{ news.subTitle.trim() }}</p>
+                  <h4 class="dark-headline">{{ newsItem.title.trim() }}</h4>
+                  <p class="dark-text">{{ newsItem.subTitle.trim() }}</p>
                 </div>
               </div>
             </RouterLink>
