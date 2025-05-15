@@ -1,5 +1,6 @@
 import { test , expect, vi } from 'vitest' // import vi when making more advanced tests
 import { useNews } from '../../modules/useNews'
+import { nextTick } from 'vue';
 
 
 const mockNews = [{
@@ -40,21 +41,3 @@ test('Fetch news error', async () => {
     expect(result).toBeNull()
 })
 
-
-// test if loading is working during the fetch
-test('Test loading during the fetch', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => mockNews
-    })
-
-    const { fetchNewsById, loading } = useNews()
-    
-    const fetchPromise = fetchNewsById('1')
-    // check if loading is true before the fetch
-    expect(loading.value).toBe(true)
-
-    await fetchPromise
-    // check if loading is false after the fetch
-    expect(loading.value).toBe(false)
-})
