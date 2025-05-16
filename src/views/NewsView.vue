@@ -1,16 +1,27 @@
 <template>
-  <section class="five-percent dark-bg pt-18">
-    <div class="flex flex-col justify-center align-center pb-8" v-motion-fade-slide>
-      <h2 class="dark-headline text-center">PokeTrademon trading<br/>card news</h2>
-    </div>
+  <section class="dark-bg">
+    <article class="news-hero-container five-percent pt-8 grid grid-cols-3 justify-center align-center extra-dark-bg">
+        <div v-motion-fade-slide>
+            <img src="../../public/images/cards-left.png" alt="pokemon cards" class="w-10/12"/>
+        </div>
 
-    <!-- <div>
+        <div class="flex flex-col justify-center items-center" v-motion-fade-slide>
+            <h1 class="dark-headline text-center">PokeTrademon<br/>card news</h1>
+        </div>
+
+        <div v-motion-fade-slide>
+            <img src="../../public/images/cards-right.png" alt="pokemon cards" class="w-10/12">
+        </div>
+    </article>
+
+
+    <article>
       <div v-if="loading" class="text-center">Loading...</div>
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-4" v-motion-fade-slide>
         <div v-for="newsItem in news" :key="newsItem._id">
-          btn linking to news detail page 
+          <!-- btn linking to news detail page  -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
             <div class="round-corner light-bg hover:shadow-lg transition-shadow duration-300">
               <img :src="newsItem.imageURL" class="round-corner-top w-full object-cover" />
@@ -22,7 +33,7 @@
           </RouterLink>
         </div>
       </div>
-    </div> -->
+    </article>
   </section>
 </template>
 
@@ -40,6 +51,31 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* hero */
+.news-hero-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    z-index: 0;
+    overflow: hidden; 
+    background-color: var(--primary-color-dark);  
+}
+
+.news-hero-container::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; 
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: var(--primary-color);
+  border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+  z-index: -1;
+}
+
+
+/* column of news */
 .row-news {
   display: flex;
   flex-wrap: wrap;
