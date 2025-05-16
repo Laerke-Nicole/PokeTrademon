@@ -1,36 +1,9 @@
 <template>
   <HeroSection />
-
-
-  <!-- carousel -->
-  <section class="py-18 five-percent">
-    <div class="flex flex-col justify-center align-center pb-8" v-motion-fade-slide>
-      <h2 class="text-center dark-headline">Selected trader cards</h2>
-      <p class="text-center dark-text">A few of the many Pokemon cards you can collect</p>
-    </div>
-
-    <div v-if="loading" class="text-center">Loading...</div>
-      <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
-
-      <div v-else v-motion-fade-slide>
-        <div class="swiper" v-motion-fade-slide>
-          <div class="swiper-wrapper">
-            <div v-for="card in limitedCards" :key="card.id" class="swiper-slide" >
-              <img :src="card.images.small" alt="Pokemon card" />
-            </div>
-          </div>
-
-          <!-- arrows to scroll -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-
-      </div>
-
-    <div class="flex justify-center align-center pt-12">
-      <RouterLink to="/auth"><button class="btn-1" v-motion-fade-slide>Start your collection now</button></RouterLink>
-    </div>
-  </section>
+  <CardsCarousel />
+  <ExploreMarket />
+  <AboutPoketrademon />
+  <NewsSection />
 
 
   <!-- explore market -->
@@ -113,16 +86,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { onMounted, computed } from 'vue';
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 // import swiper carousel
 import { watch } from 'vue';
 import { nextTick } from 'vue';
 import { useSwiper } from '../components/swiperCarousel/SwiperCarousel';
-import PikachuModel from '../components/threejs/PikachuModel.vue'
 import { useCards } from '../modules/useCards'
 import { useNews } from '../modules/useNews'
+
+// import components
 import HeroSection from '../components/homeView/HeroSection.vue'
+import CardsCarousel from '../components/homeView/CardsCarousel.vue'
+import ExploreMarket from '../components/homeView/ExploreMarket.vue'
+import AboutPoketrademon from '../components/homeView/AboutPoketrademon.vue'
+import NewsSection from '../components/homeView/NewsSection.vue'
 
 
 // cards fetching
