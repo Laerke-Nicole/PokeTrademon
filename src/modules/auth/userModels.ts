@@ -109,3 +109,7 @@ export const useUsers = () => {
     logout,
   };
 };
+
+export const getAuthToken = (): string => {
+  return localStorage.getItem('isToken') || '';
+};

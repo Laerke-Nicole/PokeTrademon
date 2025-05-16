@@ -38,10 +38,11 @@
             </div>
           </div>
 
-          <div class="flex relative">
-            <i class="fa-regular fa-bell text-lg"></i>
-            <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-2 h-2"></span>
-          </div>
+          <div class="notification-icon relative">
+  <NotificationDropdown />
+</div>
+
+
         </div>
       </div>
     </nav>
@@ -80,19 +81,26 @@
       <p class="dark-text">Copyright PokeTrademon 2025</p>
     </div>
   </footer>
+  <Toast ref="toastRef" />
+
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useUsers } from './modules/auth/userModels'
-import UserDropdown from '../src/components/user/UserDropdownView.vue'
+import { ref, onMounted } from 'vue'
 import { state } from './modules/globalStates/state'
-
-// check login state
-// Removed unused isLoggedIn variable
+import UserDropdown from './components/user/UserDropdownView.vue'
+import NotificationDropdown from './components/shared/NotificationDropdown.vue'
+import Toast from './components/shared/ToastView.vue'
+import { setToastRef } from './modules/globalStates/notifications'
 
 const isHovered = ref(false)
+const toastRef = ref()
+
+onMounted(() => {
+  setToastRef(toastRef.value)
+})
 </script>
+
 
 <style scoped>
 header {
