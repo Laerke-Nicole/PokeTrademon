@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import PikachuModel from '../threejs/PikachuModel.vue'
+import PikachuModel from '../threejs/pikachumodel/PikachuModel.vue'
 </script>
 
 <style scoped>
