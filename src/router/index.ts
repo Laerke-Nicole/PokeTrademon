@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useUsers } from '../modules/auth/userModels';
+import { state } from '../modules/globalStates/state';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +15,7 @@ const router = createRouter({
       path: '/market',
       name: 'market',
       component: () => import('../views/MarketView.vue'),
+      meta: { requiresAuth: true, requiresUser: true }
     },
     {
       path: '/contact',
@@ -25,14 +28,21 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/news',
+      name: 'news',
+      component: () => import('../views/NewsView.vue'),
+    },
+    {
       path: '/auth',
       name: 'auth',
       component: () => import('../views/admin/AuthView.vue'),
+      meta: { noneLoggedInUser: true }
     },
     {
       path: '/register',
       name: 'register',
       component: () => import('../views/admin/RegisterView.vue'),
+      meta: { noneLoggedInUser: true }
     },
     {
       path: '/admin',
@@ -44,11 +54,13 @@ const router = createRouter({
       path: '/collection',
       name: 'collection',
       component: () => import('../views/CollectionView.vue'),
+      meta: { requiresAuth: true, requiresUser: true }
     },
     {
       path: '/trades',
       name: 'trade',
       component: () => import('../views/TradeView.vue'),
+      meta: { requiresAuth: true, requiresUser: true }
     },
     {
       path: '/news/:id',
@@ -65,23 +77,47 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('isToken');
-  const userRole = localStorage.getItem('userRole');
+// navigation guard for routes where authentication is required
+router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
+  const requiresUser = to.matched.some(record => record.meta.requiresUser);
+  const noneLoggedInUser = to.matched.some(record => record.meta.noneLoggedInUser);
 
-  // user isnt logged in and try to access a page that requires auth
-  if (requiresAuth && !isAuthenticated) {
+  const { loadUser, user } = useUsers();
+
+  // if not logged in go to log in page
+  if (requiresAuth && !state.isLoggedIn) {
     next('/auth');
-  
-  // user cannot access admin page if their userRole isnt admin
-  } else if (requiresAdmin && userRole !== 'admin') {
-    next('/'); 
-  
-  } else {
-    next();
+    return;
   }
+
+  // wait for user to be loaded
+  if (!user.value) {
+    await loadUser();
+  }
+
+  const userRole = user.value?.userRole;
+
+  // if user doesnt have admin as userrole go to home page
+  if (requiresAdmin && userRole !== 'admin') {
+    next('/');
+    return;
+  }
+
+  // if user doesnt have user as userrole go to home page
+  if (requiresUser && userRole !== 'user') {
+    next('/');
+    return;
+  }
+
+  // if user is logged in and tries to go to login page or register page
+  if (noneLoggedInUser && state.isLoggedIn) {
+    next('/');
+    return;
+  }
+
+  next();
 });
 
 export default router

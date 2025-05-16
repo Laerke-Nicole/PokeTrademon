@@ -3,6 +3,7 @@ export type User = {
     username: string,
     email: string,
     password: string,
+    userRole: string,
     collection: string[],
     trades: string[],
     registerDate: string

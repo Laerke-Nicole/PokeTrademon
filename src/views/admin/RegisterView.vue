@@ -8,7 +8,7 @@
                 <input type="text" class="flex light-bg p-2 round-corner dark-text" placeholder="Email"  v-model="email"/> 
                 <input type="password" class="flex light-bg p-2 round-corner dark-text" placeholder="Password"  v-model="password"/>
 
-                <button class="btn-1" @click="registerUser(username, email, password)">Register</button>
+                <button class="btn-1" @click="handleRegister">Register</button>
 
                 <!-- router to register page -->
                 <p class="dark-text text-sm pt-2">Already have an account? <RouterLink to="/auth"><span class="log-in underline">Log in now</span></RouterLink></p>
@@ -26,17 +26,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
-import { state } from '../../modules/globalStates/state';
 
-const router = useRouter();
-
-// redirect to homepage if user is logged in and try to access register page
-if (state.isLoggedIn) {
-  router.push('/');
-}
 
 // start at the top of the page
 onMounted(() => {

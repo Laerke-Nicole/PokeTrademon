@@ -1,35 +1,26 @@
 <template>
-    
 
-
+  <AboutUs />
+  <MisionVision />
+  <Values />
     
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 
+// import components
+import AboutUs from '../components/aboutView/AboutUs.vue';
+import MisionVision from '../components/aboutView/MissionVision.vue';
+import Values from '../components/aboutView/Values.vue';
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style scoped>
-.about-container {
-    height: 95vh;
-}
 
-
-/* image grid */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 20px;
-}
-
-/* Create two equal columns that sits next to each other */
-.column {
-  flex: 33.33%;
-  padding: 0 10px;
-}
-
-.column img {
-  margin-top: 20px;
-  vertical-align: middle;
-}
 </style>

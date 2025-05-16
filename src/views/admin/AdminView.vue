@@ -1,5 +1,5 @@
 <template>
-    <div v-if="state.userRole === 'admin'" class="five-percent dark-bg pt-30">
+    <div v-if="state.isLoggedIn && isAdmin" class="five-percent dark-bg pt-30">
       <div>
         <h1>Admin View</h1>
         <div class="text-center" v-if="loading">Loading...</div>                            
@@ -28,25 +28,23 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
 import { state } from '../../modules/globalStates/state';
+import { useUsers } from '../../modules/auth/userModels';
 import { useNews } from '../../modules/useNews';
 import AddNews from '../../components/admin/AddNews.vue';
 import UpdateNews from '../../components/admin/UpdateNews.vue';
 
-const router = useRouter();
 
-// redirect to homepage if user is not admin
-if (state.userRole !== 'admin') {
-  router.push('/auth');
-}
+const { user, loadUser } = useUsers();
 
-// start at the top of the page
-onMounted(() => {
-  scrollToTop(); 
-});
+onMounted(async () => {
+  await loadUser(); 
+})
+
+// checking if userrole is admin
+const isAdmin = computed(() => user.value?.userRole === 'admin')
 
 
 // news fetching
@@ -56,6 +54,11 @@ onMounted(() => {
   fetchNews();
 });
 
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style scoped>

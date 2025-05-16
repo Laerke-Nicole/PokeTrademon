@@ -13,26 +13,43 @@
           </div>
         </RouterLink>
   
-        <div v-if="state.isLoggedIn && user">
-          <li v-if="user.username" class="w-full px-4 py-2 underline cursor-pointer">Welcome back {{ user.username }}!</li>
-          <li v-else class="w-full px-4 py-2 italic text-gray-500">Loading user info...</li>
+        <div v-if="state.isLoggedIn">
+          <li v-if="user" class="w-full px-4 py-2">Welcome back <span class="user-name">{{ user.username }}!</span></li>
+          <li v-else class="w-full px-4 py-2 italic text-gray-500">Loading user name...</li>
+          <hr class="user-hr">
         </div>
+
         <RouterLink to="/profile/edit">
-  <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit Profile</li>
-</RouterLink>
+          <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit Profile</li>
+        </RouterLink>
 
-
-        <RouterLink to="/collection">
-          <div v-if="state.isLoggedIn">
-            <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
+        <div>  
+          <div v-if="state.isLoggedIn && isUser">
+            <RouterLink to="/collection">
+              <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
+            </RouterLink>
           </div>  
-        </RouterLink>
+          <li v-else-if="state.isLoggedIn && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading your collection...</li>
+        </div>
 
-        <RouterLink to="/trades">
-          <div v-if="state.isLoggedIn">
-            <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
+        <div>
+          <div v-if="state.isLoggedIn && isUser">
+            <RouterLink to="/trades">
+              <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
+            </RouterLink>
           </div>
-        </RouterLink>
+          <li v-else-if="state.isLoggedIn && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading trades page...</li>
+        </div>
+
+        <div>
+          <div v-if="state.isLoggedIn && isAdmin">
+            <RouterLink to="/trades">
+              <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin page</li>
+            </RouterLink>
+          </div>
+          <li v-else-if="state.isLoggedIn && isAdmin === null" class="w-full px-4 py-2 italic text-gray-500">Loading admin page...</li>
+        </div>
+
         <hr class="my-2 border-gray-300" />
         <button v-if="state.isLoggedIn" @click="logout" class="hover:bg-gray-100 w-full text-left px-4 py-2 underline cursor-pointer">Log out</button>
       </ul>
@@ -44,11 +61,21 @@
   
 
 <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
 import { state } from '../../modules/globalStates/state';
 
 // fetch needed stuff from users
-const { user, logout } = useUsers();
+const { user, logout, loadUser } = useUsers();
+
+onMounted(async () => {
+  await loadUser(); 
+})
+
+// checking if user is admin or just user
+const isUser = computed(() => user.value?.userRole === 'user')
+const isAdmin = computed(() => user.value?.userRole === 'admin')
+
 </script>
 
 <style scoped>
@@ -59,6 +86,15 @@ const { user, logout } = useUsers();
 
 .dropdown ul {
   width: 100%;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-hr {
+  border: 1px solid #d7d7d7;
+  margin: 0.5rem 10px;
 }
 </style>
   

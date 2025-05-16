@@ -12,7 +12,7 @@
             <div class="swiper" v-motion-fade-slide>
             <div class="swiper-wrapper">
                 <div v-for="card in limitedCards" :key="card.id" class="swiper-slide" >
-                <img :src="card.images.small" alt="Pokemon card" />
+                  <img :src="card.images.small" alt="Pokemon card" />
                 </div>
             </div>
 
