@@ -69,6 +69,7 @@
     <div class="flex flex-col gap-2 footer-links">
       <RouterLink v-if="state.isLoggedIn" to="/market"><p class="dark-text">Market</p></RouterLink>
       <RouterLink to="/about"><p class="dark-text">About PokeTrademon</p></RouterLink>
+      <RouterLink to="/news"><p class="dark-text">News</p></RouterLink>  
       <RouterLink to="/contact"><p class="dark-text">Contact us</p></RouterLink>
       <p class="dark-text">Careers</p>
     </div>

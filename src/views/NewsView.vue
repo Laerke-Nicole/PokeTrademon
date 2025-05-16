@@ -16,7 +16,7 @@
 
 
     <article>
-      <div v-if="loading" class="text-center">Loading...</div>
+      <div v-if="loading" class="text-center">Loading news...</div>
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-4" v-motion-fade-slide>
