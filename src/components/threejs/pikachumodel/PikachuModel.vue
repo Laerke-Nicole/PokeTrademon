@@ -25,6 +25,7 @@ onMounted(() => {
   // component camera
   const camera = createCamera(container)
 
+  // renderer
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
   renderer.setSize(sceneContainer.value.clientWidth, sceneContainer.value.clientHeight)
   renderer.shadowMap.enabled = true
@@ -34,10 +35,11 @@ onMounted(() => {
   // component light
   createLights(scene)
 
-  // floor
+  // component floor
   createFloor(scene)
 
 
+  // load the model
   const loader = new GLTFLoader()
   let mixer: THREE.AnimationMixer
   let model: THREE.Object3D | null = null
@@ -55,13 +57,12 @@ onMounted(() => {
     model.position.set(0, -1, 0)
 
     mixer = new THREE.AnimationMixer(model)
-
     const idleClip = gltf.animations.find(clip => clip.name === 'Idle')
     if (idleClip) {
       const action = mixer.clipAction(idleClip)
       action.play()
     } else {
-      console.warn('Idle animation not found.')
+      throw new Error('Idle animation not found in the model')
     }
   })
 
