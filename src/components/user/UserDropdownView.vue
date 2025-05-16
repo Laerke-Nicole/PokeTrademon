@@ -24,17 +24,24 @@
         </RouterLink>
 
 
-        <RouterLink to="/collection">
-          <div v-if="state.isLoggedIn">
+        <div v-if="state.isLoggedIn && isUser">
+          <RouterLink to="/collection">
             <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
-          </div>  
-        </RouterLink>
+          </RouterLink>
+        </div>  
 
-        <RouterLink to="/trades">
-          <div v-if="state.isLoggedIn">
+        <div v-if="state.isLoggedIn && isUser">
+          <RouterLink to="/trades">
             <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
-          </div>
-        </RouterLink>
+          </RouterLink>
+        </div>
+
+        <div v-if="state.isLoggedIn && isAdmin">
+          <RouterLink to="/trades">
+            <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin page</li>
+          </RouterLink>
+        </div>
+
         <hr class="my-2 border-gray-300" />
         <button v-if="state.isLoggedIn" @click="logout" class="hover:bg-gray-100 w-full text-left px-4 py-2 underline cursor-pointer">Log out</button>
       </ul>
@@ -46,7 +53,7 @@
   
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
 import { state } from '../../modules/globalStates/state';
 
@@ -56,6 +63,11 @@ const { user, logout, loadUser } = useUsers();
 onMounted(async () => {
   await loadUser(); 
 })
+
+// checking if user is admin or just user
+const isUser = computed(() => user.value?.userRole === 'user')
+const isAdmin = computed(() => user.value?.userRole === 'admin')
+
 </script>
 
 <style scoped>

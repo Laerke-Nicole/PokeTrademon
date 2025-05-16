@@ -67,7 +67,7 @@
     </div>
 
     <div class="flex flex-col gap-2 footer-links">
-      <RouterLink v-if="state.isLoggedIn" to="/market"><p class="dark-text">Market</p></RouterLink>
+      <RouterLink v-if="state.isLoggedIn && isUser" to="/market"><p class="dark-text">Market</p></RouterLink>
       <RouterLink to="/about"><p class="dark-text">About PokeTrademon</p></RouterLink>
       <RouterLink to="/news"><p class="dark-text">News</p></RouterLink>  
       <RouterLink to="/contact"><p class="dark-text">Contact us</p></RouterLink>
@@ -109,12 +109,8 @@ onMounted(async () => {
 })
 
 // checking if user is admin or just user
-const isUser = computed(() => user.value?.username === 'Lærke')
+const isUser = computed(() => user.value?.userRole === 'user')
 const isAdmin = computed(() => user.value?.userRole === 'admin')
-console.log('user:', user.value)
-console.log('isUser:', isUser.value)
-console.log('isAdmin:', isAdmin.value)
-
 
 </script>
 
