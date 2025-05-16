@@ -1,9 +1,9 @@
 <template>
     <div class="min-h-screen bg-gradient-to-b from-slate-100 to-blue-100 pt-32 pb-10">
-    <!-- Toast -->
-    <div v-if="toast.visible" :class="['fixed top-20 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded shadow-lg text-white z-50', toast.type === 'success' ? 'bg-green-600' : 'bg-red-600']">
-      {{ toast.message }}
-    </div>
+     
+      
+      <ToastView ref="toastRef" />
+
 
     <div class="max-w-7xl mx-auto px-4">
       <h1 class="text-3xl font-bold text-center text-gray-800 mb-10" data-testid="my-trade-offers">My Trade Offers</h1>
@@ -152,7 +152,15 @@
  import { useUsers } from '../modules/auth/userModels';
  import { createTradeOffer, fetchTradesForUser, acceptTradeOffer } from '../modules/tradeApi';
  import { getUserCollection } from '../modules/collectionApi';
- 
+ import ToastView from '../components/shared/ToastView.vue'
+
+const toastRef = ref()
+
+const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
+  toastRef.value?.showToast(msg, type)
+}
+
+
  const tabs = ['incoming', 'outgoing', 'completed'] as const;
  type TabType = (typeof tabs)[number];
  const activeTab = ref<TabType>('incoming');
@@ -176,11 +184,6 @@ const outgoing = computed(() =>
 );
  const cardList = (cards: TradeCard[]) => cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
  
- const toast = ref({ message: '', type: 'success' as 'success' | 'error', visible: false });
- const showToast = (message: string, type: 'success' | 'error' = 'success') => {
-   toast.value = { message, type, visible: true };
-   setTimeout(() => (toast.value.visible = false), 3000);
- };
  
  const username = ref('');
  const userExists = ref<null | boolean>(null);
