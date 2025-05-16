@@ -38,10 +38,11 @@
             </div>
           </div>
 
-          <div class="flex relative">
-            <i class="fa-regular fa-bell text-lg"></i>
-            <span class="absolute -top-1 -right-1 bg-red-500 rounded-full w-2 h-2"></span>
-          </div>
+          <div class="notification-icon relative">
+  <NotificationDropdown />
+</div>
+
+
         </div>
       </div>
     </nav>
@@ -80,16 +81,14 @@
       <p class="dark-text">Copyright PokeTrademon 2025</p>
     </div>
   </footer>
+  <Toast ref="toastRef" />
+
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import UserDropdown from '../src/components/user/UserDropdownView.vue'
-import { state } from './modules/globalStates/state'
-
-const isHovered = ref(false)
 
 </script>
+
 
 <style scoped>
 header {

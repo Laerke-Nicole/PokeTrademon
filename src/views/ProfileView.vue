@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import { useCollection } from '../modules/useCollection';
 import CollectionCard from '../components/CollectionCard.vue';

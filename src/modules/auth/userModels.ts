@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import type { User } from '../../interfaces/user';
 import { state } from '../globalStates/state';
 import { useRouter } from 'vue-router';
+import { getCurrentUser } from './userAPI'
 
 
 export const useUsers = () => {
@@ -96,6 +97,15 @@ export const useUsers = () => {
     router.push('/');
   };
 
+  const loadUser = async () => {
+    try {
+      const data = await getCurrentUser();
+      user.value = data;
+    } catch (err) {
+      console.error("❌ Failed to load user from API", err);
+    }
+  };
+
   return {
     token,
     isLoggedIn,
@@ -107,5 +117,10 @@ export const useUsers = () => {
     fetchToken,
     registerUser,
     logout,
+    loadUser,
   };
+};
+
+export const getAuthToken = (): string => {
+  return localStorage.getItem('isToken') || '';
 };

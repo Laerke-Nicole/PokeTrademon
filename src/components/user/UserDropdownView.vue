@@ -17,6 +17,10 @@
           <li v-if="user.username" class="w-full px-4 py-2 underline cursor-pointer">Welcome back {{ user.username }}!</li>
           <li v-else class="w-full px-4 py-2 italic text-gray-500">Loading user info...</li>
         </div>
+        <RouterLink to="/profile/edit">
+  <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit Profile</li>
+</RouterLink>
+
 
         <RouterLink to="/profile">
           <div v-if="state.isLoggedIn">
@@ -29,7 +33,7 @@
             <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
           </div>
         </RouterLink>
-  
+        <hr class="my-2 border-gray-300" />
         <button v-if="state.isLoggedIn" @click="logout" class="hover:bg-gray-100 w-full text-left px-4 py-2 underline cursor-pointer">Log out</button>
       </ul>
     </div>
