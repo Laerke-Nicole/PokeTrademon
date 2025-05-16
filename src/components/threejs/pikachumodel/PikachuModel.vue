@@ -9,6 +9,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 // components 
+import { createCamera } from './camera'
 import { createLights } from './light'
 import { createFloor } from './floor'
 
@@ -16,18 +17,13 @@ const sceneContainer = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
   if (!sceneContainer.value) return
+  const container = sceneContainer.value
 
   const scene = new THREE.Scene()
   const clock = new THREE.Clock()
 
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    sceneContainer.value.clientWidth / sceneContainer.value.clientHeight,
-    0.1,
-    1000
-  )
-  camera.position.set(0.02, 0.1, 0.9)
-  camera.rotation.x = -Math.PI / 7
+  // component camera
+  const camera = createCamera(container)
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
   renderer.setSize(sceneContainer.value.clientWidth, sceneContainer.value.clientHeight)
