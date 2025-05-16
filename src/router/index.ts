@@ -101,19 +101,19 @@ router.beforeEach(async (to, from, next) => {
 
   // if user doesnt have admin as userrole go to home page
   if (requiresAdmin && userRole !== 'admin') {
-    next('/');
+    next('/auth');
     return;
   }
 
   // if user doesnt have user as userrole go to home page
   if (requiresUser && userRole !== 'user') {
-    next('/');
+    next('/auth');
     return;
   }
 
   // if user is logged in and tries to go to login page or register page
   if (noneLoggedInUser && state.isLoggedIn) {
-    next('/');
+    next('/auth');
     return;
   }
 
