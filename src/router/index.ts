@@ -60,7 +60,7 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('isToken');
+  const isAuthenticated = localStorage.getItem('isToken');
   const userRole = localStorage.getItem('userRole');
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
