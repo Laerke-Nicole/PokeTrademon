@@ -38,11 +38,11 @@
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
-  import { useUsers } from '@/modules/auth/userModels';
+  import { useUsers } from '../modules/auth/userModels';
   import { updateUser, deleteUser } from '../modules/auth/userAPI';
   
   const router = useRouter();
-  const { user, logout } = useUsers();
+  const { user, logout, loadUser } = useUsers();
   
   const form = ref({
     username: '',
@@ -52,22 +52,40 @@
   
   const message = ref('');
   
-  onMounted(() => {
-    if (user.value) {
-      form.value.username = user.value.username;
-      form.value.email = user.value.email;
-    }
-  });
+  onMounted(async () => {
+  await loadUser(); // fetch from API and populate user.value
+
+  if (user.value) {
+    form.value.username = user.value.username;
+    form.value.email = user.value.email;
+  }
+});
+
   
-  const updateProfile = async () => {
-    try {
-      await updateUser(form.value);
-      message.value = 'Profile updated successfully!';
-    } catch (err) {
-      console.error(err);
-      message.value = 'Failed to update profile.';
+const updateProfile = async () => {
+  try {
+    const payload = {
+      username: form.value.username?.trim() || '',
+      email: form.value.email?.trim() || '',
+      password: form.value.password?.trim() || undefined,
+    };
+
+    if (!payload.username || !payload.email) {
+      message.value = 'Username and email are required';
+      return;
     }
-  };
+
+    await updateUser(payload);
+    message.value = '✅ Profile updated successfully!';
+    setTimeout(() => {
+      message.value = '';
+    }, 3000);
+  } catch (err) {
+    console.error(err);
+    message.value = 'Failed to update profile.';
+  }
+};
+
   
   const deleteAccount = async () => {
     const confirmed = confirm('Are you sure you want to delete your account? This cannot be undone.');

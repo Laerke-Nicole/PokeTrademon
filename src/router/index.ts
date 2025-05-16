@@ -53,7 +53,13 @@ const router = createRouter({
       path: '/news/:id',
       name: 'news-details',
       component: () => import('../views/NewsDetail.vue'),
-    },
+    },   
+    {
+      path: '/profile/edit',
+      name: 'ProfileEdit',
+      component: () => import('@/views/ProfileEditView.vue'),
+      meta: { requiresAuth: true },
+    },    
   ],
 })
 
