@@ -84,14 +84,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useUsers } from './modules/auth/userModels'
 import UserDropdown from '../src/components/user/UserDropdownView.vue'
 import { state } from './modules/globalStates/state'
 
-// check login state
-// Removed unused isLoggedIn variable
-
 const isHovered = ref(false)
+
 </script>
 
 <style scoped>

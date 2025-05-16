@@ -22,11 +22,23 @@
           <div>
             <p class="text-green-500 text-sm mt-2">Login successful</p>
 
-            <button class="btn-1 mt-2">
-              <RouterLink to="/profile">
-                Go to your profile
-              </RouterLink>
-            </button>
+            <div>
+              <div v-if="state.isLoggedIn">
+                <button class="btn-1 mt-2">
+                  <RouterLink to="/profile">
+                    Go to your profile
+                  </RouterLink>
+                </button>
+              </div>
+
+              <div v-if="state.userRole === 'admin'">
+                <button class="btn-1 mt-2">
+                  <RouterLink to="/admin">
+                    Go to admin page
+                  </RouterLink>
+                </button>
+              </div>
+            </div>
           </div>
           
           </p>

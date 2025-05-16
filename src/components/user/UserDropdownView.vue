@@ -24,7 +24,7 @@
           </div>  
         </RouterLink>
 
-        <RouterLink to="/profile">
+        <RouterLink to="/trades">
           <div v-if="state.isLoggedIn">
             <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
           </div>
@@ -40,7 +40,6 @@
   
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
 import { state } from '../../modules/globalStates/state';
 

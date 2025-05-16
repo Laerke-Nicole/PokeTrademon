@@ -38,6 +38,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/AdminView.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true }
     },
     {
       path: '/profile',
@@ -56,5 +57,25 @@ const router = createRouter({
     },
   ],
 })
+
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('isToken');
+  const userRole = localStorage.getItem('userRole');
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
+
+  // user isnt logged in and try to access a page that requires auth
+  if (requiresAuth && !isAuthenticated) {
+    next('/auth');
+  
+  // user cannot access admin page if their userRole isnt admin
+  } else if (requiresAdmin && userRole !== 'admin') {
+    next('/'); 
+  
+  } else {
+    next();
+  }
+});
 
 export default router
