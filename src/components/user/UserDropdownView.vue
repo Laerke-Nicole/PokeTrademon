@@ -23,23 +23,31 @@
           <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit Profile</li>
         </RouterLink>
 
-
-        <div v-if="state.isLoggedIn && isUser">
-          <RouterLink to="/collection">
-            <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
-          </RouterLink>
-        </div>  
-
-        <div v-if="state.isLoggedIn && isUser">
-          <RouterLink to="/trades">
-            <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
-          </RouterLink>
+        <div>  
+          <div v-if="state.isLoggedIn && isUser">
+            <RouterLink to="/collection">
+              <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
+            </RouterLink>
+          </div>  
+          <li v-else-if="state.isLoggedIn && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading your collection...</li>
         </div>
 
-        <div v-if="state.isLoggedIn && isAdmin">
-          <RouterLink to="/trades">
-            <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin page</li>
-          </RouterLink>
+        <div>
+          <div v-if="state.isLoggedIn && isUser">
+            <RouterLink to="/trades">
+              <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
+            </RouterLink>
+          </div>
+          <li v-else-if="state.isLoggedIn && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading trades page...</li>
+        </div>
+
+        <div>
+          <div v-if="state.isLoggedIn && isAdmin">
+            <RouterLink to="/trades">
+              <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin page</li>
+            </RouterLink>
+          </div>
+          <li v-else-if="state.isLoggedIn && isAdmin === null" class="w-full px-4 py-2 italic text-gray-500">Loading admin page...</li>
         </div>
 
         <hr class="my-2 border-gray-300" />
