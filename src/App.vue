@@ -19,9 +19,9 @@
             <RouterLink to="/about">About</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/market">Market</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/collection">My Collection</RouterLink>
-            <RouterLink v-if="state.isLoggedIn" to="/trades">Trade</RouterLink>
+            <RouterLink v-if="state.isLoggedIn && user.userRole === 'user'" to="/trades">Trade</RouterLink>
             <!-- only admins can accesss -->
-            <RouterLink v-if="state.userRole === 'admin'" to="/admin">Admin</RouterLink>
+            <RouterLink v-if="state.isLoggedIn && user.userRole === 'admin'" to="/admin">Admin</RouterLink>
           </div>
         </div>
 
@@ -93,12 +93,19 @@ import UserDropdown from './components/user/UserDropdownView.vue'
 import NotificationDropdown from './components/shared/NotificationDropdown.vue'
 import Toast from './components/shared/ToastView.vue'
 import { setToastRef } from './modules/globalStates/notifications'
+import { useUsers } from './modules/auth/userModels'
 
 const isHovered = ref(false)
 const toastRef = ref()
 
 onMounted(() => {
   setToastRef(toastRef.value)
+})
+
+const { user, loadUser } = useUsers();
+
+onMounted(async () => {
+  await loadUser(); 
 })
 
 </script>

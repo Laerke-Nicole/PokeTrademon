@@ -8,7 +8,7 @@
                 <input type="text" class="flex light-bg p-2 round-corner dark-text" placeholder="Email"  v-model="email"/> 
                 <input type="password" class="flex light-bg p-2 round-corner dark-text" placeholder="Password"  v-model="password"/>
 
-                <button class="btn-1" @click="registerUser(username, email, password)">Register</button>
+                <button class="btn-1" @click="handleRegister">Register</button>
 
                 <!-- router to register page -->
                 <p class="dark-text text-sm pt-2">Already have an account? <RouterLink to="/auth"><span class="log-in underline">Log in now</span></RouterLink></p>
