@@ -18,7 +18,7 @@
             <RouterLink to="/news">News</RouterLink>
             <RouterLink to="/about">About</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/market">Market</RouterLink>
-            <RouterLink v-if="state.isLoggedIn" to="/profile">My Collection</RouterLink>
+            <RouterLink v-if="state.isLoggedIn" to="/collection">My Collection</RouterLink>
             <RouterLink v-if="state.isLoggedIn" to="/trades">Trade</RouterLink>
             <!-- only admins can accesss -->
             <RouterLink v-if="state.userRole === 'admin'" to="/admin">Admin</RouterLink>
@@ -28,7 +28,7 @@
         <!-- icons -->
         <div class="flex space-x-8">
           <div class="user-icon relative flex space-x-1" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-            <RouterLink to="/profile">
+            <RouterLink to="/collection">
               <i class="fas fa-user text-lg cursor-pointer"></i>
             </RouterLink>
             <div v-if="isHovered" class="absolute top-full right-0 z-50">
