@@ -1,6 +1,6 @@
 <template>
     <div>
-        <<h2>News</h2>
+        <h2>News</h2>
         <div v-for="news in news" :key="news._id">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input type="text"  placeholder="Title" v-model="news.title"/>

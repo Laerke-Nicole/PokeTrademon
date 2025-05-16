@@ -25,7 +25,7 @@ export const useNews = () => {
   };
 
   const getTokenAndUserId = (): { token: string, userId: string } => {
-    const token = localStorage.getItem('lsToken');
+    const token = localStorage.getItem('isToken');
     const userId = localStorage.getItem('userIDToken');
 
     if (!token) {
