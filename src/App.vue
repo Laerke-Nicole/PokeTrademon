@@ -125,6 +125,10 @@ nav {
   width: 100%;
 }
 
+nav a:hover {
+  text-decoration: underline;
+}
+
 nav a.router-link-exact-active {
   text-decoration: underline;
   color: red;
