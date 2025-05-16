@@ -46,6 +46,7 @@ export const useCards = () => {
       const data = await res.json();
 
       cards.value = data.data || [];
+      
       totalCount.value = data.totalCount ?? 250;
     } catch (err) {
       console.error("❌ Error fetching Pokémon cards:", err);
