@@ -80,7 +80,6 @@ import PikachuModel from '../threejs/pikachumodel/PikachuModel.vue'
   height: 400px;
   position: relative;
   width: 30%;
-  cursor: pointer;
 }
 
 
