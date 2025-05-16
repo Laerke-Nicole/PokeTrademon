@@ -17,11 +17,11 @@
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/news">News</RouterLink>
             <RouterLink to="/about">About</RouterLink>
-            <RouterLink v-if="state.isLoggedIn" to="/market">Market</RouterLink>
-            <RouterLink v-if="state.isLoggedIn" to="/collection">My Collection</RouterLink>
-            <RouterLink v-if="state.isLoggedIn && user.userRole === 'user'" to="/trades">Trade</RouterLink>
+            <RouterLink v-if="state.isLoggedIn && isUser" to="/market">Market</RouterLink>
+            <RouterLink v-if="state.isLoggedIn && isUser" to="/collection">My Collection</RouterLink>
+            <RouterLink v-if="state.isLoggedIn && isUser" to="/trades">Trade</RouterLink>
             <!-- only admins can accesss -->
-            <RouterLink v-if="state.isLoggedIn && user.userRole === 'admin'" to="/admin">Admin</RouterLink>
+            <RouterLink v-if="state.isLoggedIn && isAdmin" to="/admin">Admin</RouterLink>
           </div>
         </div>
 
@@ -87,13 +87,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { state } from './modules/globalStates/state'
+import { useUsers } from './modules/auth/userModels'
 import UserDropdown from './components/user/UserDropdownView.vue'
 import NotificationDropdown from './components/shared/NotificationDropdown.vue'
 import Toast from './components/shared/ToastView.vue'
 import { setToastRef } from './modules/globalStates/notifications'
-import { useUsers } from './modules/auth/userModels'
 
 const isHovered = ref(false)
 const toastRef = ref()
@@ -107,6 +107,14 @@ const { user, loadUser } = useUsers();
 onMounted(async () => {
   await loadUser(); 
 })
+
+// checking if user is admin or just user
+const isUser = computed(() => user.value?.username === 'Lærke')
+const isAdmin = computed(() => user.value?.userRole === 'admin')
+console.log('user:', user.value)
+console.log('isUser:', isUser.value)
+console.log('isAdmin:', isAdmin.value)
+
 
 </script>
 
