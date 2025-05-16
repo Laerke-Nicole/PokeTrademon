@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 
 // start at the top of the page

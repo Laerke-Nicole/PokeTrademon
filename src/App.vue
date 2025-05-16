@@ -86,19 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { state } from './modules/globalStates/state'
-import UserDropdown from './components/user/UserDropdownView.vue'
-import NotificationDropdown from './components/shared/NotificationDropdown.vue'
-import Toast from './components/shared/ToastView.vue'
-import { setToastRef } from './modules/globalStates/notifications'
 
-const isHovered = ref(false)
-const toastRef = ref()
-
-onMounted(() => {
-  setToastRef(toastRef.value)
-})
 </script>
 
 
