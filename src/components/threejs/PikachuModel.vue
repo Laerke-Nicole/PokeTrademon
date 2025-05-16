@@ -8,6 +8,9 @@
   import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
   import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
+  // components 
+  import { createLights } from '../threejs/pikachumodel/light'
+
   const sceneContainer = ref<HTMLDivElement | null>(null)
 
   onMounted(() => {
@@ -31,22 +34,8 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     sceneContainer.value.appendChild(renderer.domElement)
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7)
-    scene.add(ambientLight)
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2)
-    directionalLight.position.set(5, 10, 5)
-    directionalLight.castShadow = true
-    directionalLight.shadow.mapSize.width = 2048
-    directionalLight.shadow.mapSize.height = 2048
-    directionalLight.shadow.camera.near = 1
-    directionalLight.shadow.camera.far = 20
-
-    // Soften shadow edges to make it look more natural
-    directionalLight.shadow.bias = -0.01
-    directionalLight.shadow.radius = 4
-
-    scene.add(directionalLight)
+    // component light
+    createLights(scene)
 
     const floorGeometry = new THREE.PlaneGeometry(10, 10)
     const floorMaterial = new THREE.ShadowMaterial({ opacity: 0.3 })

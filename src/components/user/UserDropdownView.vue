@@ -40,7 +40,6 @@
   
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
 import { state } from '../../modules/globalStates/state';
 
