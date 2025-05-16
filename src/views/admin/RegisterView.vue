@@ -26,17 +26,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
-import { state } from '../../modules/globalStates/state';
 
-const router = useRouter();
-
-// redirect to homepage if user is logged in and try to access register page
-if (state.isLoggedIn) {
-  router.push('/');
-}
 
 // start at the top of the page
 onMounted(() => {

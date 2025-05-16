@@ -48,17 +48,10 @@
   
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { state } from '../../modules/globalStates/state';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
 
-const router = useRouter();
-
-// redirect to homepage if user is logged in and try to access log in page
-if (state.isLoggedIn) {
-  router.push('/');
-}
 
 // start at the top of the page
 onMounted(() => {

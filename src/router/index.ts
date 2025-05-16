@@ -15,6 +15,7 @@ const router = createRouter({
       path: '/market',
       name: 'market',
       component: () => import('../views/MarketView.vue'),
+      meta: { requiresAuth: true, requiresUser: true }
     },
     {
       path: '/contact',
@@ -35,11 +36,13 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: () => import('../views/admin/AuthView.vue'),
+      meta: { noneLoggedInUser: true }
     },
     {
       path: '/register',
       name: 'register',
       component: () => import('../views/admin/RegisterView.vue'),
+      meta: { noneLoggedInUser: true }
     },
     {
       path: '/admin',
@@ -51,11 +54,13 @@ const router = createRouter({
       path: '/collection',
       name: 'collection',
       component: () => import('../views/CollectionView.vue'),
+      meta: { requiresAuth: true, requiresUser: true }
     },
     {
       path: '/trades',
       name: 'trade',
       component: () => import('../views/TradeView.vue'),
+      meta: { requiresAuth: true, requiresUser: true }
     },
     {
       path: '/news/:id',
@@ -76,6 +81,8 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
+  const requiresUser = to.matched.some(record => record.meta.requiresUser);
+  const noneLoggedInUser = to.matched.some(record => record.meta.noneLoggedInUser);
 
   const { loadUser, user } = useUsers();
 
@@ -92,9 +99,21 @@ router.beforeEach(async (to, from, next) => {
 
   const userRole = user.value?.userRole;
 
-  // if user doesnt have admin as userrole go to login page
+  // if user doesnt have admin as userrole go to home page
   if (requiresAdmin && userRole !== 'admin') {
-    next('/auth');
+    next('/');
+    return;
+  }
+
+  // if user doesnt have user as userrole go to home page
+  if (requiresUser && userRole !== 'user') {
+    next('/');
+    return;
+  }
+
+  // if user is logged in and tries to go to login page or register page
+  if (noneLoggedInUser && state.isLoggedIn) {
+    next('/');
     return;
   }
 
