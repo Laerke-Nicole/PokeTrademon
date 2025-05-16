@@ -1,38 +1,49 @@
 <template>
     <!-- add news -->
     <div>
-        <h2>Add News</h2>
+        <h2 class="pb-4">Add News</h2>
         <form @submit.prevent="addNewsHandler">                                                              
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" v-model="newNews.title" placeholder="Title" />
-            <input type="text" v-model="newNews.subTitle" placeholder="Sub title" /> 
+        <div class="flex flex-col gap-4">
 
-            <div>
-            <span>News text: </span>
-            <input type="text" v-model="newNews.text" placeholder="Text" />
+          <div class="flex flex-col gap-2">
+              <span>News title: </span>
+              <input type="text" v-model="newNews.title" placeholder="Title" class="white-bg round-corner p-1" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <span>News sub title: </span>
+              <input type="text" v-model="newNews.subTitle" placeholder="Sub title" class="white-bg round-corner p-1" /> 
+            </div>
+            
+            <div class="flex flex-col gap-2">
+              <span>News text: </span>
+              <input type="text" v-model="newNews.text" placeholder="Text" class="white-bg round-corner p-1" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <span>News image: </span>
+              <input type="text" v-model="newNews.imageURL" placeholder="Image URL" class="white-bg round-corner p-1" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <span>News date: </span>
+              <input type="text" v-model="newNews.date" placeholder="Date" class="white-bg round-corner p-1" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <span>News theme: </span>
+              <input type="text" v-model="newNews.theme" placeholder="Theme" class="white-bg round-corner p-1" />
             </div>
 
             <div>
-            <span>News image: </span>
-            <input type="text" v-model="newNews.imageURL" placeholder="Image URL" />
-            </div>
-
-            <div>
-            <span>News date: </span>
-            <input type="text" v-model="newNews.date" placeholder="Date" />
-            </div>
-
-            <div>
-            <span>News theme: </span>
-            <input type="text" v-model="newNews.theme" placeholder="Theme" />
-            </div>
-
-            <div>
-            <input type="checkbox" v-model="newNews.isHidden" /> <span class="uppercase font-bold">Hidden News</span> 
+              <input type="checkbox" v-model="newNews.isHidden" /> <span class="uppercase font-bold">Hidden News</span> 
             </div>
 
         </div>
-        <button type="submit" class="btn-1">Create news</button>
+
+        <div class="pt-4">
+          <button type="submit" class="btn-1">Create news</button>
+        </div>
         </form>
     </div>
 </template>
