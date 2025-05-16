@@ -7,7 +7,7 @@
           
           <div class="flex gap-4">
             <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore</button></RouterLink>
-            <RouterLink to="/profile"><button class="btn-3" v-motion-fade-slide>Your collection</button></RouterLink>  
+            <RouterLink to="/collection"><button class="btn-3" v-motion-fade-slide>Your collection</button></RouterLink>  
           </div>
         </div>
 

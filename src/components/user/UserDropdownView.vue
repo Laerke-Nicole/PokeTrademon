@@ -22,7 +22,7 @@
 </RouterLink>
 
 
-        <RouterLink to="/profile">
+        <RouterLink to="/collection">
           <div v-if="state.isLoggedIn">
             <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
           </div>  

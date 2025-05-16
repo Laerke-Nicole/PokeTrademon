@@ -1,6 +1,6 @@
 import { test, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import ProfileView from '../../views/ProfileView.vue';
+import CollectionView from '../../views/CollectionView.vue';
 import { ref } from 'vue'
 
 globalThis.scrollTo = vi.fn()
@@ -36,7 +36,7 @@ vi.mock('vue-router', () => ({
 
 
 test('Renders collection details', async () => {
-    const wrapper = mount(ProfileView)
+    const wrapper = mount(CollectionView)
 
     await new Promise(resolve => setTimeout(resolve, 0)); 
 

@@ -18,14 +18,14 @@
         <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
 
         <!-- after logging in -->
-        <p v-if="isLoggedIn">
+        <div v-if="isLoggedIn">
           <div>
             <p class="text-green-500 text-sm mt-2">Login successful</p>
 
             <div>
               <div v-if="state.isLoggedIn">
                 <button class="btn-1 mt-2">
-                  <RouterLink to="/profile">
+                  <RouterLink to="/collection">
                     Go to your profile
                   </RouterLink>
                 </button>
@@ -40,8 +40,7 @@
               </div>
             </div>
           </div>
-          
-          </p>
+        </div>
         </div>
     </div>
   </section>

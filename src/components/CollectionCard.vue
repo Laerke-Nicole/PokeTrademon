@@ -28,35 +28,37 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, watch } from 'vue';
-  
-  interface CollectionCardProps {
-    card: {
-      cardId: string;
-      quantity: number;
-      condition: string;
-      image: string;
-    };
-    onUpdate: (cardId: string, quantity: number, condition: string) => void;
-    onDelete: (cardId: string) => void;
-  }
-  
-  const props = defineProps<CollectionCardProps>();
-  
-  const localCard = ref({ ...props.card });
-  
-  watch(() => props.card, (newVal) => {
-    localCard.value = { ...newVal };
-  });
-  
-  const handleUpdate = () => {
-    props.onUpdate(localCard.value.cardId, localCard.value.quantity, localCard.value.condition);
-  };
-  
-  const handleDelete = () => {
-    props.onDelete(localCard.value.cardId);
-  };
-  </script>
+import { ref, watch, defineEmits } from 'vue';
+
+interface Card {
+  cardId: string;
+  quantity: number;
+  condition: string;
+  image: string;
+}
+
+const props = defineProps<{ card: Card }>();
+const emit = defineEmits<{
+  (e: 'update', cardId: string, quantity: number, condition: string): void;
+  (e: 'delete', cardId: string): void;
+}>();
+
+const localCard = ref({ ...props.card });
+
+watch(() => props.card, (newVal) => {
+  localCard.value = { ...newVal };
+});
+
+const handleUpdate = () => {
+  console.log('🔧 Updating card:', localCard.value);
+  emit('update', localCard.value.cardId, localCard.value.quantity, localCard.value.condition);
+};
+
+const handleDelete = () => {
+  emit('delete', localCard.value.cardId);
+};
+</script>
+
   
   <style scoped>
   /* optional: transition or hover effects */

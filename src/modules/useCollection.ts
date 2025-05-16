@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { getAuthToken } from './auth/userModels';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004';
 const COLLECTION_URL = `${BASE_URL}/collections`;
@@ -11,41 +12,47 @@ export interface CollectionItem {
   image: string;
 }
 
-const getUserId = (): string | null =>
-  localStorage.getItem('userIDToken')?.replace(/"/g, '') || null;
-
 export const useCollection = () => {
+// Removed unused values to silence ESLint
+// const { user, token } = useUsers();
+
   const collection = ref<CollectionItem[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
 
-  const fetchCollection = async () => {
-    const userId = getUserId();
-    if (!userId) {
-      console.warn('⛔ No user ID found. Are you logged in?');
+  const fetchCollection = async (userId: string) => {
+    const token = getAuthToken();
+    if (!userId || !token) {
+      console.warn('⛔ No user ID or token found. Are you logged in?');
       return;
     }
-
-    console.log('🔄 Fetching collection for user:', userId);
-    loading.value = true;
-
+  
     try {
-      const res = await fetch(`${COLLECTION_URL}/${userId}`);
+      loading.value = true;
+      const res = await fetch(`${COLLECTION_URL}/${userId}`, {
+        headers: {
+          'auth-token': token,
+        },
+      });
+  
+      if (!res.ok) throw new Error("Failed to fetch collection");
+  
       const data = await res.json();
-
+  
       const enrichedCollection = await Promise.all(
         data.collection.map(async (entry: { cardId: string; quantity: number; condition: string }) => {
-          const cardRes = await fetch(`${CARD_URL}/${entry.cardId}`);
-          const cardData = await cardRes.json();
-          const image = cardData.data?.images?.small || '';
-          return {
-            ...entry,
-            image,
-          };
+          try {
+            const cardRes = await fetch(`${CARD_URL}/${entry.cardId}`);
+            const cardData = await cardRes.json();
+            return { ...entry, image: cardData.data?.images?.small || '' };
+          } catch (err) {
+            console.warn(`⚠️ Failed to fetch card ${entry.cardId}`, err);
+            return { ...entry, image: '' };
+          }
         })
       );
-
-      collection.value = enrichedCollection;
+  
+      collection.value = enrichedCollection.filter(c => c.quantity > 0);
     } catch (err) {
       error.value = (err as Error).message || 'Failed to load collection';
       console.error('❌ Error fetching collection:', error.value);
@@ -53,61 +60,109 @@ export const useCollection = () => {
       loading.value = false;
     }
   };
+  
 
   const addCardToCollection = async (cardId: string) => {
-    const userId = getUserId();
-    if (!userId) {
+    const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '');
+    const authToken = localStorage.getItem('isToken');
+  
+    if (!userId || !authToken) {
       alert('Login required');
       return;
     }
-
-    console.log(`➕ Adding card "${cardId}" to collection for user: ${userId}`);
+  
     try {
       await fetch(COLLECTION_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': authToken,
+        },
         body: JSON.stringify({ userId, cardId }),
       });
-      await fetchCollection();
+  
+      await fetchCollection(userId);
     } catch (err) {
       error.value = (err as Error).message || 'Failed to add card';
       console.error('❌ Error adding card:', error.value);
     }
   };
+  
 
   const updateCardInCollection = async (cardId: string, quantity: number, condition: string) => {
-    const userId = getUserId();
-    if (!userId) return;
+    const token = getAuthToken();
+const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '');
 
-    console.log(`✏️ Updating card "${cardId}" for user ${userId} | Qty: ${quantity}, Cond: ${condition}`);
+if (!userId || !token) {
+  console.warn('⛔ Missing userId or token in updateCardInCollection');
+  return;
+}
+
+  
+    console.log("📡 Sending PATCH to backend for", cardId, { quantity, condition });
+  
     try {
-      await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
+      const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,
+        },
         body: JSON.stringify({ quantity, condition }),
       });
-      await fetchCollection();
-    } catch (err) {
-      error.value = (err as Error).message || 'Failed to update card';
-      console.error('❌ Error updating card:', error.value);
+  
+      const json = await res.json();
+      if (!res.ok) {
+        console.error("❌ PATCH failed:", json);
+        return;
+      }
+  
+      console.log("✅ PATCH success:", json);
+      await fetchCollection(userId);
+    } catch (error) {
+      console.error("❌ updateCardInCollection error:", error);
     }
   };
-
+  
+  
+  
+  
   const deleteCardFromCollection = async (cardId: string) => {
-    const userId = getUserId();
-    if (!userId) return;
-
-    console.log(`🗑️ Deleting card "${cardId}" from collection for user ${userId}`);
+    const token = getAuthToken();
+    const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '');
+    
+    if (!userId || !token) {
+      console.warn('⛔ Missing userId or token in deleteCardFromCollection');
+      return;
+    }
+    
+  
+    console.log("📡 Sending DELETE to backend for", cardId);
+  
     try {
-      await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
+      const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
         method: 'DELETE',
+        headers: {
+          'auth-token': token,
+        },
       });
-      await fetchCollection();
-    } catch (err) {
-      error.value = (err as Error).message || 'Failed to delete card';
-      console.error('❌ Error deleting card:', error.value);
+  
+      const json = await res.json();
+      if (!res.ok) {
+        console.error("❌ DELETE failed:", json);
+        return;
+      }
+  
+      console.log("✅ DELETE success:", json);
+      await fetchCollection(userId);
+    } catch (error) {
+      console.error("❌ deleteCardFromCollection error:", error);
     }
   };
+  
+  
+  
+  
 
   return {
     collection,

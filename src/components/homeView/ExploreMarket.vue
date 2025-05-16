@@ -11,7 +11,7 @@
             <p class="yellow-text" v-motion-fade-slide>Collect cards today</p>
             <h2 class="dark-headline pb-6" v-motion-fade-slide>More than 3000 cards to trade</h2>
             <p class="dark-text pb-10" v-motion-fade-slide>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet perferendis voluptatum ab! Sed odit quia doloremque sapiente dicta maxime, accusantium repellat, ullam dolorem mollitia explicabo, dolorum a molestiae laboriosam laudantium.</p>
-            <RouterLink to="/profile"><button class="btn-1" v-motion-fade-slide>Start trading</button></RouterLink>
+            <RouterLink to="/collection"><button class="btn-1" v-motion-fade-slide>Start trading</button></RouterLink>
         </div>
         </div>
     </section>
