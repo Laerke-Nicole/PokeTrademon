@@ -111,11 +111,13 @@
   
       <!-- 👁 Modal Preview (only in view mode) -->
       <CardModal
-        v-if="mode === 'view' && showModal && selectedCard"
-        :visible="showModal"
-        :card="selectedCard"
-        @close="showModal = false"
-      />
+  v-if="mode === 'view' && showModal && selectedCard"
+  :visible="showModal"
+  :card="selectedCard"
+  @close="showModal = false"
+  @add-to-collection="handleAddToCollection"
+/>
+
     </div>
 
   </template>
@@ -125,6 +127,15 @@
   import CardModal from './CardModal.vue';
   import { useCards } from '../modules/useCards';
   import type { PokemonCard } from '../interfaces/card';
+  import { useCollection } from '../modules/useCollection';
+const { addCardToCollection } = useCollection();
+
+const handleAddToCollection = async (cardId: string) => {
+  const uid = localStorage.getItem('userIDToken')?.replace(/"/g, '');
+  if (!uid) return alert('Login required');
+  await addCardToCollection(cardId);
+};
+
   
   const props = defineProps<{
     mode?: 'select' | 'view',
