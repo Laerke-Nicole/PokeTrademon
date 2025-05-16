@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useNews } from '../modules/useNews';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 
 
 // fetch the data from news
@@ -48,18 +49,23 @@ const { loading, error, news, fetchNews } = useNews();
 onMounted(() => {
   fetchNews();
 })
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style scoped>
 /* hero */
 .news-hero-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    z-index: 0;
-    overflow: hidden; 
-    background-color: var(--primary-color-dark);  
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  z-index: 0;
+  overflow: hidden; 
+  background-color: var(--primary-color-dark);  
 }
 
 .news-hero-container::after {

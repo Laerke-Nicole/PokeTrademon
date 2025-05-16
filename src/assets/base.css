@@ -177,3 +177,7 @@ p {
 .yellow-text {
   color: var(--tertiary-color);
 }
+
+.blue-text {
+  color: var(--primary-color);
+}
