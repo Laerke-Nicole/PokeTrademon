@@ -62,5 +62,42 @@ watch(loading, async (isLoading) => {
 </script>
 
 <style scoped>
+/* swiper */
+.swiper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
 
+.swiper-wrapper {
+  display: flex;
+}
+
+.swiper-slide {
+  position: relative;
+  width: auto;
+  border-radius: 3px;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+}
+
+.swiper-slide-active {
+  transform: scale(1.5);
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  user-select: none;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  z-index: 10;
+  color: var(--light-text);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
 </style>

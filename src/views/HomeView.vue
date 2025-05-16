@@ -121,46 +121,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-// swiper
-.swiper {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.swiper-wrapper {
-  display: flex;
-}
-
-.swiper-slide {
-  position: relative;
-  width: auto;
-  border-radius: 3px;
-  transition: transform 0.3s ease;
-  border-radius: 10px;
-}
-
-.swiper-slide-active {
-  transform: scale(1.5);
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  user-select: none;
-}
-
-.swiper-button-prev, .swiper-button-next {
-  z-index: 10;
-  color: var(--light-text);
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-
 // about
 .about-poketrademon h3 {
   font-size: 30px;
@@ -190,10 +150,6 @@ onMounted(() => {
 
 // responsive
 @media screen and (max-width: 800px) {
-  .explore-container {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
   .column-news {
     flex: 50%;
     max-width: 50%;

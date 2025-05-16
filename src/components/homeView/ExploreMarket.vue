@@ -22,5 +22,10 @@
 </script>
 
 <style scoped>
-
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .explore-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
 </style>
