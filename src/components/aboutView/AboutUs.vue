@@ -2,13 +2,13 @@
     <section v-if="aboutUs.length && aboutUs[0]" class="five-percent extra-dark-bg pt-30">
     <div class="grid grid-cols-2 light-bg round-corner">
       <div class="about-img-container">
-        <img :src="aboutUs[0].imageURL" alt="about us image" class="about-img" />
+        <img :src="aboutUs[0].imageURL.trim()" alt="about us image" class="about-img" />
       </div>
 
       <div class="flex flex-col justify-center align-center ten-percent">
-        <h2 class="pb-6 text-center" v-motion-fade-slide>{{ aboutUs[0].aboutUsTitle }}</h2>
+        <h2 class="pb-6 text-center" v-motion-fade-slide>{{ aboutUs[0].aboutUsTitle.trim() }}</h2>
         <div v-motion-fade-slide>
-          <p class="text-center">{{ aboutUs[0].aboutUsText }}</p>
+          <p class="text-center">{{ aboutUs[0].aboutUsText.trim() }}</p>
         </div>
       </div>
     </div>

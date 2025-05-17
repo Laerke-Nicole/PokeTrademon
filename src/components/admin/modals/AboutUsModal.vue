@@ -6,7 +6,7 @@
                 <!-- top section with title and close btn -->
                 <div class="flex justify-between items-center pb-6">
                     <div>
-                        <h2 class="">Edit AboutUs</h2>
+                        <h2>Edit AboutUs</h2>
                     </div>
 
                     <!-- cloe X btn -->

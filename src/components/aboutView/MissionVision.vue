@@ -8,13 +8,13 @@
       <div class="white-bg shadow-lg round-corner p-10">
         <img src="../../../public/images/alakazam.png" alt="Alakazam" class="pokemon-img-mission-vision">
         <h3 class="text-center pb-4 dark-headline">Our mission</h3>
-        <p class="text-center dark-text">{{ aboutUs[0].mission }}</p>
+        <p class="text-center dark-text">{{ aboutUs[0].mission.trim() }}</p>
       </div>
 
       <div class="white-bg shadow-lg round-corner p-10">
         <img src="../../../public/images/xatu.png" alt="Xatu" class="pokemon-img-mission-vision">
         <h3 class="text-center pb-4 dark-headline">Our vision</h3>
-        <p class="text-center dark-text">{{ aboutUs[0].vision }}</p>
+        <p class="text-center dark-text">{{ aboutUs[0].vision.trim() }}</p>
       </div>
     </div>
   </section>
