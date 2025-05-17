@@ -42,6 +42,9 @@
         </div>
 
         <div class="pt-4">
+          <div v-if="message" class="text-green-600 pb-4">
+            {{ message }}
+          </div>
           <button type="submit" class="btn-1">Create news</button>
         </div>
         </form>
@@ -74,24 +77,38 @@ const newNews = ref({
   userId: '',
 });
 
+const message = ref('');
 
 // handling adding new news
 const addNewsHandler = async () => {
   // import userId from the useNews
   const { userId } = getTokenAndUserId();
+
   // attach to new news
   newNews.value.userId = userId;
-  await addNews(newNews.value)
-  // reset the form
-  newNews.value = {
-    title: '',
-    subTitle: '',
-    text: '',
-    imageURL: '',
-    date: '',
-    theme: '',
-    isHidden: false,
-    userId: '',
+  try {
+    await addNews(newNews.value)
+    message.value = 'News added successfully';
+  
+    // reset the form
+    newNews.value = {
+      title: '',
+      subTitle: '',
+      text: '',
+      imageURL: '',
+      date: '',
+      theme: '',
+      isHidden: false,
+      userId: '',
+    }
+
+    // remove message after 5 seconds
+    setTimeout(() => {
+      message.value = '';
+    }, 5000);
+  } 
+  catch (error) {
+    throw new Error('Error adding news');
   }
 }
 </script>

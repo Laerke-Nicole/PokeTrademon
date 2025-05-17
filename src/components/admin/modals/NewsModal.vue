@@ -57,9 +57,15 @@
           
                     <!-- delete and update btns -->
                     <div class="pt-6 flex flex-col gap-2"> 
-                        <p>ID: {{ newsItem._id }} </p> 
-                        <button @click="updateNewsHandler(newsItem)" class="bg-green-600 light-headline p-2 round-corner hover:bg-green-700 cursor-pointer">Edit</button>
-                        <button @click="deleteNews(newsItem._id)" class="bg-red-600 light-headline p-2 round-corner hover:bg-red-700 cursor-pointer">Delete</button> 
+                      <!-- display success message -->
+                      <div v-if="message" class="text-green-600 pt-4 pb-4">
+                        {{ message }}
+                      </div>
+                      
+                      <p>ID: {{ newsItem._id }} </p> 
+                      <button @click="updateNewsHandler" class="bg-green-600 light-headline p-2 round-corner hover:bg-green-700 cursor-pointer">Edit</button>
+                      <button @click="deleteNews(newsItem._id)" class="bg-red-600 light-headline p-2 round-corner hover:bg-red-700 cursor-pointer">Delete</button> 
+                      
                     </div>
                 </div>
             </div>
@@ -101,19 +107,17 @@ onMounted(() => {
   fetchNews();
 });
 
+
+const message = ref('');
+
 // handling updating news
-const updateNewsHandler = async (news: News) => {
-  const updatedNews = {
-    title: news.title,
-    subTitle: news.subTitle,
-    text: news.text,
-    imageURL: news.imageURL,
-    date: news.date,
-    theme: news.theme,
-    isHidden: news.isHidden,
+const emit = defineEmits(['updateNews']);
+
+const updateNewsHandler = () => {
+  if (newsItem.value) {
+    emit('updateNews', newsItem.value);
   }
-  await updateNews(news._id, updatedNews)
-}
+};
 </script>
 
 <style scoped>

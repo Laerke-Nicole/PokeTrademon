@@ -45,20 +45,33 @@ const openModal = (newsItem: News) => {
   isNewsVisible.value = true;
 };
 
+const message = ref('');
+
 // handling updating news
 const updateNewsHandler = async (news: News) => {
-  const updatedNews = {
-    title: news.title,
-    subTitle: news.subTitle,
-    text: news.text,
-    imageURL: news.imageURL,
-    date: news.date,
-    theme: news.theme,
-    isHidden: news.isHidden,
+  try {
+    const updatedNews = {
+      title: news.title,
+      subTitle: news.subTitle,
+      text: news.text,
+      imageURL: news.imageURL,
+      date: news.date,
+      theme: news.theme,
+      isHidden: news.isHidden,
+    }
+    await updateNews(news._id, updatedNews)
+    message.value = 'News updated successfully';
+    isNewsVisible.value = false;
+    fetchNews();
+    
+    // remove message after 5 seconds
+    setTimeout(() => {
+      message.value = '';
+    }, 5000);
   }
-  await updateNews(news._id, updatedNews)
-  isNewsVisible.value = false;
-  fetchNews();
+  catch (error) {
+    throw new Error('Error updating news');
+  }
 }
 
 
