@@ -58,7 +58,7 @@ import { useNews } from '../../modules/useNews';
 
 
 // news fetching
-const { fetchNews, addNews, getTokenAndUserId } = useNews();
+const { news, fetchNews, addNews, getTokenAndUserId } = useNews();
 
 onMounted(() => {
   fetchNews();

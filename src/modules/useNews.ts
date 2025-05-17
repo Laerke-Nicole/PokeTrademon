@@ -69,7 +69,8 @@ export const useNews = () => {
 
       const added = await res.json();
       
-      news.value.push(added);
+      // news.value.push(added);
+
       await fetchNews();
     } catch (err) {
       error.value = (err as Error).message;

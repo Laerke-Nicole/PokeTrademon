@@ -57,14 +57,8 @@
           
                     <!-- delete and update btns -->
                     <div class="pt-6 flex flex-col gap-2"> 
-                      <!-- display success message -->
-                      <div v-if="message" class="text-green-600 pt-4 pb-4">
-                        {{ message }}
-                      </div>
-                      
                       <p>ID: {{ newsItem._id }} </p> 
-                      <button @click="updateNewsHandler" class="bg-green-600 light-headline p-2 round-corner hover:bg-green-700 cursor-pointer">Edit</button>
-                      <button @click="deleteNews(newsItem._id)" class="bg-red-600 light-headline p-2 round-corner hover:bg-red-700 cursor-pointer">Delete</button> 
+                      <button @click="updateNewsHandler" class="edit-btn bg-green-600 light-headline p-2  hover:bg-green-700 cursor-pointer">Edit</button>
                       
                     </div>
                 </div>
@@ -135,5 +129,9 @@ const updateNewsHandler = () => {
   width: auto;
   height: 150px;
   object-fit: cover;
+}
+
+.edit-btn {
+  border-radius: 20px;
 }
 </style>

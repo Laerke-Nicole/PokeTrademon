@@ -8,7 +8,7 @@
               <p>{{ newsItem.subTitle }}</p>
             </div>
 
-            <div>
+            <div class="pb-4">
               <img alt="News Image" :src="newsItem.imageURL" class="shadow-lg news-thumbnail">
             </div>
             
@@ -16,6 +16,14 @@
             <button @click="openModal(newsItem)" class="btn-1">
               Click to edit news <i class="fas fa-user text-lg cursor-pointer"></i>
             </button>
+
+            <!-- delete news -->
+            <button @click="deleteNews(newsItem._id)" class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer">Delete</button>
+            
+            <!-- display success message -->
+            <div v-if="message" class="text-green-600 pt-4 pb-4">
+              {{ message }}
+            </div>
           </div>
 
           <!-- News modal component -->
@@ -63,7 +71,7 @@ const updateNewsHandler = async (news: News) => {
     message.value = 'News updated successfully';
     isNewsVisible.value = false;
     fetchNews();
-    
+
     // remove message after 5 seconds
     setTimeout(() => {
       message.value = '';
@@ -86,5 +94,9 @@ onMounted(() => {
   width: auto;
   height: 150px;
   object-fit: cover;
+}
+
+.delete-btn {
+  border-radius: 20px;
 }
 </style>
