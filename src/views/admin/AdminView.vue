@@ -6,7 +6,6 @@
         <div class="text-center text-red-500" v-else-if="error">{{ error }} </div>                        
         <div v-else> 
           
-
           <!-- add news -->
           <AddNews />
 
