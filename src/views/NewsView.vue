@@ -19,15 +19,14 @@
       <div v-if="loading" class="text-center">Loading news...</div>
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
-      <div v-else class="grid grid-cols-3 gap-4" v-motion-fade-slide>
+      <div v-else class="grid grid-cols-3 gap-4 five-percent pt-14" v-motion-fade-slide>
         <div v-for="newsItem in news" :key="newsItem._id">
           <!-- btn linking to news detail page  -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
-            <div class="round-corner light-bg hover:shadow-lg transition-shadow duration-300">
-              <img :src="newsItem.imageURL" class="round-corner-top w-full object-cover" />
+            <div class="news-card round-corner light-bg hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+              <img :src="newsItem.imageURL" class="round-corner-top w-full h-60 object-cover" />
               <div class="p-4">
-                <h4 class="dark-headline">{{ newsItem.title.trim() }}</h4>
-                <p class="dark-text">{{ newsItem.subTitle.trim() }}</p>
+                <h4 class="dark-headline text-center">{{ newsItem.title.trim() }}</h4>
               </div>
             </div>
           </RouterLink>
@@ -78,6 +77,21 @@ onMounted(() => {
   background-color: var(--primary-color);
   border-radius: 50% 50% 0 0 / 50% 50% 0 0;
   z-index: -1;
+}
+
+.news-card {
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-card h4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 3.5rem; 
 }
 
 

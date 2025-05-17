@@ -1,14 +1,14 @@
 <template>
-    <section class="five-percent extra-dark-bg pt-30">
+    <section v-if="aboutUs.length && aboutUs[0]" class="five-percent extra-dark-bg pt-30">
     <div class="grid grid-cols-2 light-bg round-corner">
       <div class="about-img-container">
-        <img src="../../../public/images/about-us-img.jpg" alt="card collection" class="about-img" />
+        <img :src="aboutUs[0].imageURL.trim()" alt="about us image" class="about-img" />
       </div>
 
       <div class="flex flex-col justify-center align-center ten-percent">
-        <h2 class="pb-6 text-center" v-motion-fade-slide>From collectors to industry leaders</h2>
+        <h2 class="pb-6 text-center" v-motion-fade-slide>{{ aboutUs[0].aboutUsTitle.trim() }}</h2>
         <div v-motion-fade-slide>
-          <p class="text-center">Founded in 2010 by a group of passionate Pokémon card enthusiasts, Poketrademon began as a small trading community in Esbjerg, Denmark. What started as weekend meetups at local game stores quickly evolved into one of the most trusted names in the Pokémon trading card industry.</p>
+          <p class="text-center">{{ aboutUs[0].aboutUsText.trim() }}</p>
         </div>
       </div>
     </div>
@@ -16,6 +16,16 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { useAboutUs } from '../../modules/useAboutUs';
+
+
+// AboutUs fetching
+const { aboutUs, fetchAboutUs } = useAboutUs();
+
+onMounted(() => {
+  fetchAboutUs();
+});
 
 </script>
 

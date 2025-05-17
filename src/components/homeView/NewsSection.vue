@@ -25,10 +25,9 @@
           <!-- btn linking to news detail page -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
             <div class="round-corner light-bg hover:shadow-lg transition-shadow duration-300">
-              <img :src="newsItem.imageURL" class="round-corner-top w-full object-cover" />
+              <img :src="newsItem.imageURL" class="round-corner-top w-full h-72 object-cover" />
               <div class="p-4">
-                <h4 class="dark-headline">{{ newsItem.title.trim() }}</h4>
-                <p class="dark-text">{{ newsItem.subTitle.trim() }}</p>
+                <h4 class="dark-headline text-center">{{ newsItem.title.trim() }}</h4>
               </div>
             </div>
           </RouterLink>

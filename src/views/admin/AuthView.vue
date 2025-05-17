@@ -23,7 +23,7 @@
             <p class="text-green-500 text-sm mt-2">Login successful</p>
 
             <div>
-              <div v-if="state.isLoggedIn">
+              <div v-if="state.isLoggedIn && isUser">
                 <button class="btn-1 mt-2">
                   <RouterLink to="/collection">
                     Go to your profile
@@ -31,7 +31,7 @@
                 </button>
               </div>
 
-              <div v-if="state.userRole === 'admin'">
+              <div v-if="state.isLoggedIn && isAdmin">
                 <button class="btn-1 mt-2">
                   <RouterLink to="/admin">
                     Go to admin page
@@ -47,7 +47,7 @@
 </template>
   
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { state } from '../../modules/globalStates/state';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
@@ -58,6 +58,15 @@ onMounted(() => {
   scrollToTop(); 
 });
 
+const { user, loadUser } = useUsers();
+
+onMounted(async () => {
+  if (state.isLoggedIn) {
+    await loadUser()
+  } 
+})
+
+
 // for input fields to fetch
 const { fetchToken, email, password, error, isLoggedIn } = useUsers();
 
@@ -65,6 +74,10 @@ const { fetchToken, email, password, error, isLoggedIn } = useUsers();
 const handleLogin = async () => {
   await fetchToken(email.value, password.value);
 };
+
+// checking if userrole is admin
+const isUser = computed(() => user.value?.userRole === 'user')
+const isAdmin = computed(() => user.value?.userRole === 'admin')
 </script>
 
 <style scoped>

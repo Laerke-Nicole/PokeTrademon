@@ -47,6 +47,8 @@ export const useNews = () => {
         subTitle: newsData.subTitle || 'Default Subtitle',
         text: newsData.text || 'Default text',
         imageURL: newsData.imageURL || 'https://picsum.photos/500',
+        date: newsData.date || 'Default Date',
+        theme: newsData.theme || 'Default Theme',
         isHidden: newsData.isHidden || false,
         userId,
       };
@@ -66,7 +68,9 @@ export const useNews = () => {
       }
 
       const added = await res.json();
-      news.value.push(added);
+      
+      // news.value.push(added);
+
       await fetchNews();
     } catch (err) {
       error.value = (err as Error).message;

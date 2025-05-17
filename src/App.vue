@@ -105,7 +105,9 @@ onMounted(() => {
 const { user, loadUser } = useUsers();
 
 onMounted(async () => {
-  await loadUser(); 
+  if (state.isLoggedIn) {
+    await loadUser()
+  } 
 })
 
 // checking if user is admin or just user
