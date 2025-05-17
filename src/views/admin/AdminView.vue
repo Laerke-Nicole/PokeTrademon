@@ -37,6 +37,7 @@ import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
 import { state } from '../../modules/globalStates/state';
 import { useUsers } from '../../modules/auth/userModels';
 import { useNews } from '../../modules/useNews';
+import { useAboutUs } from '../../modules/useAboutUs';
 import AddNews from '../../components/admin/AddNews.vue';
 import UpdateNews from '../../components/admin/UpdateNews.vue';
 import AddAboutUs from '../../components/admin/AddAboutUs.vue';
@@ -58,6 +59,14 @@ const { error, loading, fetchNews } = useNews();
 
 onMounted(() => {
   fetchNews();
+});
+
+
+// about us fetching
+const { fetchAboutUs } = useAboutUs();
+
+onMounted(() => {
+  fetchAboutUs();
 });
 
 
