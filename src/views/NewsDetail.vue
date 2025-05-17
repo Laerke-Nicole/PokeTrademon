@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 import { useNews } from '../modules/useNews';
 import type { News } from '../interfaces/news';
 
@@ -41,6 +42,11 @@ onMounted(async() => {
     news.value = fetchNews;
     console.log("News: ", news.value);
 })
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style scoped>

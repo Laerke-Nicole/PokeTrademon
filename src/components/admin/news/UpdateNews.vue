@@ -13,9 +13,7 @@
             </div>
             
             <!-- open modal -->
-            <button @click="openModal(newsItem)" class="btn-1">
-              Click to edit news <i class="fas fa-user text-lg cursor-pointer"></i>
-            </button>
+            <button @click="openModal(newsItem)" class="btn-1">Click to edit news</button>
 
             <!-- delete news -->
             <button @click="deleteNews(newsItem._id)" class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer">Delete</button>
