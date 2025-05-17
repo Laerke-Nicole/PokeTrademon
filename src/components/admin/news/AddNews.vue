@@ -7,32 +7,32 @@
 
           <div class="flex flex-col gap-2">
               <span>News title: </span>
-              <input type="text" v-model="newNews.title" placeholder="Title" class="white-bg round-corner p-1" />
+              <input type="text" v-model="newNews.title" placeholder="Title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
             </div>
 
             <div class="flex flex-col gap-2">
               <span>News sub title: </span>
-              <input type="text" v-model="newNews.subTitle" placeholder="Sub title" class="white-bg round-corner p-1" /> 
+              <input type="text" v-model="newNews.subTitle" placeholder="Sub title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" /> 
             </div>
             
             <div class="flex flex-col gap-2">
               <span>News text: </span>
-              <input type="text" v-model="newNews.text" placeholder="Text" class="white-bg round-corner p-1" />
+              <textarea type="text" v-model="newNews.text" placeholder="Text" minlength="6" maxlength="1024" required class="white-bg round-corner p-1"></textarea>
             </div>
 
             <div class="flex flex-col gap-2">
               <span>News image: </span>
-              <input type="text" v-model="newNews.imageURL" placeholder="Image URL" class="white-bg round-corner p-1" />
+              <input type="text" v-model="newNews.imageURL" placeholder="Image URL" required class="white-bg round-corner p-1" />
             </div>
 
             <div class="flex flex-col gap-2">
               <span>News date: </span>
-              <input type="text" v-model="newNews.date" placeholder="Date" class="white-bg round-corner p-1" required minlength="8" maxlength="10"/>
+              <input type="text" v-model="newNews.date" placeholder="Date" minlength="8" maxlength="10" required class="white-bg round-corner p-1"/>
             </div>
 
             <div class="flex flex-col gap-2">
               <span>News theme: </span>
-              <input type="text" v-model="newNews.theme" placeholder="Theme" class="white-bg round-corner p-1" />
+              <input type="text" v-model="newNews.theme" placeholder="Theme" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
             </div>
 
             <div>

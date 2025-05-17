@@ -21,33 +21,33 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2">
                         <span>News title: </span>
-                        <input type="text" v-model="newsItem.title" placeholder="Title" class="white-bg round-corner p-1" />
+                        <input type="text" v-model="newsItem.title" placeholder="Title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
                         </div>
                         
                         <div class="flex flex-col gap-2">
                         <span>News sub title: </span>
-                        <input type="text" v-model="newsItem.subTitle" placeholder="Sub title" class="white-bg round-corner p-1" /> 
+                        <input type="text" v-model="newsItem.subTitle" placeholder="Sub title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" /> 
                         </div>
             
                         <div class="flex flex-col gap-2">
                         <span>News text: </span>
-                        <input type="text" v-model="newsItem.text" placeholder="Text" class="white-bg round-corner p-1" />
+                        <textarea type="text" v-model="newsItem.text" placeholder="Text" minlength="6" maxlength="1024" required class="white-bg round-corner p-1"></textarea>
                         </div>
             
                         <div class="flex flex-col gap-2">
                         <span>News image: </span>
-                        <input type="text" v-model="newsItem.imageURL" placeholder="Image URL" class="white-bg round-corner p-1" />
+                        <input type="text" v-model="newsItem.imageURL" placeholder="Image URL" required class="white-bg round-corner p-1" />
                         <span>Thumbnail image: <img alt="News Image" :src="newsItem.imageURL" class="news-thumbnail"></span>
                         </div>
             
                         <div class="flex flex-col gap-2">
                         <span>News date: </span>
-                        <input type="text" v-model="newsItem.date" placeholder="Date" class="white-bg round-corner p-1" />
+                        <input type="text" v-model="newsItem.date" placeholder="Date" minlength="8" maxlength="10" required class="white-bg round-corner p-1" />
                         </div>
             
                         <div class="flex flex-col gap-2">
                         <span>News theme: </span>
-                        <input type="text" v-model="newsItem.theme" placeholder="Theme" class="white-bg round-corner p-1" />
+                        <input type="text" v-model="newsItem.theme" placeholder="Theme" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
                         </div>
             
                         <div>

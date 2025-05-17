@@ -4,19 +4,26 @@
         <h1 class="pb-6">Admin dashboard</h1>
         <div class="text-center" v-if="loading">Loading...</div>                            
         <div class="text-center text-red-500" v-else-if="error">{{ error }} </div>                        
-        <div v-else class="grid grid-cols-2 gap-18"> 
+        <div v-else class="flex flex-col gap-18"> 
           
-          <!-- add news -->
-          <AddNews />
+          <!-- news -->
+          <div class="grid grid-cols-2 gap-18">
+            <!-- add news -->
+            <AddNews />
+  
+            <!-- updating news -->
+            <UpdateNews />
+          </div>
 
-          <!-- updating news -->
-          <UpdateNews />
+          <!-- about us -->
+          <div class="grid grid-cols-2 gap-18">
+            <!-- add about us -->
+            <AddAboutUs />
+  
+            <!-- updating about us -->
+            <UpdateAboutUs />
+          </div>
 
-          <!-- add about us -->
-          <AddAboutUs />
-
-          <!-- updating about us -->
-          <UpdateAboutUs />
         </div>
       </div>
     </div>

@@ -20,56 +20,63 @@
                 <div v-if="aboutUsItem">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2">
-                        <span>Title: </span>
-                        <input type="text" v-model="aboutUsItem.aboutUsTitle" placeholder="Title" class="white-bg round-corner p-1" />
+                          <span>Title: </span>
+                          <input type="text" v-model="aboutUsItem.aboutUsTitle" placeholder="Title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
                         </div>
 
                         <div class="flex flex-col gap-2">
-                        <span>About us text: </span>
-                        <input type="text" v-model="aboutUsItem.aboutUsText" placeholder="Sub title" class="white-bg round-corner p-1" /> 
+                          <span>About us text: </span>
+                          <textarea type="text" v-model="aboutUsItem.aboutUsText" placeholder="Sub title" minlength="6" maxlength="255" required class="white-bg round-corner p-1"></textarea> 
                         </div>
                         
                         <div class="flex flex-col gap-2">
-                        <span>Mission: </span>
-                        <input type="text" v-model="aboutUsItem.mission" placeholder="Mission" class="white-bg round-corner p-1" />
+                          <span>Mission: </span>
+                          <textarea type="text" v-model="aboutUsItem.mission" placeholder="Mission" minlength="2" maxlength="255" required class="white-bg round-corner p-1"></textarea>
                         </div>
 
                         <div class="flex flex-col gap-2">
-                        <span>Vision: </span>
-                        <input type="text" v-model="aboutUsItem.vision" placeholder="Vision" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Values sub title: </span>
-                        <input type="text" v-model="aboutUsItem.valuesSubTitle" placeholder="Values sub title" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Value one title: </span>
-                        <input type="text" v-model="aboutUsItem.valueOneTitle" placeholder="Value one title" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Value one: </span>
-                        <input type="text" v-model="aboutUsItem.valueOne" placeholder="Value one" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Value two title: </span>
-                        <input type="text" v-model="aboutUsItem.valueTwoTitle" placeholder="Value two title" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Value two: </span>
-                        <input type="text" v-model="aboutUsItem.valueTwo" placeholder="Value two" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Value three title: </span>
-                        <input type="text" v-model="aboutUsItem.valueThreeTitle" placeholder="Value three title" class="white-bg round-corner p-1" />
-                        </div>
-                        <div class="flex flex-col gap-2">
-                        <span>Value three: </span>
-                        <input type="text" v-model="aboutUsItem.valueThree" placeholder="Value three" class="white-bg round-corner p-1" />
+                          <span>Vision: </span>
+                          <textarea type="text" v-model="aboutUsItem.vision" placeholder="Vision" minlength="2" maxlength="255" required class="white-bg round-corner p-1"></textarea>
                         </div>
 
                         <div class="flex flex-col gap-2">
-                        <span>About us image: </span>
-                        <input type="text" v-model="aboutUsItem.imageURL" placeholder="Image URL" class="white-bg round-corner p-1" />
+                          <span>Values sub title: </span>
+                          <textarea type="text" v-model="aboutUsItem.valuesSubTitle" placeholder="Values sub title" minlength="2" maxlength="100" required class="white-bg round-corner p-1"></textarea>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Value one title: </span>
+                          <input type="text" v-model="aboutUsItem.valueOneTitle" placeholder="Value one title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Value one: </span>
+                          <textarea type="text" v-model="aboutUsItem.valueOne" placeholder="Value one" minlength="2" maxlength="255" required class="white-bg round-corner p-1"></textarea>
+                        </div>
+                        
+                        <div class="flex flex-col gap-2">
+                          <span>Value two title: </span>
+                          <input type="text" v-model="aboutUsItem.valueTwoTitle" placeholder="Value two title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Value two: </span>
+                          <textarea type="text" v-model="aboutUsItem.valueTwo" placeholder="Value two" minlength="2" maxlength="255" required class="white-bg round-corner p-1"></textarea>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Value three title: </span>
+                          <input type="text" v-model="aboutUsItem.valueThreeTitle" placeholder="Value three title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Value three: </span>
+                          <textarea type="text" v-model="aboutUsItem.valueThree" placeholder="Value three" minlength="2" maxlength="255" required class="white-bg round-corner p-1"></textarea>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>About us image: </span>
+                          <input type="text" v-model="aboutUsItem.imageURL" placeholder="Image URL" required class="white-bg round-corner p-1" />
                         </div>
                     </div>
           
