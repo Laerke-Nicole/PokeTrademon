@@ -15,6 +15,8 @@ import AboutUs from '../components/aboutView/AboutUs.vue';
 import MisionVision from '../components/aboutView/MissionVision.vue';
 import Values from '../components/aboutView/Values.vue';
 
+
+
 // start at the top of the page
 onMounted(() => {
   scrollToTop(); 
