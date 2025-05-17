@@ -11,6 +11,12 @@
 
           <!-- updating news -->
           <UpdateNews />
+
+          <!-- add about us -->
+          <AddAboutUs />
+
+          <!-- updating about us -->
+          <UpdateAboutUs />
         </div>
       </div>
     </div>
@@ -33,6 +39,8 @@ import { useUsers } from '../../modules/auth/userModels';
 import { useNews } from '../../modules/useNews';
 import AddNews from '../../components/admin/AddNews.vue';
 import UpdateNews from '../../components/admin/UpdateNews.vue';
+import AddAboutUs from '../../components/admin/AddAboutUs.vue';
+import UpdateAboutUs from '../../components/admin/UpdateAboutUs.vue';
 
 
 const { user, loadUser } = useUsers();
