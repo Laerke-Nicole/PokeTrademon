@@ -1,10 +1,10 @@
 <template>
     <div v-if="state.isLoggedIn && isAdmin" class="five-percent dark-bg pt-30">
       <div>
-        <h1 class="pb-6">Admin View</h1>
+        <h1 class="pb-6">Admin dashboard</h1>
         <div class="text-center" v-if="loading">Loading...</div>                            
         <div class="text-center text-red-500" v-else-if="error">{{ error }} </div>                        
-        <div class="flex flex-wrap -mx-2" v-else> 
+        <div v-else> 
           
 
           <!-- add news -->
