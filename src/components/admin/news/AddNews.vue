@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useNews } from '../../modules/useNews';
+import { useNews } from '../../../modules/useNews';
 
 
 

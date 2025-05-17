@@ -38,10 +38,10 @@ import { state } from '../../modules/globalStates/state';
 import { useUsers } from '../../modules/auth/userModels';
 import { useNews } from '../../modules/useNews';
 import { useAboutUs } from '../../modules/useAboutUs';
-import AddNews from '../../components/admin/AddNews.vue';
-import UpdateNews from '../../components/admin/UpdateNews.vue';
-import AddAboutUs from '../../components/admin/AddAboutUs.vue';
-import UpdateAboutUs from '../../components/admin/UpdateAboutUs.vue';
+import AddNews from '../../components/admin/news/AddNews.vue';
+import UpdateNews from '../../components/admin/news/UpdateNews.vue';
+import AddAboutUs from '../../components/admin/aboutUs/AddAboutUs.vue';
+import UpdateAboutUs from '../../components/admin/aboutUs/UpdateAboutUs.vue';
 
 
 const { user, loadUser } = useUsers();

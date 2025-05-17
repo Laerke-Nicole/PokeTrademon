@@ -34,9 +34,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useNews } from '../../modules/useNews';
-import type { News } from '../../interfaces/news';
-import NewsModal from './modals/NewsModal.vue';
+import { useNews } from '../../../modules/useNews';
+import type { News } from '../../../interfaces/news';
+import NewsModal from '../modals/NewsModal.vue';
 
 
 // news fetching

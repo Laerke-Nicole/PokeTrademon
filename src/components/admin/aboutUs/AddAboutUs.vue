@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useAboutUs } from '../../modules/useAboutUs';
+import { useAboutUs } from '../../../modules/useAboutUs';
 
 
 

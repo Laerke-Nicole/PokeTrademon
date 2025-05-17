@@ -34,9 +34,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useAboutUs } from '../../modules/useAboutUs';
-import type { AboutUs } from '../../interfaces/aboutUs';
-import AboutUsModal from './modals/AboutUsModal.vue';
+import { useAboutUs } from '../../../modules/useAboutUs';
+import type { AboutUs } from '../../../interfaces/aboutUs';
+import AboutUsModal from '../modals/AboutUsModal.vue';
 
 
 // AboutUs fetching
