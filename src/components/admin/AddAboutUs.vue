@@ -5,7 +5,7 @@
         <form @submit.prevent="addAboutUsHandler">                                                              
         <div class="flex flex-col gap-4">
 
-          <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-2">
               <span>Title: </span>
               <input type="text" v-model="newAboutUs.aboutUsTitle" placeholder="Title" class="white-bg round-corner p-1" />
             </div>
