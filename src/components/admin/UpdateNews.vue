@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h2>List of news</h2>
-        <div v-for="newsItem in news" :key="newsItem._id">
-          <div class="grid grid-cols-2 gap-4 light-bg round-corner p-4">
+        <h2 class="pb-4">List of news</h2>
+        <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4">
+          <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
             <div class="flex flex-col gap-2">
               <h4>{{ newsItem.title }}</h4>
               <p>{{ newsItem.subTitle }}</p>

@@ -4,7 +4,7 @@
         <h1 class="pb-6">Admin dashboard</h1>
         <div class="text-center" v-if="loading">Loading...</div>                            
         <div class="text-center text-red-500" v-else-if="error">{{ error }} </div>                        
-        <div v-else> 
+        <div v-else class="grid grid-cols-2 gap-18"> 
           
           <!-- add news -->
           <AddNews />

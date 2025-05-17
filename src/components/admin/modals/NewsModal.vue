@@ -1,12 +1,9 @@
 <template>
     <div>
         <div v-if="isVisible" @click.self="toggleNews" class="pt-30 pb-10 modal-exit fixed inset-0 flex items-center justify-center">
-            <div @click.stop class="modal light-bg h-full p-4 overflow-y-auto" >
-            
-                
-            
-            
+            <div @click.stop class="modal light-bg h-full p-4 overflow-y-auto" > 
             <div>
+                <!-- top section with title and close btn -->
                 <div class="flex justify-between items-center pb-6">
                     <div>
                         <h2 class="">Edit News</h2>
@@ -19,6 +16,7 @@
     
                 </div>
                 
+                <!-- list of the news info -->
                 <div v-if="newsItem">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2">
@@ -39,7 +37,7 @@
                         <div class="flex flex-col gap-2">
                         <span>News image: </span>
                         <input type="text" v-model="newsItem.imageURL" placeholder="Image URL" class="white-bg round-corner p-1" />
-                        <span>Thumbnail image: <img alt="News Image" :src="newsItem.imageURL"></span>
+                        <span>Thumbnail image: <img alt="News Image" :src="newsItem.imageURL" class="news-thumbnail"></span>
                         </div>
             
                         <div class="flex flex-col gap-2">
@@ -58,10 +56,10 @@
                     </div>
           
                     <!-- delete and update btns -->
-                    <div class="mt-4 flex space-x-2"> 
+                    <div class="pt-6 flex flex-col gap-2"> 
                         <p>ID: {{ newsItem._id }} </p> 
-                        <button @click="deleteNews(newsItem._id)" class="bg-red-600 text-white p-2 rounded hover:bg-red-700">Delete</button> 
-                        <button @click="updateNewsHandler(newsItem)" class="bg-green-600 text-white p-2 rounded hover:bg-green-700">Edit</button>
+                        <button @click="updateNewsHandler(newsItem)" class="bg-green-600 light-headline p-2 round-corner hover:bg-green-700 cursor-pointer">Edit</button>
+                        <button @click="deleteNews(newsItem._id)" class="bg-red-600 light-headline p-2 round-corner hover:bg-red-700 cursor-pointer">Delete</button> 
                     </div>
                 </div>
             </div>
@@ -126,5 +124,12 @@ const updateNewsHandler = async (news: News) => {
 
 .modal {
     width: 70%;
+}
+
+/* news info */
+.news-thumbnail {
+  width: auto;
+  height: 150px;
+  object-fit: cover;
 }
 </style>

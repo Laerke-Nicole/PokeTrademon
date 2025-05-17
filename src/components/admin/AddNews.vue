@@ -27,7 +27,7 @@
 
             <div class="flex flex-col gap-2">
               <span>News date: </span>
-              <input type="text" v-model="newNews.date" placeholder="Date" class="white-bg round-corner p-1" />
+              <input type="text" v-model="newNews.date" placeholder="Date" class="white-bg round-corner p-1" required minlength="8" maxlength="10"/>
             </div>
 
             <div class="flex flex-col gap-2">
@@ -51,6 +51,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useNews } from '../../modules/useNews';
+
+
 
 // news fetching
 const { fetchNews, addNews, getTokenAndUserId } = useNews();
@@ -80,8 +82,16 @@ const addNewsHandler = async () => {
   // attach to new news
   newNews.value.userId = userId;
   await addNews(newNews.value)
+  // reset the form
   newNews.value = {
-    ...newNews.value,
+    title: '',
+    subTitle: '',
+    text: '',
+    imageURL: '',
+    date: '',
+    theme: '',
+    isHidden: false,
+    userId: '',
   }
 }
 </script>
