@@ -2,21 +2,21 @@ import { ref } from 'vue';
 import type { AboutUs, newAboutUs } from '../interfaces/aboutUs';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004/api';
-const NEWS_URL = `${BASE_URL}/news`;
+const ABOUTUS_URL = `${BASE_URL}/aboutUs`;
 
-export const useNews = () => {
-  const news = ref<News[]>([]);
+export const useAboutUs = () => {
+  const aboutUs = ref<AboutUs[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
 
-  const fetchNews = async (): Promise<void> => {
+  const fetchAboutUs = async (): Promise<void> => {
     loading.value = true;
     error.value = null;
 
     try {
-      const res = await fetch(NEWS_URL);
-      if (!res.ok) throw new Error('Failed to fetch news');
-      news.value = await res.json();
+      const res = await fetch(ABOUTUS_URL);
+      if (!res.ok) throw new Error('Failed to fetch AboutUs');
+      aboutUs.value = await res.json();
     } catch (err) {
       error.value = (err as Error).message;
     } finally {
@@ -37,23 +37,28 @@ export const useNews = () => {
     return { token, userId };
   }
 
-  const addNews = async (newsData: newNews): Promise<void> => {
+  const addAboutUs = async (aboutUsData: newAboutUs): Promise<void> => {
     try {
       const { token, userId } = getTokenAndUserId();
-      if (!newsData.title) throw new Error('Title is required');
+      if (!aboutUsData.aboutUsTitle) throw new Error('About us title is required');
 
       const payload = {
-        title: newsData.title,
-        subTitle: newsData.subTitle || 'Default Subtitle',
-        text: newsData.text || 'Default text',
-        imageURL: newsData.imageURL || 'https://picsum.photos/500',
-        date: newsData.date || 'Default Date',
-        theme: newsData.theme || 'Default Theme',
-        isHidden: newsData.isHidden || false,
+        aboutUsTitle: aboutUsData.aboutUsTitle,
+        aboutUsText: aboutUsData.aboutUsText || 'Default text',
+        mission: aboutUsData.mission || 'Default mission',
+        vision: aboutUsData.vision || 'Default vision',
+        valuesSubTitle: aboutUsData.valuesSubTitle || 'Default values subtitle',
+        valueOneTitle: aboutUsData.valueOneTitle || 'Default value one title',
+        valueOne: aboutUsData.valueOne || 'Default value one',
+        valueTwoTitle: aboutUsData.valueTwoTitle || 'Default value two title',
+        valueTwo: aboutUsData.valueTwo || 'Default value two',
+        valueThreeTitle: aboutUsData.valueThreeTitle || 'Default value three title',
+        valueThree: aboutUsData.valueThree || 'Default value three',
+        imageURL: aboutUsData.imageURL || 'https://picsum.photos/500',
         userId,
       };
 
-      const res = await fetch(NEWS_URL, {
+      const res = await fetch(ABOUTUS_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,42 +69,42 @@ export const useNews = () => {
 
       if (!res.ok) {
         const errData = await res.json();
-        throw new Error(errData.error || 'Failed to add news');
+        throw new Error(errData.error || 'Failed to add about us');
       }
 
       const added = await res.json();
       
-      // news.value.push(added);
+      // aboutUs.value.push(added);
 
-      await fetchNews();
+      await fetchAboutUs();
     } catch (err) {
       error.value = (err as Error).message;
     }
   };
 
-  const deleteNews = async (id: string): Promise<void> => {
+  const deleteAboutUs = async (id: string): Promise<void> => {
     try {
       const { token } = getTokenAndUserId();
 
-      const res = await fetch(`${NEWS_URL}/${id}`, {
+      const res = await fetch(`${ABOUTUS_URL}/${id}`, {
         method: 'DELETE',
         headers: {
           'auth-token': token,
         },
       });
 
-      if (!res.ok) throw new Error('Failed to delete news');
-      news.value = news.value.filter(n => n._id !== id);
+      if (!res.ok) throw new Error('Failed to delete about us');
+      aboutUs.value = aboutUs.value.filter(a => a._id !== id);
     } catch (err) {
       error.value = (err as Error).message;
     }
   };
 
-  const updateNews = async (id: string, updatedFields: Partial<News>): Promise<void> => {
+  const updateAboutUs = async (id: string, updatedFields: Partial<AboutUs>): Promise<void> => {
     try {
       const { token } = getTokenAndUserId();
 
-      const res = await fetch(`${NEWS_URL}/${id}`, {
+      const res = await fetch(`${ABOUTUS_URL}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -108,19 +113,19 @@ export const useNews = () => {
         body: JSON.stringify(updatedFields),
       });
 
-      if (!res.ok) throw new Error('Failed to update news');
+      if (!res.ok) throw new Error('Failed to update about us');
       const updated = await res.json();
-      const index = news.value.findIndex(n => n._id === id);
-      if (index !== -1) news.value[index] = updated;
+      const index = aboutUs.value.findIndex(a => a._id === id);
+      if (index !== -1) aboutUs.value[index] = updated;
     } catch (err) {
       error.value = (err as Error).message;
     }
   };
 
-  const fetchNewsById = async (id: string): Promise<News | null> => {
+  const fetchAboutUsById = async (id: string): Promise<AboutUs | null> => {
     try {
-      const res = await fetch(`${NEWS_URL}/${id}`);
-      if (!res.ok) throw new Error('Failed to fetch news by ID');
+      const res = await fetch(`${ABOUTUS_URL}/${id}`);
+      if (!res.ok) throw new Error('Failed to fetch about us by ID');
       return await res.json();
     } catch (err) {
       error.value = (err as Error).message;
@@ -132,14 +137,14 @@ export const useNews = () => {
 
 
   return {
-    news,
+    aboutUs,
     loading,
     error,
-    fetchNews,
-    fetchNewsById,
-    addNews,
-    deleteNews,
-    updateNews,
+    fetchAboutUs,
+    fetchAboutUsById,
+    addAboutUs,
+    deleteAboutUs,
+    updateAboutUs,
     getTokenAndUserId,
   };
 };
