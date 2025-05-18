@@ -20,7 +20,7 @@
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-6 five-percent pt-14" v-motion-fade-slide>
-        <div v-for="newsItem in news.filter(n => !n.isHidden)" :key="newsItem._id">
+        <div v-for="newsItem in visibleNews" :key="newsItem._id">
           <!-- btn linking to news detail page  -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
             <div class="news-card round-corner light-bg hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
@@ -32,27 +32,40 @@
           </RouterLink>
         </div>
       </div>
+
+      <!-- load more btn -->
+      <div class="pt-8 flex justify-center">
+        <button class="btn-1" @click="loadMore" v-if="visibleNews.length < news.filter(n => !n.isHidden).length">Load more news</button>
+      </div>
     </article>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useNews } from '../modules/useNews';
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 
 
 // fetch the data from news
 const { loading, error, news, fetchNews } = useNews();
+const visibleCount = ref(6);
 
 onMounted(() => {
   fetchNews();
+  scrollToTop(); 
 })
 
-// start at the top of the page
-onMounted(() => {
-  scrollToTop(); 
+
+// Filtered and sliced news items to show
+const visibleNews = computed(() => {
+  return news.value.filter(n => !n.isHidden).slice(0, visibleCount.value);
 });
+
+// Load 6 more items
+const loadMore = () => {
+  visibleCount.value += 6;
+};
 </script>
 
 <style scoped>

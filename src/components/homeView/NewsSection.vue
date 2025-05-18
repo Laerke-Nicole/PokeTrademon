@@ -11,7 +11,7 @@
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-x-6" v-motion-fade-slide>
-        <div v-for="(newsItem, index) in news.filter(n => !n.isHidden)" :key="newsItem._id" 
+        <div v-for="(newsItem, index) in news.filter(n => !n.isHidden).slice(0, 6)" :key="newsItem._id" 
           :class="[ 
             'w-full',
             // first column in every row gets extra padding
@@ -30,6 +30,12 @@
             </div>
           </RouterLink>
         </div>
+      </div>
+
+      <div class="pt-8 flex justify-center">
+        <RouterLink to="/news">
+          <button class="btn-1">See more news</button>
+        </RouterLink>
       </div>
     </div>
   </section>
