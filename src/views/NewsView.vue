@@ -1,6 +1,6 @@
 <template>
   <section class="dark-bg">
-    <article class="news-hero-container five-percent pt-8 grid grid-cols-3 justify-center align-center extra-dark-bg">
+    <article class="news-hero-container five-percent pt-12 grid grid-cols-3 justify-center align-center extra-dark-bg">
         <div v-motion-fade-slide>
             <img src="../../public/images/cards-left.png" alt="pokemon cards" class="w-10/12"/>
         </div>
