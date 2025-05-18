@@ -3,16 +3,16 @@
         <div v-if="news && news.length > 0" class="flex flex-col ten-percent">
             <div class="extra-dark-bg three-percent py-10 round-corner">
                 <div class="ten-percent flex flex-col">
-                    <p class="dark-text">- {{ news[0].theme.trim() }}theme</p>
-                    <h1 class="pt-2 font-bold dark-headline">{{ news[0].title.trim() }}title</h1>
-                    <h3 class="pb-6 dark-text">{{ news[0].subTitle.trim() }}sub title</h3>
+                    <p class="dark-text">- {{ news[0].theme.trim() }}</p>
+                    <h1 class="pt-2 font-bold dark-headline">{{ news[0].title.trim() }}</h1>
+                    <h3 class="pb-6 dark-text">{{ news[0].subTitle.trim() }}</h3>
                 </div>
 
                 <img :src="news[0].imageURL.trim()" alt="news image" class="news-image round-corner" />
                 
                 <div class="ten-percent">
-                    <p class="text-xs pt-6 dark-text">{{ news[0].date.trim() }}18-05-2020</p>
-                    <p class="pt-2 dark-headline">{{ news[0].text.trim() }}text</p>
+                    <p class="text-xs pt-6 dark-text">{{ news[0].date.trim() }}</p>
+                    <p class="pt-2 dark-headline">{{ news[0].text.trim() }}</p>
                 </div>
             </div>
         </div>
@@ -38,9 +38,6 @@ const { fetchNewsById } = useNews();
 onMounted(async() => {
     const newsId = route.params.id as string;
     const fetchNews = await fetchNewsById(newsId);
-    console.log("Fetched news", fetchNews);
-    news.value = fetchNews;
-    console.log("News: ", news.value);
 })
 
 // start at the top of the page
@@ -51,7 +48,7 @@ onMounted(() => {
 
 <style scoped>
 .news-image {
-    height: 80vh;
+    height: 70vh;
     width: 100%;
     object-fit: cover;
     object-position: center;
