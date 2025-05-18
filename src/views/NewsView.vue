@@ -20,7 +20,7 @@
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-6 five-percent pt-14" v-motion-fade-slide>
-        <div v-for="newsItem in news" :key="newsItem._id">
+        <div v-for="newsItem in news.filter(n => !n.isHidden)" :key="newsItem._id">
           <!-- btn linking to news detail page  -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
             <div class="news-card round-corner light-bg hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
