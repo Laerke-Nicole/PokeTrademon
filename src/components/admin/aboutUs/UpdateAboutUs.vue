@@ -13,9 +13,7 @@
             </div>
             
             <!-- open modal -->
-            <button @click="openModal(aboutUsItem)" class="btn-1">
-              Click to edit about us <i class="fas fa-user text-lg cursor-pointer"></i>
-            </button>
+            <button @click="openModal(aboutUsItem)" class="btn-1">Click to edit about us</button>
 
             <!-- delete AboutUs -->
             <button @click="deleteAboutUs(aboutUsItem._id)" class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer">Delete</button>
