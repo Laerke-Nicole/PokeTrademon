@@ -148,6 +148,7 @@
   </template>
  <script setup lang="ts">
  import { ref, computed, watch, onMounted } from 'vue';
+ import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
  import type { TradeCard, TradeOffer, CreateTradeOfferPayload } from '../interfaces/trade';
  import type { PokemonCard } from '../interfaces/card';
  import CardSelector from '../components/CardSelector.vue';
@@ -237,9 +238,6 @@ const outgoing = computed(() =>
   ...(tradeMode.value === 'direct' ? { receiverUsername: username.value } : {}),
   ...(tradeMode.value === 'open' ? { isOpenOffer: true } : {})
 };
-
-
-    console.log("📦 Frontend payload (JSON):", JSON.stringify(payload, null, 2));
 
     await createTradeOffer(payload);
     showToast('Trade offer sent!', 'success');
@@ -361,10 +359,8 @@ const acceptOpenOffer = async (tradeId: string) => {
  }, 500));
  
  onMounted(async () => {
-  console.log("🔎 userId:", userId.value);
   try {
     await fetchCollection(userId.value);
-    console.log("✅ Collection loaded:", userCollection.value);
 
     await loadTrades();
   } catch (err) {
@@ -372,6 +368,11 @@ const acceptOpenOffer = async (tradeId: string) => {
   }
 });
 
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 
 </script>
  

@@ -39,7 +39,6 @@
     try {
       const fetchedCard = await fetchCardById(cardId);
       card.value = fetchedCard;
-      console.log("Fetched card:", card.value);
     } catch (err) {
       console.error("Error loading card:", err);
     }

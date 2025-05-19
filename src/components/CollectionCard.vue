@@ -50,7 +50,6 @@ watch(() => props.card, (newVal) => {
 });
 
 const handleUpdate = () => {
-  console.log('🔧 Updating card:', localCard.value);
   emit('update', localCard.value.cardId, localCard.value.quantity, localCard.value.condition);
 };
 

@@ -43,14 +43,12 @@ const {
 
 
 const updateCard = (cardId: string, quantity: number, condition: string) => {
-  console.log('👾 Parent received update for:', cardId, quantity, condition);
   if (user.value?._id) {
     updateCardInCollection(cardId, quantity, condition);
   }
 };
 
 const deleteCard = (cardId: string) => {
-  console.log('🗑️ Parent received delete for:', cardId);
   if (user.value?._id) {
     deleteCardFromCollection(cardId);
   }
@@ -67,8 +65,8 @@ onMounted(async () => {
     router.push('/auth');
     return;
   }
-
-  console.log('👤 Loaded user ID:', user.value._id);
+  
   await fetchCollection(user.value._id);});
+
 </script>
 

@@ -64,21 +64,12 @@ const isAdmin = computed(() => user.value?.userRole === 'admin')
 // news fetching
 const { error, loading, fetchNews } = useNews();
 
-onMounted(() => {
-  fetchNews();
-});
-
-
 // about us fetching
 const { fetchAboutUs } = useAboutUs();
 
 onMounted(() => {
+  fetchNews();
   fetchAboutUs();
-});
-
-
-// start at the top of the page
-onMounted(() => {
   scrollToTop(); 
 });
 </script>

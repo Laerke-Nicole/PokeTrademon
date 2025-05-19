@@ -41,7 +41,6 @@ export const useUsers = () => {
 
       localStorage.setItem('isToken', authResponse.token);
       localStorage.setItem('userIDToken', authResponse.userId);
-      console.log('✅ Logged in! Token:', authResponse.token);
     } catch (err) {
       error.value = (err as Error).message || 'Login error';
       isLoggedIn.value = false;
@@ -61,7 +60,6 @@ export const useUsers = () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Registration failed');
 
-      console.log('✅ User registered:', data);
       error.value = null;
     } catch (err) {
       error.value = (err as Error).message || 'Error registering';
@@ -77,7 +75,6 @@ export const useUsers = () => {
     state.isLoggedIn = false;
     localStorage.removeItem('isToken');
     localStorage.removeItem('userIDToken');
-    console.log('👋 Logged out');
     router.push('/');
   };
 

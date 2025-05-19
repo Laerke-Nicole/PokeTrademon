@@ -107,10 +107,6 @@ if (!userId || !token) {
   console.warn('⛔ Missing userId or token in updateCardInCollection');
   return;
 }
-
-  
-    console.log("📡 Sending PATCH to backend for", cardId, { quantity, condition });
-  
     try {
       const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
         method: 'PATCH',
@@ -127,7 +123,6 @@ if (!userId || !token) {
         return;
       }
   
-      console.log("✅ PATCH success:", json);
       await fetchCollection(userId);
     } catch (error) {
       console.error("❌ updateCardInCollection error:", error);
@@ -145,9 +140,6 @@ if (!userId || !token) {
       console.warn('⛔ Missing userId or token in deleteCardFromCollection');
       return;
     }
-    
-  
-    console.log("📡 Sending DELETE to backend for", cardId);
   
     try {
       const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
@@ -163,7 +155,6 @@ if (!userId || !token) {
         return;
       }
   
-      console.log("✅ DELETE success:", json);
       await fetchCollection(userId);
     } catch (error) {
       console.error("❌ deleteCardFromCollection error:", error);

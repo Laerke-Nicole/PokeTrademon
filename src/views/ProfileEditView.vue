@@ -41,6 +41,7 @@
   
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
+  import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
   import { useRouter } from 'vue-router';
   import { useUsers } from '../modules/auth/userModels';
   import { updateUser, deleteUser } from '../modules/auth/userAPI';
@@ -104,6 +105,11 @@ const updateProfile = async () => {
       message.value = 'Failed to delete account.';
     }
   };
+
+  // start at the top of the page
+  onMounted(() => {
+    scrollToTop(); 
+  });
   </script>
   
   <style scoped>
