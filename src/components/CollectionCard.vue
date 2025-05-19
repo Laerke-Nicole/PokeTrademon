@@ -1,7 +1,7 @@
 <template>
     <div class="border p-4 rounded shadow relative">
       <img :src="card.image" alt="Card" class="w-full mb-2" />
-      <p class="text-center font-semibold">{{ card.cardId }}</p>
+      <p class="text-center font-semibold">{{ card.cardId.trim() }}</p>
   
       <!-- Inline Editing Fields -->
       <div class="flex justify-between items-center mt-2">
