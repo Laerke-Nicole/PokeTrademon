@@ -117,11 +117,11 @@ const updateNewsHandler = () => {
 <style scoped>
 /* add background behind the modal */
 .modal-exit {
-  background-color: rgba(91, 91, 91, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal {
-    width: 70%;
+  width: 70%;
 }
 
 /* news info */
