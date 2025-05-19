@@ -1,17 +1,17 @@
 <template>
-    <div class="border p-4 rounded shadow relative">
-      <img :src="card.image" alt="Card" class="w-full mb-2" />
-      <p class="text-center font-semibold">{{ card.cardId }}</p>
+    <div class="border p-4 round-corner shadow relative light-bg">
+      <img :src="card.image" alt="Card" class="w-full pb-2" />
+      <p class="text-center py-2"><strong>Card id:</strong> {{ card.cardId.trim() }}</p>
   
       <!-- Inline Editing Fields -->
-      <div class="flex justify-between items-center mt-2">
+      <div class="flex justify-between items-center pt-2">
         <div>
-          <label class="text-sm">Qty:</label>
-          <input type="number" v-model.number="localCard.quantity" class="w-12 ml-1 p-1 border rounded text-sm" />
+          <label class="text-sm pr-2">Qty:</label>
+          <input type="number" v-model.number="localCard.quantity" class="w-12 pl-1 p-1 border round-corner text-sm white-bg" />
         </div>
         <div>
-          <label class="text-sm">Cond:</label>
-          <select v-model="localCard.condition" class="ml-1 p-1 border rounded text-sm">
+          <label class="text-sm pr-2">Cond:</label>
+          <select v-model="localCard.condition" class="pl-1 p-1 border round-corner text-sm white-bg">
             <option value="mint">Mint</option>
             <option value="good">Good</option>
             <option value="fair">Fair</option>
@@ -20,7 +20,7 @@
       </div>
   
       <!-- Action Buttons -->
-      <div class="flex justify-between mt-3">
+      <div class="flex justify-between pt-3">
         <button class="btn-1 text-sm px-2 py-1" @click="handleUpdate">Update</button>
         <button class="btn-1 text-sm px-2 py-1 bg-red-500 hover:bg-red-600" @click="handleDelete">Delete</button>
       </div>

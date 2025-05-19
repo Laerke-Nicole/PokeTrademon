@@ -44,18 +44,6 @@ const error = ref('');
 
 const registrationSuccess = ref(false);
 
-// check if user registered successfully
-// const handleRegister = async () => {
-//   registrationSuccess.value = false;
-//   error.value = '';
-//   try {
-//     await registerUser(username.value, email.value, password.value);
-//     registrationSuccess.value = true;
-//   } catch (err: any) {
-//     error.value = err.message || 'Something went wrong.';
-//   }
-// };
-
 const handleRegister = async () => {
   registrationSuccess.value = false;
   error.value = '';
@@ -71,11 +59,6 @@ const handleRegister = async () => {
     });
   });
 };
-
-
-
-
-
 </script>
 
 <style scoped>

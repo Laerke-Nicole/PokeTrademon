@@ -1,6 +1,6 @@
 <template>
   <div class="pt-30 five-percent dark-bg">
-    <h2 class="text-xl font-bold mb-4 dark-headline">Your Collection</h2>
+    <h2 class="text-xl font-bold pb-6 dark-headline">Your Collection</h2>
 
     <div v-if="loading" class="dark-text">Loading your cards...</div>
     <div v-else-if="error" class="dark-text">{{ error }}</div>

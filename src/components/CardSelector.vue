@@ -3,27 +3,27 @@
       <!-- ✅ Selected Cards Preview -->
       <div
         v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0"
-        class="mb-6"
+        class="pb-6"
       >
-        <h3 class="text-md font-semibold text-gray-800 mb-2">Selected Cards:</h3>
+        <h3 class="text-md font-semibold dark-headline pb-2">Selected Cards:</h3>
         <div class="flex flex-wrap gap-3">
           <div
             v-for="(qty, cardId) in props.selectedCards"
             :key="cardId"
-            class="relative border rounded p-2 bg-white shadow-sm"
+            class="relative border round-corner p-2 bg-white shadow-sm"
           >
             <span
-              class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center cursor-pointer"
+              class="absolute -top-2 -right-2 bg-red-500 light-headline round-corner w-5 h-5 text-xs flex items-center justify-center cursor-pointer"
               @click="emit('card-removed', cardId)"
             >×</span>
-            <div class="text-sm font-medium text-gray-800">ID: {{ cardId }}</div>
-            <div class="text-xs text-gray-600">Qty: {{ qty }}</div>
+            <div class="text-sm font-medium dark-headline">ID: {{ cardId.trim() }}</div>
+            <div class="text-xs dark-text">Qty: {{ qty }}</div>
           </div>
         </div>
       </div>
-      <div class="mb-4">
+      <div class="pb-4">
   <button
-    class="text-sm text-blue-600 hover:underline"
+    class="text-sm text-blue-600 hover:text-blue-700 cursor-pointer pb-2"
     @click="showGrid = !showGrid"
   >
     {{ showGrid ? 'Hide card list' : 'Show card list' }}
@@ -33,11 +33,11 @@
   
       <!-- 🔍 Search & Filters -->
       <div v-if="showGrid">
-      <div class="mb-4 flex flex-col md:flex-row gap-4">
+      <div class="flex flex-col md:flex-row gap-4 pb-6">
         <input
           type="text"
           placeholder="Search Pokémon..."
-          class="p-2 border rounded white-bg round-corner dark-text"
+          class="p-2 border round-corner white-bg dark-text"
           v-model="searchQuery"
           @input="fetchFilteredCards"
           data-testid="search-input"
@@ -46,7 +46,7 @@
         <select
           v-model="selectedSupertype"
           @change="fetchFilteredCards"
-          class="p-2 border rounded white-bg round-corner dark-text"
+          class="p-2 border white-bg round-corner dark-text"
         >
           <option value="">All Supertypes</option>
           <option value="Pokémon">Pokémon</option>
@@ -80,20 +80,20 @@
             :key="card.id"
             class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2 cursor-pointer relative"
           >
-            <div class="p-4 rounded-lg shadow hover:shadow-lg transition bg-white">
+            <div class="p-4 rounded-lg shadow hover:shadow-lg transition light-bg">
               <img :src="card.images.small" :alt="card.name" class="w-full" />
   
               <!-- Optional Quantity badge -->
               <span
                 v-if="mode === 'select' && props.selectedCards?.[card.id]"
-                class="absolute top-3 left-3 bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full"
+                class="absolute top-3 left-3 bg-blue-500 light-headline text-xs px-2 py-0.5 round-corner"
               >
                 x{{ props.selectedCards[card.id] }}
               </span>
   
-              <div class="mt-2 flex justify-between items-center">
+              <div class="pt-4 flex justify-between items-center">
                 <button class="btn-1" @click="handleCardClick(card)" data-testid="select-card-button">
-                  {{ mode === 'select' ? 'Select Card' : 'See Card' }}
+                  {{ mode === 'select' ? 'Select Card' : 'See Card'.trim() }}
                 </button>
               </div>
             </div>
@@ -102,7 +102,7 @@
       </div>
   
       <!-- ⏭ Pagination -->
-      <div class="flex justify-center gap-4 mt-6" v-if="cards.length > 0">
+      <div class="flex justify-center gap-4 pt-6" v-if="cards.length > 0">
         <button class="btn-1" @click="prevPage" :disabled="page <= 1">Prev</button>
         <span>Page {{ page }} of {{ totalPages }}</span>
         <button class="btn-1" @click="nextPage" :disabled="page >= totalPages">Next</button>
@@ -214,6 +214,6 @@ const handleAddToCollection = async (cardId: string) => {
   </script>
   
   <style scoped>
-  /* Customize as needed */
+  
   </style>
   

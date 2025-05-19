@@ -1,6 +1,6 @@
 <template>
     <section v-if="aboutUs.length && aboutUs[0]" class="five-percent extra-dark-bg pt-30">
-    <div class="grid grid-cols-2 light-bg round-corner">
+    <div class="grid grid-cols-2 light-bg round-corner shadow">
       <div class="about-img-container">
         <img :src="aboutUs[0].imageURL.trim()" alt="about us image" class="about-img" />
       </div>
@@ -13,6 +13,10 @@
       </div>
     </div>
   </section>
+
+  <div v-else>
+    <p>Loading...</p>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,20 +1,20 @@
 <template>
-    <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h2 class="text-2xl font-bold mb-4 text-center">Edit Your Profile</h2>
+    <div class="max-w-md mx-auto pt-10 p-6 bg-white rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold pb-4 text-center">Edit Your Profile</h2>
   
       <form @submit.prevent="updateProfile" class="space-y-4">
         <div>
-          <label class="block font-medium mb-1">Username</label>
+          <label class="block font-medium pb-1">Username</label>
           <input v-model="form.username" type="text" class="input w-full" />
         </div>
   
         <div>
-          <label class="block font-medium mb-1">Email</label>
+          <label class="block font-medium pb-1">Email</label>
           <input v-model="form.email" type="email" class="input w-full" />
         </div>
   
         <div>
-          <label class="block font-medium mb-1">New Password</label>
+          <label class="block font-medium pb-1">New Password</label>
           <input v-model="form.password" type="password" class="input w-full" placeholder="Leave blank to keep current" />
         </div>
   
@@ -23,13 +23,13 @@
         </button>
       </form>
   
-      <div class="mt-6 text-center">
+      <div class="pt-6 text-center">
         <button @click="deleteAccount" class="text-sm text-red-600 hover:underline">
           Delete Account
         </button>
       </div>
   
-      <div v-if="message" class="mt-4 text-center text-green-600">
+      <div v-if="message" class="pt-4 text-center text-green-600">
         {{ message }}
       </div>
     </div>

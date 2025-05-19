@@ -26,12 +26,12 @@
                         
                         <div class="flex flex-col gap-2">
                         <span>News sub title: </span>
-                        <input type="text" v-model="newsItem.subTitle" placeholder="Sub title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" /> 
+                        <input type="text" v-model="newsItem.subTitle" placeholder="Sub title" minlength="2" maxlength="255" required class="white-bg round-corner p-1" /> 
                         </div>
             
                         <div class="flex flex-col gap-2">
                         <span>News text: </span>
-                        <textarea type="text" v-model="newsItem.text" placeholder="Text" minlength="6" maxlength="1024" required class="white-bg round-corner p-1"></textarea>
+                        <textarea type="text" v-model="newsItem.text" placeholder="Text" minlength="6" required class="white-bg round-corner p-1"></textarea>
                         </div>
             
                         <div class="flex flex-col gap-2">
@@ -57,7 +57,7 @@
           
                     <!-- delete and update btns -->
                     <div class="pt-6 flex flex-col gap-2"> 
-                      <p>ID: {{ newsItem._id }} </p> 
+                      <p>ID: {{ newsItem._id.trim() }} </p> 
                       <button @click="updateNewsHandler" class="edit-btn bg-green-600 light-headline p-2  hover:bg-green-700 cursor-pointer">Edit</button>
                       
                     </div>
@@ -117,11 +117,11 @@ const updateNewsHandler = () => {
 <style scoped>
 /* add background behind the modal */
 .modal-exit {
-  background-color: rgba(91, 91, 91, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal {
-    width: 70%;
+  width: 70%;
 }
 
 /* news info */

@@ -15,7 +15,7 @@
             :key="trade._id"
             class="border p-4 rounded-lg shadow-sm flex flex-col gap-2"
           >
-            <p><strong>From:</strong> {{ trade.senderId?.username || 'Unknown' }}</p>
+            <p><strong>From:</strong> {{ trade.senderId?.username || 'Unknown'.trim() }}</p>
             <div>
   <p class="font-semibold">They offer:</p>
   <div class="flex flex-wrap gap-2 mb-2">
