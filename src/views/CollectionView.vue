@@ -8,12 +8,12 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4" v-else>
       <CollectionCard
-  v-for="card in collection"
-  :key="card.cardId"
-  :card="card"
-  @update="updateCard"
-  @delete="deleteCard"
-/>
+        v-for="card in collection"
+        :key="card.cardId"
+        :card="card"
+        @update="updateCard"
+        @delete="deleteCard"
+      />
 
 
     </div>
@@ -37,7 +37,7 @@ const {
   loading,
   error,
   fetchCollection,
-  updateCardInCollection, // ✅ PUT THIS HERE
+  updateCardInCollection, 
   deleteCardFromCollection
 } = useCollection();
 
@@ -55,11 +55,11 @@ const deleteCard = (cardId: string) => {
 };
 
 
-// Main setup
+// main setup
 onMounted(async () => {
   scrollToTop();
 
-  await loadUser(); // 👈 Make sure this is awaited
+  await loadUser();
 
   if (!state.isLoggedIn || !user.value?._id) {
     router.push('/auth');

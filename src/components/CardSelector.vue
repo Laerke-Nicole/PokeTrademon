@@ -1,10 +1,8 @@
 <template>
     <div class="card-selector">
-      <!-- ✅ Selected Cards Preview -->
+      <!-- Selected Cards Preview -->
       <div
-        v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0"
-        class="pb-6"
-      >
+        v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0" class="pb-6">
         <h3 class="text-md font-semibold dark-headline pb-2" v-motion-fade-slide>Selected Cards:</h3>
         <div class="flex flex-wrap gap-3">
           <div
@@ -31,7 +29,7 @@
 </div>
 
   
-      <!-- 🔍 Search & Filters -->
+      <!-- Search & Filters -->
       <div v-if="showGrid">
       <div class="flex flex-col md:flex-row gap-4 pb-6">
         <input
@@ -69,7 +67,7 @@
         </select>
       </div>
   
-      <!-- 🃏 Card Grid -->
+      <!-- Card Grid -->
       <div>
         <div v-if="loading">Loading...</div>
         <div v-else-if="error">{{ error }}</div>
@@ -102,7 +100,7 @@
         </div>
       </div>
   
-      <!-- ⏭ Pagination -->
+      <!-- Pagination -->
       <div class="flex justify-center gap-4 pt-6" v-if="cards.length > 0">
         <button class="btn-1" @click="prevPage" :disabled="page <= 1">Prev</button>
         <span>Page {{ page }} of {{ totalPages }}</span>
@@ -110,15 +108,14 @@
       </div>
     </div>
   
-      <!-- 👁 Modal Preview (only in view mode) -->
+      <!-- Modal Preview (only in view mode) -->
       <CardModal
-  v-if="mode === 'view' && showModal && selectedCard"
-  :visible="showModal"
-  :card="selectedCard"
-  @close="showModal = false"
-  @add-to-collection="handleAddToCollection"
-/>
-
+        v-if="mode === 'view' && showModal && selectedCard"
+        :visible="showModal"
+        :card="selectedCard"
+        @close="showModal = false"
+        @add-to-collection="handleAddToCollection"
+      />
     </div>
 
   </template>

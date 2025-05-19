@@ -20,11 +20,10 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
             </div>
-
         </div>
 
         <div class="flex justify-center align-center pt-12">
-        <RouterLink to="/auth"><button class="btn-1" v-motion-fade-slide>Start your collection now</button></RouterLink>
+          <RouterLink to="/auth"><button class="btn-1" v-motion-fade-slide>Start your collection now</button></RouterLink>
         </div>
     </section>
 </template>

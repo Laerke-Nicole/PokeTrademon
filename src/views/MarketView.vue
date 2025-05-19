@@ -48,5 +48,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* You can keep or remove styles if they were specific to the old layout */
+
 </style>

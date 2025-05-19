@@ -20,7 +20,7 @@ export const useUsers = () => {
 
   const router = useRouter();
 
-  // ✅ LOGIN
+  // login
   const fetchToken = async (email: string, password: string): Promise<void> => {
     try {
       const response = await fetch(`${BASE_URL}/login`, {
@@ -48,7 +48,7 @@ export const useUsers = () => {
     }
   };
 
-  // ✅ REGISTER
+  // register
   const registerUser = async (username: string, email: string, password: string, recaptchaToken: string): Promise<void> => {
     try {
       const response = await fetch(`${BASE_URL}/register`, {
@@ -63,11 +63,11 @@ export const useUsers = () => {
       error.value = null;
     } catch (err) {
       error.value = (err as Error).message || 'Error registering';
-      console.error('❌ Register Error:', error.value);
+      throw new Error(error.value);
     }
   };
 
-  // ✅ LOGOUT
+  // log out
   const logout = () => {
     token.value = null;
     user.value = null;
@@ -78,7 +78,7 @@ export const useUsers = () => {
     router.push('/');
   };
 
-  // ✅ LOAD CURRENT USER
+  // load current user
   const loadUser = async () => {
     try {
       const data = await getCurrentUser();
@@ -89,7 +89,7 @@ export const useUsers = () => {
       user.value = null;
       isLoggedIn.value = false;
       state.isLoggedIn = false;
-      console.error("❌ Failed to load user from API", err);
+      throw new Error('Failed to load user from API');
     }
   };
 
@@ -108,7 +108,7 @@ export const useUsers = () => {
   };
 };
 
-// ✅ Export localStorage-based token (for fetch headers)
+// Export localStorage-based token (for fetch headers)
 export const getAuthToken = (): string => {
   return localStorage.getItem('isToken') || '';
 };

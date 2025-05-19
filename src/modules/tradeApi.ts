@@ -1,11 +1,11 @@
 import type { TradeOffer, TradeCard, CreateTradeOfferPayload } from '../interfaces/trade';
 import { getAuthToken } from './auth/userModels';
 
-// ✅ Use dynamic base URL
+// use dynamic base URL
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004';
 
 
-// ✅ AUTHENTICATION
+// authentication
 function authHeaders() {
   const token = getAuthToken() || localStorage.getItem('isToken') || '';
   return {
@@ -14,7 +14,7 @@ function authHeaders() {
   };
 }
 
-// ✅ TRADE ROUTES
+// trade routes
 
 export const fetchTradesForUser = async (userId: string): Promise<TradeOffer[]> => {
   const res = await fetch(`${BASE_URL}/trades/${userId}`, {
@@ -63,8 +63,7 @@ export const declineTradeOffer = async (tradeId: string, userId: string) => {
   return await res.json();
 };
 
-// ✅ COLLECTION
-
+// collection
 export const fetchUserCollection = async (userId: string): Promise<TradeCard[]> => {
   const res = await fetch(`${BASE_URL}/collections/${userId}`);
   if (!res.ok) throw new Error("Failed to fetch user collection");
@@ -72,7 +71,7 @@ export const fetchUserCollection = async (userId: string): Promise<TradeCard[]> 
   return data.collection;
 };
 
-// ✅ CARD DETAILS FROM EXTERNAL API
+// card details from external API
 export const fetchCardDetails = async (cardId: string) => {
   const res = await fetch(`https://api.pokemontcg.io/v2/cards/${cardId}`, {
     headers: {

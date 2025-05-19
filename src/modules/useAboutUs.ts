@@ -74,7 +74,7 @@ export const useAboutUs = () => {
 
       const added = await res.json();
       
-      // aboutUs.value.push(added);
+      aboutUs.value.push(added);
 
       await fetchAboutUs();
     } catch (err) {

@@ -333,7 +333,7 @@ const declineTrade = async (tradeId: string, actingUserId?: string) => {
 
  
 const acceptOpenOffer = async (tradeId: string) => {
-  await acceptTradeOffer(tradeId, userId.value); // ✅ send userId
+  await acceptTradeOffer(tradeId, userId.value); // send userId
   showToast('Trade accepted from marketplace', 'success');
   showModal.value = false;
   await fetchOpenOffers();
@@ -364,7 +364,7 @@ const acceptOpenOffer = async (tradeId: string) => {
 
     await loadTrades();
   } catch (err) {
-    console.error("❌ Failed to fetch collection in TradeView:", err);
+    console.error("Failed to fetch collection in TradeView:", err);
   }
 });
 

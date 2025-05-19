@@ -13,7 +13,7 @@ export const getCurrentUser = async () => {
 
 
 export const updateUser = async (data: { username: string; email: string; password?: string }) => {
-  const token = localStorage.getItem('isToken'); // ✅ match the stored key
+  const token = localStorage.getItem('isToken'); // match the stored key
   const res = await fetch(`${import.meta.env.VITE_API_URL}/users/update`, {
       method: 'PATCH',
       headers: {
@@ -27,7 +27,7 @@ export const updateUser = async (data: { username: string; email: string; passwo
   };
   
   export const deleteUser = async () => {
-    const token = localStorage.getItem('isToken'); // ✅ match the stored key
+    const token = localStorage.getItem('isToken'); // match the stored key
     const res = await fetch(`${import.meta.env.VITE_API_URL}/users/delete`, {
       method: 'DELETE',
       headers: {

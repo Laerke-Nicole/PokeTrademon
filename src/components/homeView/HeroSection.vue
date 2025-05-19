@@ -4,7 +4,6 @@
         <!-- left side with headline -->
         <div class="w-1/3 hero-title">
           <h1 class="leading-tight pb-10 dark-headline" v-motion-fade-slide>Universe of Pokemon card trading</h1>
-          
 
           <div v-if="state.isLoggedIn && isUser" class="flex gap-4">
             <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore</button></RouterLink>

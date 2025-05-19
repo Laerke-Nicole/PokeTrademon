@@ -81,7 +81,7 @@ const updateProfile = async () => {
     }
 
     await updateUser(payload);
-    message.value = '✅ Profile updated successfully!';
+    message.value = 'Profile updated successfully!';
     setTimeout(() => {
       message.value = '';
     }, 3000);
