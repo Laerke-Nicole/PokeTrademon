@@ -14,9 +14,6 @@ export interface CollectionItem {
 }
 
 export const useCollection = () => {
-// Removed unused values to silence ESLint
-// const { user, token } = useUsers();
-
   const collection = ref<CollectionItem[]>([]);
   const loading = ref(false);
   const error = ref<string | null>(null);
@@ -24,7 +21,7 @@ export const useCollection = () => {
   const fetchCollection = async (userId: string) => {
     const token = getAuthToken();
     if (!userId || !token) {
-      console.warn('⛔ No user ID or token found. Are you logged in?');
+      console.warn('No user ID or token found. Are you logged in?');
       return;
     }
   
@@ -51,7 +48,7 @@ export const useCollection = () => {
               image: cardData.data?.images?.small || '',
             };
           } catch (err) {
-            console.warn(`⚠️ Failed to fetch card ${entry.cardId}`, err);
+            console.warn(`Failed to fetch card ${entry.cardId}`, err);
             return {
               ...entry,
               name: entry.cardId,
@@ -65,7 +62,7 @@ export const useCollection = () => {
       collection.value = enrichedCollection.filter(c => c.quantity > 0);
     } catch (err) {
       error.value = (err as Error).message || 'Failed to load collection';
-      console.error('❌ Error fetching collection:', error.value);
+      console.error('Error fetching collection:', error.value);
     } finally {
       loading.value = false;
     }
@@ -94,7 +91,7 @@ export const useCollection = () => {
       await fetchCollection(userId);
     } catch (err) {
       error.value = (err as Error).message || 'Failed to add card';
-      console.error('❌ Error adding card:', error.value);
+      console.error('Error adding card:', error.value);
     }
   };
   
@@ -104,13 +101,9 @@ export const useCollection = () => {
 const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '');
 
 if (!userId || !token) {
-  console.warn('⛔ Missing userId or token in updateCardInCollection');
+  console.warn('Missing userId or token in updateCardInCollection');
   return;
 }
-
-  
-    console.log("📡 Sending PATCH to backend for", cardId, { quantity, condition });
-  
     try {
       const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
         method: 'PATCH',
@@ -123,14 +116,13 @@ if (!userId || !token) {
   
       const json = await res.json();
       if (!res.ok) {
-        console.error("❌ PATCH failed:", json);
+        console.error("PATCH failed:", json);
         return;
       }
   
-      console.log("✅ PATCH success:", json);
       await fetchCollection(userId);
     } catch (error) {
-      console.error("❌ updateCardInCollection error:", error);
+      throw new Error('Failed to update card');
     }
   };
   
@@ -142,12 +134,9 @@ if (!userId || !token) {
     const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '');
     
     if (!userId || !token) {
-      console.warn('⛔ Missing userId or token in deleteCardFromCollection');
+      console.warn('Missing userId or token in deleteCardFromCollection');
       return;
     }
-    
-  
-    console.log("📡 Sending DELETE to backend for", cardId);
   
     try {
       const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
@@ -159,14 +148,13 @@ if (!userId || !token) {
   
       const json = await res.json();
       if (!res.ok) {
-        console.error("❌ DELETE failed:", json);
+        console.error("DELETE failed:", json);
         return;
       }
   
-      console.log("✅ DELETE success:", json);
       await fetchCollection(userId);
     } catch (error) {
-      console.error("❌ deleteCardFromCollection error:", error);
+      console.error("deleteCardFromCollection error:", error);
     }
   };
   

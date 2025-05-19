@@ -1,29 +1,32 @@
 <template>
-    <div class="max-w-md mx-auto pt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h2 class="text-2xl font-bold pb-4 text-center">Edit Your Profile</h2>
+  <section class="dark-bg flex flex-col items-center justify-center">
+    <div class="pt-24 w-full max-w-xl mx-auto px-40">
+      <h2 class="pt-16 text-center pb-6">Edit Your Profile</h2>
   
       <form @submit.prevent="updateProfile" class="space-y-4">
         <div>
-          <label class="block font-medium pb-1">Username</label>
+          <label class="block pb-1">Username</label>
           <input v-model="form.username" type="text" class="input w-full" />
         </div>
   
         <div>
-          <label class="block font-medium pb-1">Email</label>
+          <label class="block pt-4 pb-1">Email</label>
           <input v-model="form.email" type="email" class="input w-full" />
         </div>
   
         <div>
-          <label class="block font-medium pb-1">New Password</label>
+          <label class="block pt-4 pb-1">New Password</label>
           <input v-model="form.password" type="password" class="input w-full" placeholder="Leave blank to keep current" />
         </div>
   
-        <button type="submit" class="btn w-full bg-blue-600 text-white hover:bg-blue-700">
-          Update Profile
-        </button>
+        <div class="pt-6">
+          <button type="submit" class="btn-1 w-full">
+            Update Profile
+          </button>
+        </div>
       </form>
   
-      <div class="pt-6 text-center">
+      <div class="pt-4 text-center">
         <button @click="deleteAccount" class="text-sm text-red-600 hover:underline">
           Delete Account
         </button>
@@ -33,10 +36,12 @@
         {{ message }}
       </div>
     </div>
+  </section>
   </template>
   
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
+  import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
   import { useRouter } from 'vue-router';
   import { useUsers } from '../modules/auth/userModels';
   import { updateUser, deleteUser } from '../modules/auth/userAPI';
@@ -76,7 +81,7 @@ const updateProfile = async () => {
     }
 
     await updateUser(payload);
-    message.value = '✅ Profile updated successfully!';
+    message.value = 'Profile updated successfully!';
     setTimeout(() => {
       message.value = '';
     }, 3000);
@@ -100,19 +105,18 @@ const updateProfile = async () => {
       message.value = 'Failed to delete account.';
     }
   };
+
+  // start at the top of the page
+  onMounted(() => {
+    scrollToTop(); 
+  });
   </script>
   
   <style scoped>
   .input {
-    border: 1px solid #ccc;
+    background-color: #ffffff;
     padding: 0.5rem;
-    border-radius: 0.375rem;
-  }
-  
-  .btn {
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    border-radius: 0.375rem;
+    border-radius: 10px;
   }
   </style>
   

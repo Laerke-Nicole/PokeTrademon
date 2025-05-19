@@ -17,30 +17,30 @@
           >
             <p><strong>From:</strong> {{ trade.senderId?.username || 'Unknown'.trim() }}</p>
             <div>
-  <p class="font-semibold">They offer:</p>
-  <div class="flex flex-wrap gap-2 mb-2">
-    <div
-      v-for="c in trade.senderCards"
-      :key="c.cardId"
-      class="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"
-    >
-      <img :src="c.image" alt="card" class="h-8 w-8 object-contain" />
-      <span>{{ c.name }} (x{{ c.quantity }})</span>
-    </div>
-  </div>
+              <p class="font-semibold">They offer:</p>
+              <div class="flex flex-wrap gap-2 mb-2">
+                <div
+                  v-for="c in trade.senderCards"
+                  :key="c.cardId"
+                  class="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"
+                >
+                  <img :src="c.image" alt="card" class="h-8 w-8 object-contain" />
+                  <span>{{ c.name }} (x{{ c.quantity }})</span>
+                </div>
+              </div>
 
-  <p class="font-semibold">They want:</p>
-  <div class="flex flex-wrap gap-2">
-    <div
-      v-for="c in trade.receiverCards"
-      :key="c.cardId"
-      class="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"
-    >
-      <img :src="c.image" alt="card" class="h-8 w-8 object-contain" />
-      <span>{{ c.name }} (x{{ c.quantity }})</span>
-    </div>
-  </div>
-</div>
+              <p class="font-semibold">They want:</p>
+              <div class="flex flex-wrap gap-2">
+                <div
+                  v-for="c in trade.receiverCards"
+                  :key="c.cardId"
+                  class="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"
+                >
+                  <img :src="c.image" alt="card" class="h-8 w-8 object-contain" />
+                  <span>{{ c.name }} (x{{ c.quantity }})</span>
+                </div>
+              </div>
+            </div>
 
 
             <div class="flex gap-2 mt-2 items-center">

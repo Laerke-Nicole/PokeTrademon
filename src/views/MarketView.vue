@@ -13,8 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 import type { PokemonCard } from '../interfaces/card';
 import CardSelector from '../components/CardSelector.vue';
 import CardModal from '../components/CardModal.vue';
@@ -39,8 +40,13 @@ const router = useRouter();
 if (!state.isLoggedIn) {
   router.push('/');
 }
+
+// start at the top of the page
+onMounted(() => {
+  scrollToTop(); 
+});
 </script>
 
 <style scoped>
-/* You can keep or remove styles if they were specific to the old layout */
+
 </style>

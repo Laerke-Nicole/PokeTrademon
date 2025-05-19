@@ -8,12 +8,12 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4" v-else>
       <CollectionCard
-  v-for="card in collection"
-  :key="card.cardId"
-  :card="card"
-  @update="updateCard"
-  @delete="deleteCard"
-/>
+        v-for="card in collection"
+        :key="card.cardId"
+        :card="card"
+        @update="updateCard"
+        @delete="deleteCard"
+      />
 
 
     </div>
@@ -37,38 +37,36 @@ const {
   loading,
   error,
   fetchCollection,
-  updateCardInCollection, // ✅ PUT THIS HERE
+  updateCardInCollection, 
   deleteCardFromCollection
 } = useCollection();
 
 
 const updateCard = (cardId: string, quantity: number, condition: string) => {
-  console.log('👾 Parent received update for:', cardId, quantity, condition);
   if (user.value?._id) {
     updateCardInCollection(cardId, quantity, condition);
   }
 };
 
 const deleteCard = (cardId: string) => {
-  console.log('🗑️ Parent received delete for:', cardId);
   if (user.value?._id) {
     deleteCardFromCollection(cardId);
   }
 };
 
 
-// Main setup
+// main setup
 onMounted(async () => {
   scrollToTop();
 
-  await loadUser(); // 👈 Make sure this is awaited
+  await loadUser();
 
   if (!state.isLoggedIn || !user.value?._id) {
     router.push('/auth');
     return;
   }
-
-  console.log('👤 Loaded user ID:', user.value._id);
+  
   await fetchCollection(user.value._id);});
+
 </script>
 

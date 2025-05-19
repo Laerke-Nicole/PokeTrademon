@@ -61,7 +61,7 @@
   
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
 import { state } from '../../modules/globalStates/state';
 

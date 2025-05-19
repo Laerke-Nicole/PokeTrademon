@@ -38,15 +38,14 @@
             <div>
               <input type="checkbox" v-model="newNews.isHidden" /> <span class="uppercase font-bold">Hidden News</span> 
             </div>
-
-        </div>
-
-        <div class="pt-4">
-          <div v-if="message" class="text-green-600 pb-4">
-            {{ message }}
           </div>
-          <button type="submit" class="btn-1">Create news</button>
-        </div>
+
+          <div class="pt-4">
+            <div v-if="message" class="text-green-600 pb-4">
+              {{ message }}
+            </div>
+            <button type="submit" class="btn-1">Create news</button>
+          </div>
         </form>
     </div>
 </template>

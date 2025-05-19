@@ -1,5 +1,5 @@
 <template>
-    <div class="border p-4 round-corner shadow relative light-bg">
+    <div class="border p-4 round-corner shadow relative light-bg" v-motion-fade-slide>
       <img :src="card.image" alt="Card" class="w-full pb-2" />
       <p class="text-center py-2"><strong>Card id:</strong> {{ card.cardId.trim() }}</p>
   
@@ -50,7 +50,6 @@ watch(() => props.card, (newVal) => {
 });
 
 const handleUpdate = () => {
-  console.log('🔧 Updating card:', localCard.value);
   emit('update', localCard.value.cardId, localCard.value.quantity, localCard.value.condition);
 };
 

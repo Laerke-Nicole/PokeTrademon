@@ -7,7 +7,7 @@ export const useCards = () => {
   const error = ref<string | null>(null);
   const totalCount = ref(0);
 
-  // ✅ Dynamically use environment-based API URL
+  // Dynamically use environment-based API URL
   const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004/api';
 
   const fetchCards = async (
@@ -50,7 +50,7 @@ export const useCards = () => {
 
 
     } catch (err) {
-      console.error("❌ Error fetching Pokémon cards:", err);
+      console.error("Error fetching Pokémon cards:", err);
       cards.value = [];
       error.value = 'Failed to fetch cards.';
     } finally {
@@ -58,25 +58,25 @@ export const useCards = () => {
     }
   };
 
-  // Inside your `useCards` composable:
+  // Inside "useCards" composable:
 const fetchCardById = async (id: string): Promise<PokemonCard[]> => {
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/pokemon/cards/${id}`);
     const data = await res.json();
     return [data.data]; // wrap in array for consistency with current component
   } catch (err) {
-    console.error("❌ Error fetching card by ID:", err);
+    console.error("Error fetching card by ID:", err);
     throw err;
   }
 };
 
-// Make sure to export it:
+
 return {
   cards,
   loading,
   error,
   totalCount,
   fetchCards,
-  fetchCardById // ✅ added here
+  fetchCardById 
 };
 }
