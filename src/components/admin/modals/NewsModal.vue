@@ -26,12 +26,12 @@
                         
                         <div class="flex flex-col gap-2">
                         <span>News sub title: </span>
-                        <input type="text" v-model="newsItem.subTitle" placeholder="Sub title" minlength="2" maxlength="100" required class="white-bg round-corner p-1" /> 
+                        <input type="text" v-model="newsItem.subTitle" placeholder="Sub title" minlength="2" maxlength="255" required class="white-bg round-corner p-1" /> 
                         </div>
             
                         <div class="flex flex-col gap-2">
                         <span>News text: </span>
-                        <textarea type="text" v-model="newsItem.text" placeholder="Text" minlength="6" maxlength="1024" required class="white-bg round-corner p-1"></textarea>
+                        <textarea type="text" v-model="newsItem.text" placeholder="Text" minlength="6" required class="white-bg round-corner p-1"></textarea>
                         </div>
             
                         <div class="flex flex-col gap-2">
