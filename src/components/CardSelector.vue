@@ -16,7 +16,7 @@
               class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center cursor-pointer"
               @click="emit('card-removed', cardId)"
             >×</span>
-            <div class="text-sm font-medium text-gray-800">ID: {{ cardId }}</div>
+            <div class="text-sm font-medium text-gray-800">ID: {{ cardId.trim() }}</div>
             <div class="text-xs text-gray-600">Qty: {{ qty }}</div>
           </div>
         </div>
@@ -72,7 +72,7 @@
       <!-- 🃏 Card Grid -->
       <div>
         <div v-if="loading">Loading...</div>
-        <div v-else-if="error">{{ error }}</div>
+        <div v-else-if="error">{{ error.trim() }}</div>
         <div v-else-if="!cards.length">No cards found.</div>
         <div v-else class="flex flex-wrap -mx-2">
           <div
@@ -93,7 +93,7 @@
   
               <div class="pt-4 flex justify-between items-center">
                 <button class="btn-1" @click="handleCardClick(card)" data-testid="select-card-button">
-                  {{ mode === 'select' ? 'Select Card' : 'See Card' }}
+                  {{ mode === 'select' ? 'Select Card' : 'See Card'.trim() }}
                 </button>
               </div>
             </div>
