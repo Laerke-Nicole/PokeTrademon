@@ -4,8 +4,8 @@
         <div v-for="aboutUsItem in aboutUs" :key="aboutUsItem._id" class="flex flex-col gap-4">
           <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
             <div class="flex flex-col gap-2">
-              <h4>{{ aboutUsItem.aboutUsTitle }}</h4>
-              <p>{{ aboutUsItem.aboutUsText }}</p>
+              <h4>{{ aboutUsItem.aboutUsTitle.trim() }}</h4>
+              <p>{{ aboutUsItem.aboutUsText.trim() }}</p>
             </div>
 
             <div class="pb-4">

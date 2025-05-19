@@ -19,7 +19,7 @@
             activeTab === tab ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
           ]"
         >
-          {{ tab.charAt(0).toUpperCase() + tab.slice(1) }} Offers
+          {{ tab.charAt(0).toUpperCase() + tab.slice(1).trim() }} Offers
         </button>
         <button class="text-blue-600 underline text-sm" @click="openMarketplace">Browse Open Offers</button>
       </div>
@@ -30,13 +30,13 @@
           <div class="grid md:grid-cols-2 gap-6">
             <div v-for="trade in incoming" :key="trade._id" class="bg-white p-4 rounded-xl shadow-md border">
               <div class="flex justify-between mb-2">
-                <div class="font-semibold text-gray-800">From: {{ trade.senderId.username }}</div>
+                <div class="font-semibold text-gray-800">From: {{ trade.senderId.username.trim() }}</div>
                 <span :class="['text-xs px-2 py-1 rounded-full font-semibold', trade.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800']">
-                  {{ trade.status }}
+                  {{ trade.status.trim() }}
                 </span>
               </div>
-              <p class="text-sm text-gray-700"><strong>They offer:</strong> {{ cardList(trade.senderCards) }}</p>
-              <p class="text-sm text-gray-700"><strong>They want:</strong> {{ cardList(trade.receiverCards) }}</p>
+              <p class="text-sm text-gray-700"><strong>They offer:</strong> {{ cardList(trade.senderCards).trim() }}</p>
+              <p class="text-sm text-gray-700"><strong>They want:</strong> {{ cardList(trade.receiverCards).trim() }}</p>
               <div v-if="trade.status === 'pending'" class="mt-4 flex space-x-2">
                 <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-full text-sm" @click="acceptTrade(trade._id)">Accept</button>
                 <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-full text-sm" @click="declineTrade(trade._id)">Decline</button>
@@ -50,13 +50,13 @@
           <div class="grid md:grid-cols-2 gap-6">
             <div v-for="trade in outgoing" :key="trade._id" class="bg-white p-4 rounded-xl shadow-md border">
               <div class="flex justify-between mb-2">
-                <div class="font-semibold text-gray-800">To: {{ trade.receiverId?.username || 'Anyone (Open)' }}</div>
+                <div class="font-semibold text-gray-800">To: {{ trade.receiverId?.username || 'Anyone (Open)'.trim() }}</div>
                 <span :class="['text-xs px-2 py-1 rounded-full font-semibold', trade.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800']">
-                  {{ trade.status }}
+                  {{ trade.status.trim() }}
                 </span>
               </div>
-              <p class="text-sm text-gray-700"><strong>You offer:</strong> {{ cardList(trade.senderCards) }}</p>
-              <p class="text-sm text-gray-700"><strong>You want:</strong> {{ cardList(trade.receiverCards) }}</p>
+              <p class="text-sm text-gray-700"><strong>You offer:</strong> {{ cardList(trade.senderCards).trim() }}</p>
+              <p class="text-sm text-gray-700"><strong>You want:</strong> {{ cardList(trade.receiverCards).trim() }}</p>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
               <select v-model="selectedCardId" class="border rounded p-1" data-testid="user-card-dropdown">
                 <option disabled value="">-- Choose a card --</option>
                 <option v-for="card in userCollection" :key="card.cardId" :value="card.cardId" :disabled="card.quantity === 0">
-                  {{ card.cardId }} (You have: {{ card.quantity }})
+                  {{ card.cardId.trim() }} (You have: {{ card.quantity }})
                 </option>
               </select>
               <input type="number" v-model.number="selectedQuantity" :min="1" :max="getCardMax(selectedCardId)" class="w-20 p-1 border rounded" :disabled="!selectedCardId" />
@@ -100,7 +100,7 @@
             </div>
             <ul class="text-sm text-gray-800 ml-1">
               <li v-for="(qty, id) in selectedSender" :key="id" class="flex justify-between items-center w-60">
-                {{ id }} (x{{ qty }})
+                {{ id.trim() }} (x{{ qty }})
                 <button @click="removeCard(id)" class="text-red-600 text-xs ml-2">Remove</button>
               </li>
             </ul>
@@ -112,7 +112,7 @@
             <CardSelector mode="select" :selected-cards="selectedReceiverCards" @card-selected="addReceiverCard" @card-removed="removeReceiverCard" />
             <ul class="text-sm text-gray-800 mt-4 ml-1">
               <li v-for="(qty, id) in selectedReceiverCards" :key="id" class="flex justify-between items-center w-72">
-                {{ id }} (x{{ qty }})
+                {{ id.trim() }} (x{{ qty }})
                 <button @click="removeReceiverCard(id)" class="text-red-600 text-xs ml-2">Remove</button>
               </li>
             </ul>
@@ -122,7 +122,7 @@
           <div class="mt-6 text-center">
             <button @click="submitTrade" data-testid="submit-trade" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="(tradeMode === 'direct' && (!userExists || !username)) || getSelectedSenderCards().length === 0 || getSelectedReceiverCards().length === 0">
-              {{ tradeMode === 'direct' ? 'Send Trade Offer' : 'Create Open Offer' }}
+              {{ tradeMode === 'direct' ? 'Send Trade Offer' : 'Create Open Offer'.trim() }}
             </button>
           </div>
         </div>

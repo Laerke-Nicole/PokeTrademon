@@ -4,8 +4,8 @@
         <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4">
           <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
             <div class="flex flex-col gap-2">
-              <h4>{{ newsItem.title }}</h4>
-              <p>{{ newsItem.subTitle }}</p>
+              <h4>{{ newsItem.title.trim() }}</h4>
+              <p>{{ newsItem.subTitle.trim() }}</p>
             </div>
 
             <div class="pb-4">

@@ -7,7 +7,7 @@
       </div>
       <div class="p-4">
         <div v-if="loading" class="text-center text-gray-600">Loading offers...</div>
-        <div v-else-if="error" class="text-center text-red-600">{{ error.trim() }}</div>
+        <div v-else-if="error" class="text-center text-red-600">{{ error }}</div>
         <div v-else-if="offers.length === 0" class="text-center text-gray-600">No open offers available.</div>
         <div v-else class="space-y-4 max-h-[60vh] overflow-y-auto">
           <div

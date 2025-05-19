@@ -57,7 +57,7 @@
           
                     <!-- delete and update btns -->
                     <div class="pt-6 flex flex-col gap-2"> 
-                      <p>ID: {{ newsItem._id }} </p> 
+                      <p>ID: {{ newsItem._id.trim() }} </p> 
                       <button @click="updateNewsHandler" class="edit-btn bg-green-600 light-headline p-2  hover:bg-green-700 cursor-pointer">Edit</button>
                       
                     </div>

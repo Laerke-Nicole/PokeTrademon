@@ -14,7 +14,7 @@
         </RouterLink>
   
         <div v-if="state.isLoggedIn">
-          <li v-if="user" class="w-full px-4 py-2">Welcome back <span class="user-name">{{ user.username }}!</span></li>
+          <li v-if="user" class="w-full px-4 py-2">Welcome back <span class="user-name">{{ user.username.trim() }}!</span></li>
           <li v-else class="w-full px-4 py-2 italic text-gray-500">Loading user name...</li>
           <hr class="user-hr">
         </div>

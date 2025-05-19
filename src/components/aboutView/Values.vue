@@ -25,6 +25,10 @@
       </div>
     </div>
   </section>
+  
+  <div v-else>
+    <p>Loading...</p>
+  </div>
 </template>
 
 <script setup lang="ts">

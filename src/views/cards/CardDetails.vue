@@ -4,12 +4,12 @@
         <img :src="card[0].images.small" alt="card image" class="w-full rounded-lg object-cover h-full" />
       </div>
       <div class="w-1/2 p-4">
-        <h2 class="text-xl font-bold">{{ card[0].name }}</h2>
-        <p><strong>HP:</strong> {{ card[0].hp || 'N/A' }}</p>
-        <p><strong>Supertype:</strong> {{ card[0].supertype }}</p>
+        <h2 class="text-xl font-bold">{{ card[0].name.trim() }}</h2>
+        <p><strong>HP:</strong> {{ card[0].hp || 'N/A'.trim() }}</p>
+        <p><strong>Supertype:</strong> {{ card[0].supertype.trim() }}</p>
         <p v-if="card[0].types"><strong>Types:</strong> {{ card[0].types.join(', ') }}</p>
-        <p v-if="card[0].rarity"><strong>Rarity:</strong> {{ card[0].rarity }}</p>
-        <p v-if="card[0].set?.name"><strong>Set:</strong> {{ card[0].set.name }}</p>
+        <p v-if="card[0].rarity"><strong>Rarity:</strong> {{ card[0].rarity.trim() }}</p>
+        <p v-if="card[0].set?.name"><strong>Set:</strong> {{ card[0].set.name.trim() }}</p>
       </div>
     </div>
   

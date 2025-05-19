@@ -72,7 +72,7 @@
       <!-- 🃏 Card Grid -->
       <div>
         <div v-if="loading">Loading...</div>
-        <div v-else-if="error">{{ error.trim() }}</div>
+        <div v-else-if="error">{{ error }}</div>
         <div v-else-if="!cards.length">No cards found.</div>
         <div v-else class="flex flex-wrap -mx-2">
           <div
