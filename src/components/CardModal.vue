@@ -38,7 +38,7 @@
             <img
               :src="card.images.large || card.images.small"
               alt="Card Image"
-              class="mx-auto mb-4"
+              class="mx-auto pb-4"
             />
           </div>
         </div>
