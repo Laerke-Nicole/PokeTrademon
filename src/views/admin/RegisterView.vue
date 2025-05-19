@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+declare const grecaptcha: any;
 import { ref, onMounted } from 'vue';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
@@ -44,16 +45,35 @@ const error = ref('');
 const registrationSuccess = ref(false);
 
 // check if user registered successfully
+// const handleRegister = async () => {
+//   registrationSuccess.value = false;
+//   error.value = '';
+//   try {
+//     await registerUser(username.value, email.value, password.value);
+//     registrationSuccess.value = true;
+//   } catch (err: any) {
+//     error.value = err.message || 'Something went wrong.';
+//   }
+// };
+
 const handleRegister = async () => {
   registrationSuccess.value = false;
   error.value = '';
-  try {
-    await registerUser(username.value, email.value, password.value);
-    registrationSuccess.value = true;
-  } catch (err: any) {
-    error.value = err.message || 'Something went wrong.';
-  }
+
+  grecaptcha.ready(() => {
+    grecaptcha.execute('6Le8ID8rAAAAAOQL7iuZd5qt8TyU1oyM0XvlOegX', { action: 'submit' }).then(async (token: string) => {
+      try {
+        await registerUser(username.value, email.value, password.value, token);
+        registrationSuccess.value = true;
+      } catch (err: any) {
+        error.value = err.message || 'Something went wrong.';
+      }
+    });
+  });
 };
+
+
+
 
 
 </script>
