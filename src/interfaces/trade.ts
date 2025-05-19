@@ -6,8 +6,8 @@ export interface TradeUser {
 export interface TradeCard {
   cardId: string;
   quantity: number;
-  name: string;
-  image: string;
+  name?: string;
+  image?: string;
 }
 
 export interface TradeOffer {
@@ -25,4 +25,14 @@ export interface DetailedTradeCard extends TradeCard {
   image: string;
   name: string;
 }
+
+
+export interface CreateTradeOfferPayload {
+  senderId: string;
+  receiverUsername?: string;
+  senderCards: TradeCard[];   // <- unified now
+  receiverCards: TradeCard[];
+  isOpenOffer?: boolean;
+}
+
 

@@ -9,6 +9,7 @@ export interface CollectionItem {
   cardId: string;
   quantity: number;
   condition: string;
+  name: string;
   image: string;
 }
 
@@ -44,13 +45,22 @@ export const useCollection = () => {
           try {
             const cardRes = await fetch(`${CARD_URL}/${entry.cardId}`);
             const cardData = await cardRes.json();
-            return { ...entry, image: cardData.data?.images?.small || '' };
+            return {
+              ...entry,
+              name: cardData.data?.name || entry.cardId,
+              image: cardData.data?.images?.small || '',
+            };
           } catch (err) {
             console.warn(`⚠️ Failed to fetch card ${entry.cardId}`, err);
-            return { ...entry, image: '' };
+            return {
+              ...entry,
+              name: entry.cardId,
+              image: '',
+            };
           }
         })
       );
+      
   
       collection.value = enrichedCollection.filter(c => c.quantity > 0);
     } catch (err) {

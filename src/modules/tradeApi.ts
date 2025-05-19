@@ -1,63 +1,65 @@
-import type { TradeOffer, TradeCard } from '../interfaces/trade';
+import type { TradeOffer, TradeCard, CreateTradeOfferPayload } from '../interfaces/trade';
+import { getAuthToken } from './auth/userModels';
 
 // ✅ Use dynamic base URL
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004';
 
+
+// ✅ AUTHENTICATION
+function authHeaders() {
+  const token = getAuthToken() || localStorage.getItem('isToken') || '';
+  return {
+    'Content-Type': 'application/json',
+    'auth-token': token,
+  };
+}
+
 // ✅ TRADE ROUTES
 
 export const fetchTradesForUser = async (userId: string): Promise<TradeOffer[]> => {
-  const res = await fetch(`${BASE_URL}/trades/${userId}`);
+  const res = await fetch(`${BASE_URL}/trades/${userId}`, {
+    headers: authHeaders(),
+  });
   if (!res.ok) throw new Error('Failed to fetch trade offers');
   return await res.json();
 };
 
-export const createTradeOffer = async (offer: {
-  senderId: string;
-  receiverUsername: string;
-  senderCards: TradeCard[];
-  receiverCards: TradeCard[];
-}) => {
+export const createTradeOffer = async (offer: CreateTradeOfferPayload) => {
   const response = await fetch(`${BASE_URL}/trades`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify(offer)
   });
-
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.message || 'Failed to create trade offer');
   }
-
   return await response.json();
 };
 
 export const acceptTradeOffer = async (tradeId: string, userId: string) => {
   const res = await fetch(`${BASE_URL}/trades/${tradeId}/accept`, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify({ userId })
   });
-
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || 'Failed to accept trade');
   }
-
   return await res.json();
 };
 
 export const declineTradeOffer = async (tradeId: string, userId: string) => {
   const res = await fetch(`${BASE_URL}/trades/${tradeId}/decline`, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify({ userId })
   });
-
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || 'Failed to decline trade');
   }
-
   return await res.json();
 };
 

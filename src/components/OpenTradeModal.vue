@@ -3,7 +3,7 @@
     <div class="bg-white max-w-2xl w-full rounded-xl shadow-lg overflow-hidden">
       <div class="flex justify-between items-center px-4 py-3 border-b">
         <h2 class="text-lg font-semibold">Browse Open Trade Offers</h2>
-        <button @click="$emit('close')" class="text-gray-500 hover:text-gray-700">&times;</button>
+        <button @click="$emit('close')" aria-label="Close modal" class="text-gray-500 hover:text-gray-700">&times;</button>
       </div>
       <div class="p-4">
         <div v-if="loading" class="text-center text-gray-600">Loading offers...</div>
@@ -16,8 +16,32 @@
             class="border p-4 rounded-lg shadow-sm flex flex-col gap-2"
           >
             <p><strong>From:</strong> {{ trade.senderId?.username || 'Unknown' }}</p>
-            <p><strong>They offer:</strong> {{ formatCards(trade.senderCards) }}</p>
-            <p><strong>They want:</strong> {{ formatCards(trade.receiverCards) }}</p>
+            <div>
+  <p class="font-semibold">They offer:</p>
+  <div class="flex flex-wrap gap-2 mb-2">
+    <div
+      v-for="c in trade.senderCards"
+      :key="c.cardId"
+      class="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"
+    >
+      <img :src="c.image" alt="card" class="h-8 w-8 object-contain" />
+      <span>{{ c.name }} (x{{ c.quantity }})</span>
+    </div>
+  </div>
+
+  <p class="font-semibold">They want:</p>
+  <div class="flex flex-wrap gap-2">
+    <div
+      v-for="c in trade.receiverCards"
+      :key="c.cardId"
+      class="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded"
+    >
+      <img :src="c.image" alt="card" class="h-8 w-8 object-contain" />
+      <span>{{ c.name }} (x{{ c.quantity }})</span>
+    </div>
+  </div>
+</div>
+
 
             <div class="flex gap-2 mt-2 items-center">
               <button
@@ -65,8 +89,8 @@ defineEmits<{
   (e: 'decline', tradeId: string, userId: string): void;
 }>();
 
-const formatCards = (cards: TradeCard[]): string =>
-  cards.map(c => `${c.cardId} (x${c.quantity})`).join(', ');
+/* const formatCards = (cards: TradeCard[]): string =>
+  cards.map(c => `${c.name} (x${c.quantity})`).join(', '); */
 
 const canTrade = (trade: TradeOffer): boolean => {
   return trade.receiverCards.every(reqCard => {
