@@ -21,7 +21,7 @@
         >
           {{ tab.charAt(0).toUpperCase() + tab.slice(1) }} Offers
         </button>
-        <button class="text-blue-600 underline text-sm" @click="showModal = true">Browse Open Offers</button>
+        <button class="text-blue-600 underline text-sm" @click="openMarketplace">Browse Open Offers</button>
       </div>
   
         <!-- Offer Lists -->
@@ -145,14 +145,17 @@
   </template>
  <script setup lang="ts">
  import { ref, computed, watch, onMounted } from 'vue';
- import type { TradeCard, TradeOffer } from '../interfaces/trade';
+ import type { TradeCard, TradeOffer, CreateTradeOfferPayload } from '../interfaces/trade';
  import type { PokemonCard } from '../interfaces/card';
  import CardSelector from '../components/CardSelector.vue';
  import OpenTradeModal from '../components/OpenTradeModal.vue';
- import { useUsers } from '../modules/auth/userModels';
- import { createTradeOffer, fetchTradesForUser, acceptTradeOffer } from '../modules/tradeApi';
- import { getUserCollection } from '../modules/collectionApi';
- import ToastView from '../components/shared/ToastView.vue'
+ import { useUsers, getAuthToken } from '../modules/auth/userModels';
+ import { createTradeOffer, fetchTradesForUser, acceptTradeOffer,declineTradeOffer } from '../modules/tradeApi';
+ import { useCollection } from '../modules/useCollection';
+  import ToastView from '../components/shared/ToastView.vue'
+
+
+  const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004';
 
 const toastRef = ref()
 
@@ -187,8 +190,8 @@ const outgoing = computed(() =>
  
  const username = ref('');
  const userExists = ref<null | boolean>(null);
- const userCollection = ref<TradeCard[]>([]);
- const selectedSender = ref<Record<string, number>>({});
+  const { collection: userCollection, fetchCollection } = useCollection();
+  const selectedSender = ref<Record<string, number>>({});
  const selectedCardId = ref('');
  const selectedQuantity = ref(1);
  const selectedReceiverCards = ref<Record<string, number>>({});
@@ -210,47 +213,99 @@ const outgoing = computed(() =>
  const removeCard = (cardId: string) => delete selectedSender.value[cardId];
  const addReceiverCard = (card: PokemonCard) => selectedReceiverCards.value[card.id] = (selectedReceiverCards.value[card.id] || 0) + 1;
  const removeReceiverCard = (cardId: string) => delete selectedReceiverCards.value[cardId];
- const getSelectedSenderCards = (): TradeCard[] => Object.entries(selectedSender.value).map(([cardId, quantity]) => ({ cardId, quantity, name: '', image: '' }));
- const getSelectedReceiverCards = (): TradeCard[] => Object.entries(selectedReceiverCards.value).map(([cardId, quantity]) => ({ cardId, quantity, name: '', image: '' }));
+ const getSelectedSenderCards = (): TradeCard[] =>
+ Object.entries(selectedSender.value).map(([cardId, quantity]) => ({
+    cardId,
+    quantity
+  }));
+
+  const getSelectedReceiverCards = (): TradeCard[] =>
+  Object.entries(selectedReceiverCards.value).map(([cardId, quantity]) => ({
+    cardId,
+    quantity
+  }));
  
  const submitTrade = async () => {
-   try {
-     const payload = {
-       senderId: userId.value,
-       receiverUsername: tradeMode.value === 'direct' ? username.value : '',
-       senderCards: getSelectedSenderCards(),
-       receiverCards: getSelectedReceiverCards(),
-       ...(tradeMode.value === 'open' ? { isOpenOffer: true } : {})
-     };
-     await createTradeOffer(payload);
-     showToast('Trade offer sent!', 'success');
-     selectedSender.value = {};
-     selectedReceiverCards.value = {};
-     username.value = '';
-     userExists.value = null;
-     await loadTrades();
-   } catch {
-     showToast('Failed to send trade offer.', 'error');
-   }
- };
+  try {
+    const payload: CreateTradeOfferPayload = {
+  senderId: userId.value,
+  senderCards: getSelectedSenderCards(),
+  receiverCards: getSelectedReceiverCards(),
+  ...(tradeMode.value === 'direct' ? { receiverUsername: username.value } : {}),
+  ...(tradeMode.value === 'open' ? { isOpenOffer: true } : {})
+};
+
+
+    console.log("📦 Frontend payload (JSON):", JSON.stringify(payload, null, 2));
+
+    await createTradeOffer(payload);
+    showToast('Trade offer sent!', 'success');
+
+    // Reset state
+    selectedSender.value = {};
+    selectedReceiverCards.value = {};
+    username.value = '';
+    userExists.value = null;
+
+    await loadTrades();
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      showToast(err.message, 'error');
+    } else {
+      showToast('Failed to send trade offer.', 'error');
+    }
+  }
+};
  
  const loadTrades = async () => {
    if (!userId.value) return;
    allTrades.value = await fetchTradesForUser(userId.value);
  };
+
+ const authHeaders = () => ({
+  'Content-Type': 'application/json',
+  'auth-token': getAuthToken() || '',
+});
  
- const fetchOpenOffers = async () => {
-   openLoading.value = true;
-   try {
-     const res = await fetch('/api/trades/open');
-     openOffers.value = await res.json();
-   } catch {
-     openError.value = 'Failed to fetch open offers';
-   } finally {
-     openLoading.value = false;
-   }
- };
- 
+const fetchOpenOffers = async () => {
+  openLoading.value = true;
+  openError.value = null;
+
+  try {
+    const res = await fetch(`${BASE_URL}/trades/open`, {
+      headers: authHeaders(),
+    });
+
+    if (!res.ok) {
+      // parse error body, but don’t overwrite offers with it
+      const err = await res.json();
+      openError.value = err.message || err.error || 'Failed to fetch open offers';
+      openOffers.value = []; 
+      return;
+    }
+
+    // success: parse and assign the array
+    const offersArray = await res.json();
+    openOffers.value = Array.isArray(offersArray) ? offersArray : [];
+  } catch {
+  openError.value = 'Failed to fetch open offers';
+  openOffers.value = [];
+  } finally {
+    openLoading.value = false;
+  }
+};
+ watch(showModal, async (isVisible) => {
+  if (isVisible) {
+    await fetchOpenOffers();
+  }
+});
+
+const openMarketplace = async () => {
+  showModal.value = true;
+  await fetchOpenOffers();
+};
+
+
  const acceptTrade = async (id: string) => {
   try {
     await acceptTradeOffer(id, userId.value);
@@ -268,11 +323,7 @@ const outgoing = computed(() =>
 
  
 const declineTrade = async (tradeId: string, actingUserId?: string) => {
-  await fetch(`http://localhost:5004/api/trades/${tradeId}/decline`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId: actingUserId || userId.value }) // ✅ this now works
-  });
+  await declineTradeOffer(tradeId, actingUserId || userId.value);
   showToast('Trade declined', 'success');
   await loadTrades();
   await fetchOpenOffers();
@@ -309,16 +360,15 @@ const acceptOpenOffer = async (tradeId: string) => {
  onMounted(async () => {
   console.log("🔎 userId:", userId.value);
   try {
-    const res = await getUserCollection(userId.value);
-    console.log("✅ Collection response:", res);
-    userCollection.value = res.collection;
+    await fetchCollection(userId.value);
+    console.log("✅ Collection loaded:", userCollection.value);
 
-    // ✅ Fetch trades after getting collection
     await loadTrades();
   } catch (err) {
     console.error("❌ Failed to fetch collection in TradeView:", err);
   }
 });
+
 
  </script>
  
