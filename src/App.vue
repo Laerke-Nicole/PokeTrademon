@@ -27,9 +27,11 @@
 
         <!-- icons -->
         <div class="flex space-x-8">
+
+          <!-- user icon -->
           <div class="user-icon relative flex space-x-1" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
             <RouterLink to="/collection">
-              <i class="fas fa-user text-lg cursor-pointer"></i>
+              <i class="far fa-user text-lg cursor-pointer"></i>
             </RouterLink>
             <div v-if="isHovered" class="absolute top-full right-0 z-50">
               <div class="w-40">
@@ -38,9 +40,10 @@
             </div>
           </div>
 
+          <!-- notification bell icon -->
           <div class="notification-icon relative">
-  <NotificationDropdown />
-</div>
+            <NotificationDropdown />
+          </div>
 
 
         </div>
@@ -152,7 +155,7 @@ nav a {
 }
 
 i {
-  color: var(--dark-text);
+  color: var(--dark-headline);
 }
 
 
