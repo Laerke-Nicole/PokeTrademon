@@ -38,6 +38,7 @@ const { fetchNewsById } = useNews();
 onMounted(async() => {
     const newsId = route.params.id as string;
     const fetchNews = await fetchNewsById(newsId);
+    news.value = fetchNews;
 })
 
 // start at the top of the page
