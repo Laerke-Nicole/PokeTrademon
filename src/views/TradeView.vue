@@ -6,10 +6,10 @@
 
 
     <div class="max-w-7xl mx-auto px-4">
-      <h1 class="text-3xl text-center dark-headline pb-10" data-testid="my-trade-offers">My Trade Offers</h1>
+      <h1 class="text-3xl text-center dark-headline pb-10" data-testid="my-trade-offers" v-motion-fade-slide>My Trade Offers</h1>
 
       <!-- Tabs -->
-      <div class="flex justify-center pb-6 space-x-4 items-center">
+      <div class="flex justify-center pb-6 space-x-4 items-center" v-motion-fade-slide>
         <button
           v-for="tab in tabs"
           :key="tab"
@@ -64,7 +64,7 @@
         <div v-else class="text-center dark-text">Completed trades will be shown here.</div>
   
         <!-- Trade Form -->
-        <div v-if="userId" class="pt-6">
+        <div v-if="userId" class="pt-6" v-motion-fade-slide>
           <h2 class="text-2xl dark-headline">Create a Trade Offer</h2>
   
           <!-- Mode Toggle -->
@@ -109,7 +109,7 @@
           </div>
   
           <!-- Receiver Cards -->
-          <div class="pt-8">
+          <div class="pt-8" v-motion-fade-slide>
             <h3 class="text-lg font-semibold dark-headline">Select Requested Cards:</h3>
             <CardSelector mode="select" :selected-cards="selectedReceiverCards" @card-selected="addReceiverCard" @card-removed="removeReceiverCard" />
             <ul class="text-sm dark-headline pt-4 pl-1">
@@ -122,7 +122,7 @@
           </div>
   
           <!-- Submit -->
-          <div class="pt-6 text-center">
+          <div class="pt-6 text-center" v-motion-fade-slide>
             <button @click="submitTrade" data-testid="submit-trade" class="bg-blue-600 text-white px-6 py-2 round-corner hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
               :disabled="(tradeMode === 'direct' && (!userExists || !username)) || getSelectedSenderCards().length === 0 || getSelectedReceiverCards().length === 0">
               {{ tradeMode === 'direct' ? 'Send Trade Offer' : 'Create Open Offer'.trim() }}

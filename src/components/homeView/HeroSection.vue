@@ -5,7 +5,8 @@
         <div class="w-1/3 hero-title">
           <h1 class="leading-tight pb-10 dark-headline" v-motion-fade-slide>Universe of Pokemon card trading</h1>
           
-          <div class="flex gap-4">
+
+          <div v-if="state.isLoggedIn && isUser" class="flex gap-4">
             <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore</button></RouterLink>
             <RouterLink to="/collection"><button class="btn-3" v-motion-fade-slide>Your collection</button></RouterLink>  
           </div>
@@ -27,6 +28,21 @@
 
 <script setup lang="ts">
 import PikachuModel from '../threejs/pikachumodel/PikachuModel.vue'
+import { onMounted, computed } from 'vue'
+import { state } from '../../modules/globalStates/state'
+import { useUsers } from '../../modules/auth/userModels'
+
+const { user, loadUser } = useUsers();
+
+onMounted(async () => {
+  if (state.isLoggedIn) {
+    await loadUser()
+  } 
+})
+
+// checking if user is admin or just user
+const isUser = computed(() => user.value?.userRole === 'user')
+
 </script>
 
 <style scoped>

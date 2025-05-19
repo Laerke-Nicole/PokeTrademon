@@ -5,7 +5,7 @@
         v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0"
         class="pb-6"
       >
-        <h3 class="text-md font-semibold dark-headline pb-2">Selected Cards:</h3>
+        <h3 class="text-md font-semibold dark-headline pb-2" v-motion-fade-slide>Selected Cards:</h3>
         <div class="flex flex-wrap gap-3">
           <div
             v-for="(qty, cardId) in props.selectedCards"
@@ -79,6 +79,7 @@
             v-for="card in cards"
             :key="card.id"
             class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2 cursor-pointer relative"
+            v-motion-fade-slide
           >
             <div class="p-4 rounded-lg shadow hover:shadow-lg transition light-bg">
               <img :src="card.images.small" :alt="card.name" class="w-full" />
