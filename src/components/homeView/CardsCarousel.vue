@@ -5,9 +5,11 @@
         <p class="text-center dark-text">A few of the many Pokemon cards you can collect</p>
         </div>
 
+        <!-- loading and error message -->
         <div v-if="loading" class="text-center">Loading...</div>
         <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
+        <!-- swiper cards -->
         <div v-else v-motion-fade-slide>
             <div class="swiper" v-motion-fade-slide>
             <div class="swiper-wrapper">

@@ -15,6 +15,7 @@ watch(() => state.isLoggedIn, (newValue) => {
     localStorage.setItem('isLoggedIn', String(newValue))
 })
 
+// watch for changes on userrole
 watch(() => state.userRole, (newValue) => {
     localStorage.setItem('userRole', newValue)
 })

@@ -9,10 +9,12 @@ export const useAboutUs = () => {
   const loading = ref(false);
   const error = ref<string | null>(null);
 
+  // fetch all about us data
   const fetchAboutUs = async (): Promise<void> => {
     loading.value = true;
     error.value = null;
 
+    // fetch the data from the API
     try {
       const res = await fetch(ABOUTUS_URL);
       if (!res.ok) throw new Error('Failed to fetch AboutUs');
@@ -24,7 +26,9 @@ export const useAboutUs = () => {
     }
   };
 
+  // get token and user id for authentication
   const getTokenAndUserId = (): { token: string, userId: string } => {
+    // get the localstorage token and user ID
     const token = localStorage.getItem('isToken');
     const userId = localStorage.getItem('userIDToken');
 
@@ -37,11 +41,13 @@ export const useAboutUs = () => {
     return { token, userId };
   }
 
+  // adding a new about us
   const addAboutUs = async (aboutUsData: newAboutUs): Promise<void> => {
     try {
       const { token, userId } = getTokenAndUserId();
       if (!aboutUsData.aboutUsTitle) throw new Error('About us title is required');
 
+      // check if the about us or default to the default values
       const payload = {
         aboutUsTitle: aboutUsData.aboutUsTitle,
         aboutUsText: aboutUsData.aboutUsText || 'Default text',
@@ -58,6 +64,7 @@ export const useAboutUs = () => {
         userId,
       };
 
+      // the post method in headers
       const res = await fetch(ABOUTUS_URL, {
         method: 'POST',
         headers: {
@@ -82,10 +89,13 @@ export const useAboutUs = () => {
     }
   };
 
+  // delete about us
   const deleteAboutUs = async (id: string): Promise<void> => {
     try {
+      // get the token and user ID for authentication
       const { token } = getTokenAndUserId();
 
+      // delete method in headers
       const res = await fetch(`${ABOUTUS_URL}/${id}`, {
         method: 'DELETE',
         headers: {
@@ -100,31 +110,37 @@ export const useAboutUs = () => {
     }
   };
 
+  // update about us
   const updateAboutUs = async (id: string, updatedFields: Partial<AboutUs>): Promise<void> => {
     try {
       const { token } = getTokenAndUserId();
 
+      // put method in headers
       const res = await fetch(`${ABOUTUS_URL}/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'auth-token': token,
         },
+        // get body from the updated fields
         body: JSON.stringify(updatedFields),
       });
 
       if (!res.ok) throw new Error('Failed to update about us');
-      const updated = await res.json();
-      const index = aboutUs.value.findIndex(a => a._id === id);
+        const updated = await res.json();
+        const index = aboutUs.value.findIndex(a => a._id === id);
       if (index !== -1) aboutUs.value[index] = updated;
     } catch (err) {
       error.value = (err as Error).message;
     }
   };
 
+  // fetch about us by ID
   const fetchAboutUsById = async (id: string): Promise<AboutUs | null> => {
     try {
+      // fetch the data from the API with the ID
       const res = await fetch(`${ABOUTUS_URL}/${id}`);
+
       if (!res.ok) throw new Error('Failed to fetch about us by ID');
       return await res.json();
     } catch (err) {

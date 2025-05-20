@@ -1,8 +1,7 @@
-import { test , expect, vi } from 'vitest' // import vi when making more advanced tests
+import { test , expect, vi } from 'vitest'
 import { useNews } from '../../modules/useNews'
-import { nextTick } from 'vue';
 
-
+// mock news
 const mockNews = [{
     _id: '1',
     title: 'News 1',
@@ -40,4 +39,3 @@ test('Fetch news error', async () => {
     const result = await fetchNewsById('bad-id')
     expect(result).toBeNull()
 })
-

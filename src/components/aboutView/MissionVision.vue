@@ -1,4 +1,5 @@
 <template>
+  <!-- show only the first about us data -->
     <section v-if="aboutUs.length && aboutUs[0]" class="mission-vision-container five-percent pt-18 extra-dark-bg">
     <div class="flex flex-col justify-center align-center pb-12">
       <h2 class="text-center dark-headline" v-motion-fade-slide>Mission & vision</h2>

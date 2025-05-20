@@ -1,4 +1,5 @@
 <template>
+  <!-- show only the first about us data -->
     <section v-if="aboutUs.length && aboutUs[0]" class="five-percent pt-18 dark-bg">
     <div class="flex flex-col justify-center align-center pb-10 ten-percent" v-motion-fade-slide>
       <h2 class="text-center dark-headline">Our values</h2>

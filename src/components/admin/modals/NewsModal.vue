@@ -1,5 +1,7 @@
 <template>
     <div>
+      <!-- show the modal -->
+      <!-- click on the toggle and the modal dissapears -->
         <div v-if="isVisible" @click.self="toggleNews" class="pt-30 pb-10 modal-exit fixed inset-0 flex items-center justify-center">
             <div @click.stop class="modal light-bg h-full p-4 overflow-y-auto" > 
             <div>
@@ -73,10 +75,11 @@ import { useNews } from '../../../modules/useNews';
 import type { News } from '../../../interfaces/news';
 
 
-// Props
+// props
 const props = defineProps<{ newsItem: News | null }>()
 const newsItem = ref<News | null>(null)
 
+// watch for changes in the NewsItem prop
 watch(
   () => props.newsItem,
   (newVal) => {
