@@ -75,6 +75,9 @@ export const useUsers = () => {
     state.isLoggedIn = false;
     localStorage.removeItem('isToken');
     localStorage.removeItem('userIDToken');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('user');
     router.push('/');
   };
 
