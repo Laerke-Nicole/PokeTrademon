@@ -122,7 +122,7 @@ if (!userId || !token) {
   
       await fetchCollection(userId);
     } catch (error) {
-      throw new Error('Failed to update card');
+      throw new Error(`Failed to update card: ${String(error)}`);
     }
   };
   
