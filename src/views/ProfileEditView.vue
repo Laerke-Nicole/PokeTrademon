@@ -1,43 +1,49 @@
 <template>
-  <section class="dark-bg flex flex-col items-center justify-center">
-    <div class="pt-24 w-full max-w-xl mx-auto px-40">
-      <h2 class="pt-16 text-center pb-6">Edit Your Profile</h2>
-  
+  <section class="dark-bg min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6 mt-28">
+      <h2 class="text-2xl font-bold text-center text-gray-800">Edit Your Profile</h2>
+
       <form @submit.prevent="updateProfile" class="space-y-4">
-        <div>
-          <label class="block pb-1">Username</label>
-          <input v-model="form.username" type="text" class="input w-full" />
+        <div class="pb-4">
+          <label class="block text-sm font-medium text-gray-700 pb-1">Username</label>
+          <input v-model="form.username" type="text" class="w-full p-2 border rounded-md shadow-sm text-gray-400" />
         </div>
-  
-        <div>
-          <label class="block pt-4 pb-1">Email</label>
-          <input v-model="form.email" type="email" class="input w-full" />
+
+        <div calss="pb-4">
+          <label class="block text-sm font-medium text-gray-700 pb-1 ">Email</label>
+          <input v-model="form.email" type="email" class="w-full p-2 border rounded-md shadow-sm text-gray-400" />
         </div>
-  
-        <div>
-          <label class="block pt-4 pb-1">New Password</label>
-          <input v-model="form.password" type="password" class="input w-full" placeholder="Leave blank to keep current" />
+
+        <div class="pt-4 pb-4">
+          <label class="block text-sm font-medium text-gray-700 pb-1">New Password</label>
+          <input
+            v-model="form.password"
+            type="password"
+            class="w-full p-2 border rounded-md shadow-sm"
+            placeholder="Leave blank to keep current"
+          />
         </div>
-  
-        <div class="pt-6">
-          <button type="submit" class="btn-1 w-full">
+
+        <div class="pt-4">
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
             Update Profile
           </button>
         </div>
       </form>
-  
-      <div class="pt-4 text-center">
+
+      <div class="text-center pt-4">
         <button @click="deleteAccount" class="text-sm text-red-600 hover:underline">
           Delete Account
         </button>
       </div>
-  
-      <div v-if="message" class="pt-4 text-center text-green-600">
+
+      <div v-if="message" class="text-center text-green-600">
         {{ message }}
       </div>
     </div>
   </section>
-  </template>
+</template>
+
   
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
@@ -113,10 +119,6 @@ const updateProfile = async () => {
   </script>
   
   <style scoped>
-  .input {
-    background-color: #ffffff;
-    padding: 0.5rem;
-    border-radius: 10px;
-  }
+
   </style>
   

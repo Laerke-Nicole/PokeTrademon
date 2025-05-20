@@ -3,7 +3,7 @@
       <!-- Selected Cards Preview -->
       <div
         v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0" class="pb-6">
-        <h3 class="text-md font-semibold dark-headline pb-2" v-motion-fade-slide>Selected Cards:</h3>
+        <h3 class="text-md font-semibold dark-headline pb-2" v-motion-fade-slide></h3>
         <div class="flex flex-wrap gap-3">
           <div
             v-for="(qty, cardId) in props.selectedCards"

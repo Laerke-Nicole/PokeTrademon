@@ -51,12 +51,18 @@ import { onMounted, computed } from 'vue';
 import { state } from '../../modules/globalStates/state';
 import { useUsers } from '../../modules/auth/userModels';
 import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 
 // start at the top of the page
 onMounted(() => {
-  scrollToTop(); 
+  scrollToTop();
+  email.value = localStorage.getItem('prefillEmail') || '';
+  password.value = localStorage.getItem('prefillPassword') || '';
 });
+
 
 const { user, loadUser } = useUsers();
 
@@ -73,6 +79,10 @@ const { fetchToken, email, password, error, isLoggedIn } = useUsers();
 // logs user in
 const handleLogin = async () => {
   await fetchToken(email.value, password.value);
+
+  if (isLoggedIn.value) {
+    router.push('/'); // redirect to home page
+  }
 };
 
 // checking if userrole is admin
