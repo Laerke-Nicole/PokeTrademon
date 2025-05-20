@@ -44,6 +44,7 @@ const error = ref('');
 
 const registrationSuccess = ref(false);
 
+// register user function
 const handleRegister = async () => {
   registrationSuccess.value = false;
   error.value = '';

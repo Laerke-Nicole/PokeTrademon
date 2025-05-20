@@ -1,4 +1,5 @@
 <template>
+    <!-- show the news details for the specific news -->
     <section class="dark-bg pt-30">
         <div v-if="news && news.length > 0" class="flex flex-col ten-percent">
             <div class="extra-dark-bg three-percent py-10 round-corner">

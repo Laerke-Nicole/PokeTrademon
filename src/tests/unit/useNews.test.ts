@@ -37,5 +37,7 @@ test('Fetch news error', async () => {
 
     const { fetchNewsById } = useNews()
     const result = await fetchNewsById('bad-id')
+
+    // what to expect
     expect(result).toBeNull()
 })
