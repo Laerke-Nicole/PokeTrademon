@@ -24,30 +24,30 @@
         </RouterLink>
 
         <div>  
-          <div v-if="state.isLoggedIn && isUser">
+          <div v-if="readyToShowLinks && isUser">
             <RouterLink to="/collection">
               <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Your collection</li>
             </RouterLink>
           </div>  
-          <li v-else-if="state.isLoggedIn && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading your collection...</li>
+          <li v-else-if="readyToShowLinks && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading your collection...</li>
         </div>
 
         <div>
-          <div v-if="state.isLoggedIn && isUser">
+          <div v-if="readyToShowLinks && isUser">
             <RouterLink to="/trades">
               <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Trades</li>
             </RouterLink>
           </div>
-          <li v-else-if="state.isLoggedIn && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading trades page...</li>
+          <li v-else-if="readyToShowLinks && isUser === null" class="w-full px-4 py-2 italic text-gray-500">Loading trades page...</li>
         </div>
 
         <div>
-          <div v-if="state.isLoggedIn && isAdmin">
+          <div v-if="readyToShowLinks && isAdmin">
             <RouterLink to="/trades">
               <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin page</li>
             </RouterLink>
           </div>
-          <li v-else-if="state.isLoggedIn && isAdmin === null" class="w-full px-4 py-2 italic text-gray-500">Loading admin page...</li>
+          <li v-else-if="readyToShowLinks && isAdmin === null" class="w-full px-4 py-2 italic text-gray-500">Loading admin page...</li>
         </div>
 
         <hr class="my-2 border-gray-300" />
@@ -75,8 +75,11 @@ onMounted(async () => {
 })
 
 // checking if user is admin or just user
-const isUser = computed(() => user.value?.userRole === 'user')
-const isAdmin = computed(() => user.value?.userRole === 'admin')
+const isUser = computed(() => user.value?.userRole === 'user' || state.userRole === 'user')
+const isAdmin = computed(() => user.value?.userRole === 'admin' || state.userRole === 'admin')
+
+const readyToShowLinks = computed(() => state.isLoggedIn && (user.value || state.userRole))
+
 
 </script>
 
