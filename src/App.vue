@@ -40,10 +40,23 @@
             </div>
           </div>
 
-          <!-- notification bell icon -->
-          <div class="notification-icon relative">
-            <NotificationDropdown />
-          </div>
+        
+<!-- notification bell icon -->
+<div 
+v-if="readyToShowLinks && isUser"
+class="relative group">
+  <!-- Bell with badge -->
+  <div class="relative z-10 p-2 hover:bg-gray-100 rounded-full">
+    <i class="fa-regular fa-bell text-lg block"></i>
+    <span v-if="unreadCount > 0" class="badge"></span>
+  </div>
+
+  <!-- Dropdown -->
+  <div class="absolute top-full right-0 mt-2 w-56 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+    <NotificationDropdown />
+  </div>
+</div>
+
 
 
         </div>
@@ -97,6 +110,10 @@ import UserDropdown from './components/user/UserDropdownView.vue'
 import NotificationDropdown from './components/shared/NotificationDropdown.vue'
 import Toast from './components/shared/ToastView.vue'
 import { setToastRef } from './modules/globalStates/notifications'
+import { useNotifications } from './modules/globalStates/notifications'
+
+const { unreadCount } = useNotifications();
+
 
 const isHovered = ref(false)
 const toastRef = ref()
@@ -153,12 +170,32 @@ nav a {
 }
 
 
-.user-icon {
-  padding: 0 1rem;
+.user-icon,
+.notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  position: relative;
 }
 
-i {
+.user-icon i,
+.notification-icon i {
+  font-size: 1.25rem; /* adjust as needed */
   color: var(--dark-headline);
+  line-height: 1;
+}
+
+.badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px white;
+  z-index: 20;
 }
 
 

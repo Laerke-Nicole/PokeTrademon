@@ -5,8 +5,21 @@
         <h3 class="text-xl font-semibold dark-headline text-center">Login to your account</h3>
     
         <!-- input fields -->
-        <input type="text" class="light-bg p-2 round-corner dark-text" placeholder="Email" v-model="email"/>
-        <input type="password" class="light-bg p-2 round-corner dark-text" placeholder="Password" v-model="password"/>
+        <input
+  type="text"
+  autocomplete="email"
+  class="light-bg p-2 round-corner dark-text"
+  placeholder="Email"
+  v-model="email"
+/>
+
+<input
+  type="password"
+  autocomplete="current-password"
+  class="light-bg p-2 round-corner dark-text"
+  placeholder="Password"
+  v-model="password"
+/>
     
         <!-- login btn -->
         <button class="btn-1" @click="handleLogin">Login</button>
@@ -59,12 +72,20 @@ const router = useRouter();
 // start at the top of the page
 onMounted(() => {
   scrollToTop();
-  email.value = localStorage.getItem('prefillEmail') || '';
-  password.value = localStorage.getItem('prefillPassword') || '';
+
+  const storedEmail = localStorage.getItem('prefillEmail');
+  const storedPassword = localStorage.getItem('prefillPassword');
+
+  if (storedEmail) email.value = storedEmail;
+  if (storedPassword) password.value = storedPassword;
 });
 
 
+
 const { user, loadUser } = useUsers();
+// for input fields to fetch
+const { fetchToken, email, password, error, isLoggedIn } = useUsers();
+
 
 onMounted(async () => {
   if (state.isLoggedIn) {
@@ -73,17 +94,18 @@ onMounted(async () => {
 })
 
 
-// for input fields to fetch
-const { fetchToken, email, password, error, isLoggedIn } = useUsers();
 
 // logs user in
 const handleLogin = async () => {
   await fetchToken(email.value, password.value);
 
   if (isLoggedIn.value) {
+    localStorage.removeItem('prefillEmail');
+    localStorage.removeItem('prefillPassword');
     router.push('/'); // redirect to home page
   }
 };
+
 
 // checking if userrole is admin
 const isUser = computed(() => user.value?.userRole === 'user')
