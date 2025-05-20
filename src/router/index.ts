@@ -70,7 +70,7 @@ const router = createRouter({
     {
       path: '/profile/edit',
       name: 'ProfileEdit',
-      component: () => import('@/views/ProfileEditView.vue'),
+      component: () => import('../views/ProfileEditView.vue'),
       meta: { requiresAuth: true },
     },    
   ],
@@ -92,8 +92,8 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
-  // wait for user to be loaded
-  if (!user.value) {
+  // only load user if needed
+  if ((requiresAuth || requiresAdmin || requiresUser) && !user.value) {
     await loadUser();
   }
 
@@ -119,5 +119,6 @@ router.beforeEach(async (to, from, next) => {
 
   next();
 });
+
 
 export default router
