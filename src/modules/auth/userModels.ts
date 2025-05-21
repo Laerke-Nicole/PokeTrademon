@@ -49,12 +49,12 @@ export const useUsers = () => {
   };
 
   // register
-  const registerUser = async (username: string, email: string, password: string, recaptchaToken: string): Promise<void> => {
+  const registerUser = async (username: string, email: string, password: string): Promise<void> => {
     try {
       const response = await fetch(`${BASE_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password, recaptchaToken }),
+        body: JSON.stringify({ username, email, password }),
       });
 
       const data = await response.json();

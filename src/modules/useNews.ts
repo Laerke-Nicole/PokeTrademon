@@ -9,10 +9,12 @@ export const useNews = () => {
   const loading = ref(false);
   const error = ref<string | null>(null);
 
+  // fetch all news data
   const fetchNews = async (): Promise<void> => {
     loading.value = true;
     error.value = null;
 
+    // fetch the data from the API
     try {
       const res = await fetch(NEWS_URL);
       if (!res.ok) throw new Error('Failed to fetch news');
@@ -24,7 +26,9 @@ export const useNews = () => {
     }
   };
 
+  // get token and user id for authentication
   const getTokenAndUserId = (): { token: string, userId: string } => {
+    // get the localstorage token and user ID
     const token = localStorage.getItem('isToken');
     const userId = localStorage.getItem('userIDToken');
 
@@ -37,11 +41,13 @@ export const useNews = () => {
     return { token, userId };
   }
 
+  // adding a new news
   const addNews = async (newsData: newNews): Promise<void> => {
     try {
       const { token, userId } = getTokenAndUserId();
       if (!newsData.title) throw new Error('Title is required');
 
+      // check if the news or default to the default values
       const payload = {
         title: newsData.title,
         subTitle: newsData.subTitle || 'Default Subtitle',
@@ -53,6 +59,7 @@ export const useNews = () => {
         userId,
       };
 
+      // the post method in headers
       const res = await fetch(NEWS_URL, {
         method: 'POST',
         headers: {
@@ -77,10 +84,13 @@ export const useNews = () => {
     }
   };
 
+  // delete a news
   const deleteNews = async (id: string): Promise<void> => {
     try {
+      // get the token and user ID
       const { token } = getTokenAndUserId();
 
+      // the delete method in headers
       const res = await fetch(`${NEWS_URL}/${id}`, {
         method: 'DELETE',
         headers: {
@@ -95,10 +105,12 @@ export const useNews = () => {
     }
   };
 
+  // update a news
   const updateNews = async (id: string, updatedFields: Partial<News>): Promise<void> => {
     try {
       const { token } = getTokenAndUserId();
 
+      // put method in headers
       const res = await fetch(`${NEWS_URL}/${id}`, {
         method: 'PUT',
         headers: {
@@ -117,9 +129,12 @@ export const useNews = () => {
     }
   };
 
+  // fetch news by ID
   const fetchNewsById = async (id: string): Promise<News | null> => {
     try {
+      // fetch the data from the API by the ID
       const res = await fetch(`${NEWS_URL}/${id}`);
+      
       if (!res.ok) throw new Error('Failed to fetch news by ID');
       return await res.json();
     } catch (err) {

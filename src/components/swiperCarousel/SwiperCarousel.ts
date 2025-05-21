@@ -1,4 +1,3 @@
-// updated useSwiper.ts
 import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -6,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 
+// styling how the swiper looks
 export function useSwiper() {
   new Swiper(".swiper", {
     modules: [EffectCoverflow, Pagination, Navigation],

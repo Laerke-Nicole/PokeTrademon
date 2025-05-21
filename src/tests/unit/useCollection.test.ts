@@ -19,11 +19,12 @@ beforeEach(() => {
   });
 });
 
+
 test('Fetch collections', async () => {
   global.fetch = vi.fn()
     .mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ collection: mockCollection }),
+      json: async () => ({ collection: [] }),
     })
     .mockResolvedValueOnce({
       ok: true,

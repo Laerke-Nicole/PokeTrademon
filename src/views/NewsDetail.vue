@@ -1,21 +1,22 @@
 <template>
+    <!-- show the news details for the specific news -->
     <section class="dark-bg pt-30">
         <div v-if="news" class="flex flex-col ten-percent">
-  <div class="extra-dark-bg three-percent py-10 round-corner">
-    <div class="ten-percent flex flex-col">
-      <p class="dark-text">- {{ news.theme.trim() }}</p>
-      <h1 class="pt-2 font-bold dark-headline">{{ news.title.trim() }}</h1>
-      <h3 class="pb-6 dark-text">{{ news.subTitle.trim() }}</h3>
-    </div>
+          <div class="extra-dark-bg three-percent py-10 round-corner">
+            <div class="ten-percent flex flex-col">
+              <p class="dark-text">- {{ news.theme.trim() }}</p>
+              <h1 class="pt-2 font-bold dark-headline">{{ news.title.trim() }}</h1>
+              <h3 class="pb-6 dark-text">{{ news.subTitle.trim() }}</h3>
+            </div>
 
-    <img :src="news.imageURL.trim()" alt="news image" class="news-image round-corner" />
+            <img :src="news.imageURL.trim()" alt="news image" class="news-image round-corner" />
 
-    <div class="ten-percent">
-      <p class="text-xs pt-6 dark-text">{{ news.date.trim() }}</p>
-      <p class="pt-2 dark-headline">{{ news.text.trim() }}</p>
-    </div>
-  </div>
-</div>
+            <div class="ten-percent">
+              <p class="text-xs pt-6 dark-text">{{ news.date.trim() }}</p>
+              <p class="pt-2 dark-headline">{{ news.text.trim() }}</p>
+            </div>
+          </div>
+        </div>
 
         <div v-else>
             <p>Loading details for the news...</p>

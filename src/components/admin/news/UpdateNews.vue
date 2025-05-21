@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <!-- News modal component -->
+          <!-- news modal component -->
           <NewsModal v-model:isVisible="isNewsVisible" :news-item="selectedNewsItem" @updateNews="updateNewsHandler" @deleteNews="deleteNews" />
         </div>
     </div>
@@ -40,6 +40,7 @@ import NewsModal from '../modals/NewsModal.vue';
 // news fetching
 const { news, fetchNews, deleteNews, updateNews } = useNews();
 
+// for modal to show
 const isNewsVisible = ref(false);
 const selectedNewsItem = ref<News | null>(null);
 
@@ -51,11 +52,13 @@ const openModal = (newsItem: News) => {
   isNewsVisible.value = true;
 };
 
+// message to show after updating
 const message = ref('');
 
 // handling updating news
 const updateNewsHandler = async (news: News) => {
   try {
+    // take the data from the input fields
     const updatedNews = {
       title: news.title,
       subTitle: news.subTitle,
@@ -65,6 +68,7 @@ const updateNewsHandler = async (news: News) => {
       theme: news.theme,
       isHidden: news.isHidden,
     }
+    // call the updateNews function from useNews
     await updateNews(news._id, updatedNews)
     message.value = 'News updated successfully';
     isNewsVisible.value = false;

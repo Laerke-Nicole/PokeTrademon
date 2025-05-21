@@ -11,6 +11,7 @@
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-x-6" v-motion-fade-slide>
+        <!-- loop with news -->
         <div v-for="(newsItem, index) in news.filter(n => !n.isHidden).slice(0, 6)" :key="newsItem._id" 
           :class="[ 
             'w-full',

@@ -48,12 +48,13 @@
 </template>
 
 <script setup lang="ts">
-interface Grecaptcha {
-  ready(callback: () => void): void;
-  execute(siteKey: string, options: { action: string }): Promise<string>;
-}
+// // declare const grecaptcha: any;
+// interface Grecaptcha {
+//   ready(callback: () => void): void;
+//   execute(siteKey: string, options: { action: string }): Promise<string>;
+// }
 
-declare const grecaptcha: Grecaptcha;
+// declare const grecaptcha: Grecaptcha;
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUsers } from '../../modules/auth/userModels';
@@ -71,32 +72,35 @@ const router = useRouter();
 const error = ref('');
 const registrationSuccess = ref(false);
 
+// register user function
 const handleRegister = async () => {
   registrationSuccess.value = false;
   error.value = '';
 
-  grecaptcha.ready(() => {
-    grecaptcha.execute('6Le8ID8rAAAAAOQL7iuZd5qt8TyU1oyM0XvlOegX', { action: 'submit' })
-    .then(async (token: string) => {
-        try {
-          await registerUser(username.value, email.value, password.value, token);
-          registrationSuccess.value = true;
-          // Prefill values into localStorage for next login
-          localStorage.setItem('prefillEmail', email.value);
-          localStorage.setItem('prefillPassword', password.value);
-          // Redirect to login page
-          router.push('/auth');
-        } catch (err) {
-  if (err instanceof Error) {
-    error.value = err.message;
-  } else {
-    error.value = 'Something went wrong.';
-  }
-}
 
-      });
+
+  try {
+        await registerUser(username.value, email.value, password.value);
+        registrationSuccess.value = true;
+      } catch (err: any) {
+        error.value = err.message || 'Something went wrong.';
+      }
+
+  /*
+  grecaptcha.ready(() => {
+    grecaptcha.execute('6Le8ID8rAAAAAOQL7iuZd5qt8TyU1oyM0XvlOegX', { action: 'submit' }).then(async (token: string) => {
+      try {
+        await registerUser(username.value, email.value, password.value, token);
+        console.log(token)
+        registrationSuccess.value = true;
+      } catch (err: any) {
+        error.value = err.message || 'Something went wrong.';
+      }
+    });
   });
-};
+*/
+ };
+
 </script>
 
 <style scoped>
