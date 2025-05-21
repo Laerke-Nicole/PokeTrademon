@@ -48,13 +48,13 @@
 </template>
 
 <script setup lang="ts">
-// declare const grecaptcha: any;
-interface Grecaptcha {
-  ready(callback: () => void): void;
-  execute(siteKey: string, options: { action: string }): Promise<string>;
-}
+// // declare const grecaptcha: any;
+// interface Grecaptcha {
+//   ready(callback: () => void): void;
+//   execute(siteKey: string, options: { action: string }): Promise<string>;
+// }
 
-declare const grecaptcha: Grecaptcha;
+// declare const grecaptcha: Grecaptcha;
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUsers } from '../../modules/auth/userModels';

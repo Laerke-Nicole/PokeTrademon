@@ -6,20 +6,20 @@
     
         <!-- input fields -->
         <input
-  type="text"
-  autocomplete="email"
-  class="light-bg p-2 round-corner dark-text"
-  placeholder="Email"
-  v-model="email"
-/>
+          type="text"
+          autocomplete="email"
+          class="light-bg p-2 round-corner dark-text"
+          placeholder="Email"
+          v-model="email"
+        />
 
-<input
-  type="password"
-  autocomplete="current-password"
-  class="light-bg p-2 round-corner dark-text"
-  placeholder="Password"
-  v-model="password"
-/>
+        <input
+          type="password"
+          autocomplete="current-password"
+          class="light-bg p-2 round-corner dark-text"
+          placeholder="Password"
+          v-model="password"
+        />
     
         <!-- login btn -->
         <button class="btn-1" @click="handleLogin">Login</button>
