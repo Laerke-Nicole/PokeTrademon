@@ -19,9 +19,11 @@
           <hr class="user-hr">
         </div>
 
+        <div v-if="readyToShowLinks && isUser">
         <RouterLink to="/profile/edit">
           <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit Profile</li>
         </RouterLink>
+        </div>
 
         <div>  
           <div v-if="readyToShowLinks && isUser">
