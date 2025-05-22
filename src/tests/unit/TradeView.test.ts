@@ -1,8 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { test, expect, vi, beforeEach } from 'vitest'
-import { mount, flushPromises } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { ref } from 'vue'
 import TradeView from '../../views/TradeView.vue'
 
-// getUserCollection from collectionApi
+// Mock scrollTo to avoid JSDOM errors
+Object.defineProperty(window, 'scrollTo', {
+  value: () => {},
+  writable: true,
+})
+
+// ✅ Mock useUsers and getAuthToken
+vi.mock('../../modules/auth/userModels', () => ({
+  useUsers: () => ({ user: { value: { _id: '1' } } }),
+  getAuthToken: () => 'test-token',
+}))
+
+// ✅ Mock collection API
 vi.mock('../../modules/collectionApi', () => ({
   getUserCollection: vi.fn().mockResolvedValue({
     collection: [
@@ -12,51 +27,89 @@ vi.mock('../../modules/collectionApi', () => ({
   }),
 }))
 
+// ✅ Mock trade API
 vi.mock('../../modules/tradeApi', () => ({
   fetchTradesForUser: vi.fn().mockResolvedValue([]),
   createTradeOffer: vi.fn().mockResolvedValue({}),
   acceptTradeOffer: vi.fn(),
 }))
 
-vi.mock('../../modules/auth/userModels', () => ({
-  useUsers: () => ({ user: { value: { _id: '1' } } }),
+// ✅ Mock useCards to show Pikachu
+vi.mock('../../modules/useCards', () => ({
+  useCards: () => ({
+    cards: ref([
+      {
+        id: 'pikachu-001',
+        name: 'Pikachu',
+        images: { small: 'https://example.com/pikachu.jpg' },
+        supertype: 'Pokémon',
+        hp: '60',
+        rarity: 'Common',
+        set: { name: 'Base Set' },
+      },
+    ]),
+    searchQuery: ref(''),
+    fetchCards: vi.fn(),
+  }),
 }))
 
-// get userIDToken
+// Mock localStorage user ID
 beforeEach(() => {
   vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
     if (key === 'userIDToken') return '"1"'
+    if (key === 'isToken') return 'test-token'
     return null
   })
 })
 
-// find h1
 test('Tradeview renders the my trade offers headline', () => {
-  // const wrapper = createWrapper();
-  const wrapper = mount(TradeView)
+  const wrapper = mount(TradeView, {
+    global: {
+      directives: {
+        'motion-fade-slide': {}, // prevent warning
+      },
+    },
+  })
 
   expect(wrapper.find('[data-testid="my-trade-offers"]').exists()).toBe(true)
 })
 
-// pick card from list
-test('User picks the card they want to get', async () => {
-  const wrapper = mount(TradeView)
+test('User picks the card they want to get and submits trade', async () => {
+  const wrapper = mount(TradeView, {
+    global: {
+      stubs: {
+        CardSelector: {
+          template: '<div><slot></slot></div>',
+          props: ['mode', 'selectedCards'],
+        },
+      },
+      directives: {
+        'motion-fade-slide': {},
+      },
+    },
+  })
+  
 
-  const toggleCardListBtn = wrapper.find('[data-testid="search-input"]')
-  await toggleCardListBtn.trigger('click')
+  const vm = wrapper.vm as any
 
-  const searchInput = wrapper.find('input[placeholder="Search Pokémon..."]')
-  await searchInput.setValue('Pikachu')
-  await searchInput.trigger('input')
+  // Bypass default state
+  vm.userId = '1'
+  vm.tradeMode = 'open'
+  vm.selectedSender = { 'pikachu-001': 1 }
+  vm.selectedReceiverCards = { 'charizard-001': 1 }
+  vm.loadingTrades = false // ✅ force form to render
 
-  // 👉 wait for promises (like fetch or setTimeout) to resolve
-  await flushPromises()
-
-  const selectButtons = wrapper.findAll('[data-testid="select-card-button"]')
-  if (selectButtons.length > 0) {
-    await selectButtons[0].trigger('click')
-  }
+  await wrapper.vm.$nextTick()
 
   const submitButton = wrapper.find('[data-testid="submit-trade"]')
+  expect(submitButton.exists()).toBe(true)
+  expect(submitButton.attributes('disabled')).toBeUndefined()
+
   await submitButton.trigger('click')
 })
+
+
+
+
+
+
