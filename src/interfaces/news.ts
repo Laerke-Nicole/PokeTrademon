@@ -20,3 +20,6 @@ export type newNews = {
     isHidden: boolean;
     userId: string;
 }
+
+
+// export type newNews = Omit<News, '_id'> & Partial<Pick<News, 'userId'>>
