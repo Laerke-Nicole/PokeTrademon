@@ -1,9 +1,9 @@
 /* color palette */
 :root {
-  --primary-color: #B9D6E5;
+  --primary-color: #3043CA;
   --secondary-color: #FDF3EB;
   --tertiary-color: #FFCC1E;
-  --primary-color-dark: #a2bbc8;
+  --primary-color-dark: #2534a8;
 
   /* for text */
   --light-headline: #eeecec;
@@ -79,7 +79,7 @@ p {
 }
 
 .btn-1:hover {
-  background-color: #eac345;
+  background-color: rgb(206, 171, 57);
 }
 
 .btn-2 {
@@ -108,7 +108,7 @@ p {
 }
 
 .btn-3:hover {
-  background-color: #eac345;
+  background-color: rgb(206, 171, 57);
 }
 
 

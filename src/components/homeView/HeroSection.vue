@@ -3,7 +3,7 @@
       <div class="hero-content five-percent grid grid-cols-3">
         <!-- left side with headline -->
         <div class="w-1/3 hero-title">
-          <h1 class="leading-tight pb-10 dark-headline" v-motion-fade-slide>Universe of Pokemon card trading</h1>
+          <h1 class="leading-tight pb-10 light-headline" v-motion-fade-slide>Universe of Pokemon card trading</h1>
 
           <div v-if="state.isLoggedIn && isUser" class="flex gap-4">
             <RouterLink to="/market"><button class="btn-1" v-motion-fade-slide>Explore</button></RouterLink>
@@ -54,14 +54,14 @@ const isUser = computed(() => user.value?.userRole === 'user')
   flex-direction: row;
   z-index: 0;
   overflow: hidden; 
-  background-color: var(--primary-color-dark);
+  background-color: var(--primary-color);
 }
 
 .hero-section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--primary-color);
+  background: var(--tertiary-color);
   clip-path: polygon(65% 0, 100% 0%, 100% 100%, 35% 100%);
   z-index: -1; 
 }

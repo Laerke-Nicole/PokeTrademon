@@ -6,7 +6,7 @@
         </div>
 
         <div class="flex flex-col justify-center items-center" v-motion-fade-slide>
-            <h1 class="dark-headline text-center">PokeTrademon<br/>card news</h1>
+            <h1 class="light-headline text-center">PokeTrademon<br/>card news</h1>
         </div>
 
         <div v-motion-fade-slide>
