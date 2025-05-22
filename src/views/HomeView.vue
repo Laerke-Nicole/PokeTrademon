@@ -7,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
+import { onMounted } from 'vue'
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
 
 // import components
 import HeroSection from '../components/homeView/HeroSection.vue'
@@ -17,13 +17,10 @@ import ExploreMarket from '../components/homeView/ExploreMarket.vue'
 import AboutPoketrademon from '../components/homeView/AboutPoketrademon.vue'
 import NewsSection from '../components/homeView/NewsSection.vue'
 
-
 // start at the top of the page
 onMounted(() => {
-  scrollToTop(); 
-});
+  scrollToTop()
+})
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

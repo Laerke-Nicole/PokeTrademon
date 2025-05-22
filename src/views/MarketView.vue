@@ -12,40 +12,38 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
-import type { PokemonCard } from '../interfaces/card';
-import CardSelector from '../components/CardSelector.vue';
-import CardModal from '../components/CardModal.vue';
-import { state } from '../modules/globalStates/state';
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
+import type { PokemonCard } from '../interfaces/card'
+import CardSelector from '../components/CardSelector.vue'
+import CardModal from '../components/CardModal.vue'
+import { state } from '../modules/globalStates/state'
 
-const selectedCard = ref<PokemonCard | null>(null);
-const showModal = ref(false);
+const selectedCard = ref<PokemonCard | null>(null)
+const showModal = ref(false)
 
 const openModal = (card: PokemonCard) => {
-  selectedCard.value = card;
-  showModal.value = true;
-};
+  selectedCard.value = card
+  showModal.value = true
+}
 
 const closeModal = () => {
-  showModal.value = false;
-};
+  showModal.value = false
+}
 
-
-const router = useRouter();
+const router = useRouter()
 
 // redirect to homepage if user isnt logged in and try to access the page
 if (!state.isLoggedIn) {
-  router.push('/');
+  router.push('/')
 }
 
 // start at the top of the page
 onMounted(() => {
-  scrollToTop(); 
-});
+  scrollToTop()
+})
 </script>
 
 <style scoped>
@@ -70,7 +68,9 @@ onMounted(() => {
 }
 
 .card-item {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   border-radius: 1rem;
@@ -89,17 +89,16 @@ onMounted(() => {
   padding: 0.5rem 1rem;
   border-radius: 9999px;
   font-weight: bold;
-  background-color: #FFDE00;
-  color: #3B4CCA;
-  border: 2px solid #B3A125;
+  background-color: #ffde00;
+  color: #3b4cca;
+  border: 2px solid #b3a125;
   transition: 0.3s;
   cursor: pointer;
 }
 
 .card-button:hover {
-  background-color: #FF0000;
+  background-color: #ff0000;
   color: white;
-  border-color: #CC0000;
+  border-color: #cc0000;
 }
 </style>
-

@@ -1,15 +1,15 @@
-import Swiper from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import Swiper from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import 'swiper/css/effect-coverflow'
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules'
 
 // styling how the swiper looks
 export function useSwiper() {
-  new Swiper(".swiper", {
+  new Swiper('.swiper', {
     modules: [EffectCoverflow, Pagination, Navigation],
-    effect: "coverflow",
+    effect: 'coverflow',
     grabCursor: true,
     centeredSlides: true,
     slidesPerView: 3,
@@ -23,12 +23,12 @@ export function useSwiper() {
       slideShadows: true,
     },
     navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
     },
     pagination: {
-      el: ".swiper-pagination",
+      el: '.swiper-pagination',
       clickable: true,
     },
-  });
+  })
 }

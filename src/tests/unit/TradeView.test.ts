@@ -8,37 +8,35 @@ vi.mock('../../modules/collectionApi', () => ({
     collection: [
       { cardId: 'card001', quantity: 2 },
       { cardId: 'card002', quantity: 1 },
-    ]
-  })
-}));
+    ],
+  }),
+}))
 
 vi.mock('../../modules/tradeApi', () => ({
   fetchTradesForUser: vi.fn().mockResolvedValue([]),
   createTradeOffer: vi.fn().mockResolvedValue({}),
-  acceptTradeOffer: vi.fn()
-}));
+  acceptTradeOffer: vi.fn(),
+}))
 
 vi.mock('../../modules/auth/userModels', () => ({
-  useUsers: () => ({ user: { value: { _id: '1' } } })
-}));
+  useUsers: () => ({ user: { value: { _id: '1' } } }),
+}))
 
-// get userIDToken 
+// get userIDToken
 beforeEach(() => {
   vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
-    if (key === 'userIDToken') return '"1"';
-    return null;
-  });
-});
-
+    if (key === 'userIDToken') return '"1"'
+    return null
+  })
+})
 
 // find h1
 test('Tradeview renders the my trade offers headline', () => {
-    // const wrapper = createWrapper();
-    const wrapper = mount(TradeView);
+  // const wrapper = createWrapper();
+  const wrapper = mount(TradeView)
 
-    expect(wrapper.find('[data-testid="my-trade-offers"]').exists()).toBe(true)
+  expect(wrapper.find('[data-testid="my-trade-offers"]').exists()).toBe(true)
 })
-
 
 // pick card from list
 test('User picks the card they want to get', async () => {

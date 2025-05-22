@@ -6,12 +6,20 @@
       <form @submit.prevent="updateProfile" class="space-y-4">
         <div class="pb-4">
           <label class="block text-sm font-medium text-gray-700 pb-1">Username</label>
-          <input v-model="form.username" type="text" class="w-full p-2 border rounded-md shadow-sm text-gray-400" />
+          <input
+            v-model="form.username"
+            type="text"
+            class="w-full p-2 border rounded-md shadow-sm text-gray-400"
+          />
         </div>
 
         <div calss="pb-4">
-          <label class="block text-sm font-medium text-gray-700 pb-1 ">Email</label>
-          <input v-model="form.email" type="email" class="w-full p-2 border rounded-md shadow-sm text-gray-400" />
+          <label class="block text-sm font-medium text-gray-700 pb-1">Email</label>
+          <input
+            v-model="form.email"
+            type="email"
+            class="w-full p-2 border rounded-md shadow-sm text-gray-400"
+          />
         </div>
 
         <div class="pt-4 pb-4">
@@ -25,7 +33,10 @@
         </div>
 
         <div class="pt-4">
-          <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+          >
             Update Profile
           </button>
         </div>
@@ -44,81 +55,75 @@
   </section>
 </template>
 
-  
-  <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
-  import { useRouter } from 'vue-router';
-  import { useUsers } from '../modules/auth/userModels';
-  import { updateUser, deleteUser } from '../modules/auth/userAPI';
-  
-  const router = useRouter();
-  const { user, logout, loadUser } = useUsers();
-  
-  const form = ref({
-    username: '',
-    email: '',
-    password: '',
-  });
-  
-  const message = ref('');
-  
-  onMounted(async () => {
-  await loadUser(); // fetch from API and populate user.value
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
+import { useRouter } from 'vue-router'
+import { useUsers } from '../modules/auth/userModels'
+import { updateUser, deleteUser } from '../modules/auth/userAPI'
+
+const router = useRouter()
+const { user, logout, loadUser } = useUsers()
+
+const form = ref({
+  username: '',
+  email: '',
+  password: '',
+})
+
+const message = ref('')
+
+onMounted(async () => {
+  await loadUser() // fetch from API and populate user.value
 
   if (user.value) {
-    form.value.username = user.value.username;
-    form.value.email = user.value.email;
+    form.value.username = user.value.username
+    form.value.email = user.value.email
   }
-});
+})
 
-  
 const updateProfile = async () => {
   try {
     const payload = {
       username: form.value.username?.trim() || '',
       email: form.value.email?.trim() || '',
       password: form.value.password?.trim() || undefined,
-    };
+    }
 
     if (!payload.username || !payload.email) {
-      message.value = 'Username and email are required';
-      return;
+      message.value = 'Username and email are required'
+      return
     }
 
-    await updateUser(payload);
-    message.value = 'Profile updated successfully!';
+    await updateUser(payload)
+    message.value = 'Profile updated successfully!'
     setTimeout(() => {
-      message.value = '';
-    }, 3000);
+      message.value = ''
+    }, 3000)
   } catch (err) {
-    console.error(err);
-    message.value = 'Failed to update profile.';
+    console.error(err)
+    message.value = 'Failed to update profile.'
   }
-};
+}
 
-  
-  const deleteAccount = async () => {
-    const confirmed = confirm('Are you sure you want to delete your account? This cannot be undone.');
-    if (!confirmed) return;
-  
-    try {
-      await deleteUser();
-      logout();
-      router.push('/auth');
-    } catch (err) {
-      console.error(err);
-      message.value = 'Failed to delete account.';
-    }
-  };
+const deleteAccount = async () => {
+  const confirmed = confirm('Are you sure you want to delete your account? This cannot be undone.')
+  if (!confirmed) return
 
-  // start at the top of the page
-  onMounted(() => {
-    scrollToTop(); 
-  });
-  </script>
-  
-  <style scoped>
+  try {
+    await deleteUser()
+    logout()
+    router.push('/auth')
+  } catch (err) {
+    console.error(err)
+    message.value = 'Failed to delete account.'
+  }
+}
 
-  </style>
-  
+// start at the top of the page
+onMounted(() => {
+  scrollToTop()
+})
+</script>
+
+<style scoped></style>

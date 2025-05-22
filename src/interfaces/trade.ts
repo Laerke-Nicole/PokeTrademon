@@ -1,38 +1,35 @@
 export interface TradeUser {
-  _id: string;
-  username: string;
+  _id: string
+  username: string
 }
 
 export interface TradeCard {
-  cardId: string;
-  quantity: number;
-  name?: string;
-  image?: string;
+  cardId: string
+  quantity: number
+  name?: string
+  image?: string
 }
 
 export interface TradeOffer {
-  _id: string;
-  senderId: TradeUser;  // ✅ Instead of string
-  receiverId: TradeUser; // ✅ Instead of string
-  senderCards: TradeCard[];
-  receiverCards: TradeCard[];
-  status: 'pending' | 'accepted' | 'declined' | 'cancelled';
-  createdAt?: string;
-  updatedAt?: string;
+  _id: string
+  senderId: TradeUser // ✅ Instead of string
+  receiverId: TradeUser // ✅ Instead of string
+  senderCards: TradeCard[]
+  receiverCards: TradeCard[]
+  status: 'pending' | 'accepted' | 'declined' | 'cancelled'
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface DetailedTradeCard extends TradeCard {
-  image: string;
-  name: string;
+  image: string
+  name: string
 }
-
 
 export interface CreateTradeOfferPayload {
-  senderId: string;
-  receiverUsername?: string;
-  senderCards: TradeCard[];   // <- unified now
-  receiverCards: TradeCard[];
-  isOpenOffer?: boolean;
+  senderId: string
+  receiverUsername?: string
+  senderCards: TradeCard[] // <- unified now
+  receiverCards: TradeCard[]
+  isOpenOffer?: boolean
 }
-
-

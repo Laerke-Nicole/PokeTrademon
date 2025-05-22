@@ -1,6 +1,6 @@
 <template>
   <!-- show only the first about us data -->
-    <section v-if="aboutUs.length && aboutUs[0]" class="five-percent extra-dark-bg pt-30">
+  <section v-if="aboutUs.length && aboutUs[0]" class="five-percent extra-dark-bg pt-30">
     <div class="grid grid-cols-2 light-bg round-corner shadow">
       <div class="about-img-container">
         <img :src="aboutUs[0].imageURL.trim()" alt="about us image" class="about-img" />
@@ -21,17 +21,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useAboutUs } from '../../modules/useAboutUs';
-
+import { onMounted } from 'vue'
+import { useAboutUs } from '../../modules/useAboutUs'
 
 // AboutUs fetching
-const { aboutUs, fetchAboutUs } = useAboutUs();
+const { aboutUs, fetchAboutUs } = useAboutUs()
 
 onMounted(() => {
-  fetchAboutUs();
-});
-
+  fetchAboutUs()
+})
 </script>
 
 <style scoped>
@@ -49,7 +47,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   background-color: var(--primary-color);
-  opacity: 0.4; 
+  opacity: 0.4;
 }
 
 .about-img {
