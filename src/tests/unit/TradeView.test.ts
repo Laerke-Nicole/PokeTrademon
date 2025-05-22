@@ -42,24 +42,23 @@ test('Tradeview renders the my trade offers headline', () => {
 
 // pick card from list
 test('User picks the card they want to get', async () => {
-    const wrapper = mount(TradeView);
+  const wrapper = mount(TradeView)
 
-    // toggle "show card list"
-    const toggleCardListBtn = wrapper.find('[data-testid="search-input"]');
-    await toggleCardListBtn.trigger('click');
+  const toggleCardListBtn = wrapper.find('[data-testid="search-input"]')
+  await toggleCardListBtn.trigger('click')
 
-    // search for pikachu in input field
-    const searchInput = wrapper.find('input[placeholder="Search Pokémon..."]');
-    await searchInput.setValue('Pikachu');
-    await searchInput.trigger('input');
+  const searchInput = wrapper.find('input[placeholder="Search Pokémon..."]')
+  await searchInput.setValue('Pikachu')
+  await searchInput.trigger('input')
 
-    // click first card in search result
-    const selectButtons = wrapper.findAll('[data-testid="select-card-button"]');
-    if (selectButtons.length > 0) {
-    await selectButtons[0].trigger('click');
-    }
+  // 👉 wait for promises (like fetch or setTimeout) to resolve
+  await flushPromises()
 
-    // submit the trade offer on the btn
-    const submitButton = wrapper.find('[data-testid="submit-trade"]');
-    await submitButton.trigger('click');
-});
+  const selectButtons = wrapper.findAll('[data-testid="select-card-button"]')
+  if (selectButtons.length > 0) {
+    await selectButtons[0].trigger('click')
+  }
+
+  const submitButton = wrapper.find('[data-testid="submit-trade"]')
+  await submitButton.trigger('click')
+})

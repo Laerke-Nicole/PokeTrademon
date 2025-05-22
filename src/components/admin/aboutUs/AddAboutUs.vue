@@ -77,7 +77,7 @@ import { useAboutUs } from '../../../modules/useAboutUs';
 
 
 // AboutUs fetching
-const { aboutUs, fetchAboutUs, addAboutUs, getTokenAndUserId } = useAboutUs();
+const {fetchAboutUs, addAboutUs, getTokenAndUserId } = useAboutUs();
 
 onMounted(() => {
   fetchAboutUs();
@@ -136,8 +136,9 @@ const addAboutUsHandler = async () => {
     }, 5000);
   } 
   catch (error) {
-    throw new Error('Error adding news');
-  }
+  console.error('Error adding AboutUs:', error);
+  throw new Error('Error adding AboutUs');
+}
 }
 </script>
 

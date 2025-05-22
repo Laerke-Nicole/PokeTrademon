@@ -85,8 +85,9 @@ const updateAboutUsHandler = async (aboutUs: AboutUs) => {
     }, 5000);
   }
   catch (error) {
-    throw new Error('Error updating AboutUs');
-  }
+  console.error('Error updating AboutUs:', error);
+  throw new Error('Error updating AboutUs');
+}
 }
 
 

@@ -57,7 +57,7 @@ import { useNews } from '../../../modules/useNews';
 
 
 // news fetching
-const { news, fetchNews, addNews, getTokenAndUserId } = useNews();
+const {fetchNews, addNews, getTokenAndUserId } = useNews();
 
 onMounted(() => {
   fetchNews();
@@ -107,9 +107,11 @@ const addNewsHandler = async () => {
       message.value = '';
     }, 5000);
   } 
-  catch (error) {
-    throw new Error('Error adding news');
-  }
+  catch (error: unknown) {
+  console.error('Error adding news:', error);
+  message.value = 'Failed to add news.';
+}
+
 }
 </script>
 
