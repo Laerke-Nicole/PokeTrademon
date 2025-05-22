@@ -22,7 +22,9 @@
         </div>
       </div>
     </div>
-    <div class="pb-4">
+
+    <!-- Only show the toggle if on TradeView -->
+    <div class="pb-4" v-if="route.name === 'trade'">
       <button
         class="text-sm text-blue-600 hover:text-blue-700 cursor-pointer pb-2"
         @click="showGrid = !showGrid"
@@ -31,43 +33,26 @@
       </button>
     </div>
 
-    <!-- Search & Filters -->
     <div v-if="showGrid">
-      <div class="flex flex-col md:flex-row gap-4 pb-6">
-        <input
-          type="text"
-          placeholder="Search Pokémon..."
-          class="p-2 border round-corner white-bg dark-text"
-          v-model="searchQuery"
-          @input="fetchFilteredCards"
-          data-testid="search-input"
-        />
-
-        <select
-          v-model="selectedSupertype"
-          @change="fetchFilteredCards"
-          class="p-2 border white-bg round-corner dark-text"
-        >
-          <option value="">All Supertypes</option>
-          <option value="Pokémon">Pokémon</option>
-          <option value="Trainer">Trainer</option>
-          <option value="Energy">Energy</option>
-        </select>
-
-        <select
-          v-model="sortBy"
-          @change="fetchFilteredCards"
-          class="p-2 border rounded white-bg round-corner dark-text"
-        >
-          <option value="">Sort by</option>
-          <option value="name">Name (A–Z)</option>
-          <option value="-name">Name (Z–A)</option>
-          <option value="hp">HP (Low–High)</option>
-          <option value="-hp">HP (High–Low)</option>
-          <option value="rarity">Rarity</option>
-          <option value="set.name">Set Name</option>
-        </select>
-      </div>
+      <!-- Search & Filters -->
+      <CardFilterBar
+        :searchQuery="searchQuery"
+        :selectedSupertype="selectedSupertype"
+        :sortBy="sortBy"
+        @update:searchQuery="
+          (val) => {
+            searchQuery = val
+            fetchFilteredCards()
+          }
+        "
+        @update:selectedSupertype="
+          (val) => {
+            selectedSupertype = val
+            fetchFilteredCards()
+          }
+        "
+      />
+      <!--   @update:sortBy="(val) => { sortBy = val; fetchFilteredCards() }"-->
 
       <!-- Card Grid -->
       <div>
@@ -83,15 +68,12 @@
           >
             <div class="p-4 rounded-lg shadow hover:shadow-lg transition light-bg">
               <img :src="card.images.small" :alt="card.name" class="w-full" />
-
-              <!-- Optional Quantity badge -->
               <span
                 v-if="mode === 'select' && props.selectedCards?.[card.id]"
                 class="absolute top-3 left-3 bg-blue-500 light-headline text-xs px-2 py-0.5 round-corner"
               >
                 x{{ props.selectedCards[card.id] }}
               </span>
-
               <div class="pt-4 flex justify-between items-center">
                 <button
                   class="btn-1"
@@ -114,7 +96,7 @@
       </div>
     </div>
 
-    <!-- Modal Preview (only in view mode) -->
+    <!-- Modal Preview -->
     <CardModal
       v-if="mode === 'view' && showModal && selectedCard"
       :visible="showModal"
@@ -127,17 +109,16 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
-import CardModal from './CardModal.vue'
-import { useCards } from '../modules/useCards'
 import type { PokemonCard } from '../interfaces/card'
-import { useCollection } from '../modules/useCollection'
-const { addCardToCollection } = useCollection()
+import { useCards } from '../modules/useCards'
+import { useMarketActions } from '@/modules/useMarketActions'
+import CardModal from './CardModal.vue'
+import CardFilterBar from './CardFilterBar.vue'
+import { useRoute } from 'vue-router'
 
-const handleAddToCollection = async (cardId: string) => {
-  const uid = localStorage.getItem('userIDToken')?.replace(/"/g, '')
-  if (!uid) return alert('Login required')
-  await addCardToCollection(cardId)
-}
+const { handleAddToCollection } = useMarketActions()
+
+const route = useRoute()
 
 const props = defineProps<{
   mode?: 'select' | 'view'
@@ -185,7 +166,6 @@ const prevPage = () => {
 
 const handleCardClick = (card: PokemonCard) => {
   if (mode === 'select') {
-    // Toggle support (optional)
     if (props.selectedCards?.[card.id]) {
       emit('card-removed', card.id)
     } else {
@@ -197,9 +177,7 @@ const handleCardClick = (card: PokemonCard) => {
   }
 }
 
-onMounted(() => {
-  fetchFilteredCards()
-})
+onMounted(fetchFilteredCards)
 
 watch([searchQuery, selectedSupertype], () => {
   page.value = 1

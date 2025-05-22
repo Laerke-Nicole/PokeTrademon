@@ -5,7 +5,7 @@ import {
   getUnreadCount,
   markAsRead,
   markAllAsRead,
-} from '@/modules/notificationApi'
+} from '../../api/notificationApi'
 import type { ComponentPublicInstance } from 'vue'
 
 type ToastComponent = ComponentPublicInstance<{ showToast: (msg: string) => void }>
