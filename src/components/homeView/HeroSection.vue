@@ -18,8 +18,8 @@
         </div>
 
         <!-- right side with welcome text -->
-        <div class="w-1/3 hero-text">
-          <p class="dark-text" v-motion-fade-slide>Discover the ultimate collection of Pokemon trading cards. Explore the vast selection, engage with fellow enthusiasts, and embark on an unforgettable journey into the realm of the beloved pocket monsters.</p>
+        <div v-if="!state.isLoggedIn" class="w-1/3 hero-text">
+          <button class="btn-2" v-motion-fade-slide>Start trading with us</button>
         </div>
       </div>
     </section>

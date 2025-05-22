@@ -3,7 +3,7 @@
         <div class="explore-container light-bg grid grid-cols-2 five-percent gap-12 py-18">
         <!-- image side -->
         <div class="flex items-center justify-center" v-motion-fade-slide>
-            <img src="../../../public/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
+            <img src="../../../public/images/pikachu-circle.png" alt="Pikachu Image" class="max-w-full h-auto" />
         </div>
 
         <!-- text side -->
