@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2 class="pb-4">List of news</h2>
-    <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4">
-      <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
+    <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4 news-list">
+      <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4 news-list">
         <div class="flex flex-col gap-2">
           <h4>{{ newsItem.title.trim() }}</h4>
           <p>{{ newsItem.subTitle.trim() }}</p>
@@ -96,6 +96,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.news-list {
+  margin-bottom: 10px;
+}
+
 .news-thumbnail {
   width: auto;
   height: 150px;
@@ -104,5 +108,13 @@ onMounted(() => {
 
 .delete-btn {
   border-radius: 20px;
+}
+
+
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .news-list {
+    margin-bottom: 10px;
+  }
 }
 </style>
