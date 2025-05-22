@@ -13,7 +13,7 @@ import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
 // import components
 import AboutUs from '../components/aboutView/AboutUs.vue';
 import MisionVision from '../components/aboutView/MissionVision.vue';
-import Values from '../components/aboutView/Values.vue';
+import Values from '../components/aboutView/ValuesComponents.vue';
 
 
 

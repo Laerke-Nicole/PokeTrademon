@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="visible"class="fixed inset-0 z-50 modal-bg flex items-center justify-center">
+    v-if="visible" class="fixed inset-0 z-50 modal-bg flex items-center justify-center">
     <div class="light-bg dark:bg-gray-800 p-6 round-corner w-11/12 max-w-md relative max-h-[90vh] overflow-y-auto">
       
       <button class="absolute top-2 right-2 dark-headline cursor-pointer" @click="close">✖</button>
