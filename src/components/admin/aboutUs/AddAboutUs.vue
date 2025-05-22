@@ -105,7 +105,6 @@ const message = ref('');
 
 // handling adding new AboutUs
 const addAboutUsHandler = async () => {
-  // import userId from the useAboutUs
   const { userId } = getTokenAndUserId();
 
   // attach to new AboutUs

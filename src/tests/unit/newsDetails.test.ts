@@ -2,6 +2,7 @@ import { test, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import NewsDetails from '../../views/NewsDetail.vue';
 
+// mock news
 const mockNews = [{
     _id: '1',
     title: 'News 1',
@@ -28,7 +29,11 @@ vi.mock('vue-router', () => ({
 
 test('Renders news details', async () => {
     const wrapper = mount(NewsDetails)
-    await new Promise(resolve => setTimeout(resolve, 0)); // wait for async fetchNewsById to resolve
+
+    // wait for async fetchNewsById to resolve
+    await new Promise(resolve => setTimeout(resolve, 0)); 
+
+    // what to expect
     expect(wrapper.text()).toContain('News 1')
     expect(wrapper.text()).toContain('Subtitle 1')
     expect(wrapper.text()).toContain('About text')

@@ -1,12 +1,12 @@
 <template>
     <section>
         <div class="explore-container light-bg grid grid-cols-2 five-percent gap-12 py-18">
-        <!-- Image side -->
+        <!-- image side -->
         <div class="flex items-center justify-center" v-motion-fade-slide>
             <img src="../../../public/images/pikachu-img.svg" alt="Pikachu Image" class="max-w-full h-auto" />
         </div>
 
-        <!-- Text side -->
+        <!-- text side -->
         <div class="flex flex-col justify-center space-y-4 px-8">
             <p class="yellow-text" v-motion-fade-slide>Collect cards today</p>
             <h2 class="dark-headline pb-6" v-motion-fade-slide>More than 3000 cards to trade</h2>

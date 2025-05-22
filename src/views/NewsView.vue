@@ -20,6 +20,7 @@
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
 
       <div v-else class="grid grid-cols-3 gap-6 five-percent pt-14" v-motion-fade-slide>
+        <!-- loop of news -->
         <div v-for="newsItem in visibleNews" :key="newsItem._id">
           <!-- btn linking to news detail page  -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
@@ -57,12 +58,12 @@ onMounted(() => {
 })
 
 
-// Filtered and sliced news items to show
+// filtered and limited news items to show
 const visibleNews = computed(() => {
   return news.value.filter(n => !n.isHidden).slice(0, visibleCount.value);
 });
 
-// Load 6 more items
+// load 6 more news when clicking the button
 const loadMore = () => {
   visibleCount.value += 6;
 };

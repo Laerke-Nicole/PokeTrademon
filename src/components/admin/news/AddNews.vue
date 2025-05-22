@@ -76,16 +76,17 @@ const newNews = ref({
   userId: '',
 });
 
+// message to show after adding
 const message = ref('');
 
 // handling adding new news
 const addNewsHandler = async () => {
-  // import userId from the useNews
   const { userId } = getTokenAndUserId();
 
   // attach to new news
   newNews.value.userId = userId;
   try {
+    // call the addNews function from useNews
     await addNews(newNews.value)
     message.value = 'News added successfully';
   

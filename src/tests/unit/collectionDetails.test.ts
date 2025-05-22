@@ -5,6 +5,7 @@ import { ref } from 'vue'
 
 globalThis.scrollTo = vi.fn()
 
+// make a mock collection
 const mockCollection = [{
     cardId: '1',
     quantity: 1,
@@ -40,6 +41,7 @@ test('Renders collection details', async () => {
 
     await new Promise(resolve => setTimeout(resolve, 0)); 
 
+    // what to expect
     expect(wrapper.text()).toContain('1')
     expect(wrapper.text()).toContain(1)
     expect(wrapper.text()).toContain('Mint')

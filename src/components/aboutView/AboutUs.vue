@@ -1,4 +1,5 @@
 <template>
+  <!-- show only the first about us data -->
     <section v-if="aboutUs.length && aboutUs[0]" class="five-percent extra-dark-bg pt-30">
     <div class="grid grid-cols-2 light-bg round-corner shadow">
       <div class="about-img-container">
