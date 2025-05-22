@@ -1,6 +1,6 @@
 services:
-  - type: web
-    name: PokeTrademonFrontend
+  - type: static
+    name: poketrademon-frontend
     env: static
+    buildCommand: npm run build
     staticPublishPath: dist
-    buildCommand: npm install && npm run build
