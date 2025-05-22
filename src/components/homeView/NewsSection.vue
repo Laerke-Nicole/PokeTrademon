@@ -9,13 +9,13 @@
       <div v-if="loading" class="text-center">Loading...</div>
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div>
 
-      <div v-else class="grid grid-cols-3 gap-x-6" v-motion-fade-slide>
+      <div v-else class="grid grid-cols-3 gap-x-6 news-cards" v-motion-fade-slide>
         <!-- loop with news -->
         <div
           v-for="(newsItem, index) in news.filter((n) => !n.isHidden).slice(0, 6)"
           :key="newsItem._id"
           :class="[
-            'w-full',
+            'w-full card-news',
             // first column in every row gets extra padding
             index % 3 === 0 ? 'pt-12' : '',
             // third column in every row gets extra padding
@@ -82,6 +82,15 @@ onMounted(() => {
   .column-news {
     flex: 50%;
     max-width: 50%;
+  }
+
+  .news-cards {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 30px;
+  }
+
+  .card-news {
+    padding-top: 0;
   }
 }
 
