@@ -4,7 +4,7 @@
     <ul v-else>
       <li v-for="note in notifications" :key="note._id" class="notification">
         <p>{{ note.message }}</p>
-        <button @click="markAsRead(note._id)">Mark as read</button>
+        <button @click="() => markNotificationAsRead(note._id)">Mark as read</button>
       </li>
     </ul>
     <button @click="markAllNotificationsAsRead" class="font-semibold mt-2">Mark all as read</button>
@@ -12,18 +12,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useNotifications } from '@/modules/globalStates/notifications'
+import { useDropdownNotifications } from '../../composables/useDropdownNotifications'
 
-const { notifications, loadNotifications, markNotificationAsRead, markAllNotificationsAsRead } =
-  useNotifications()
-
-onMounted(loadNotifications)
-
-const markAsRead = (id: string) => {
-  markNotificationAsRead(id)
-}
+const {
+  notifications,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
+} = useDropdownNotifications()
 </script>
+
+
 
 <style scoped>
 .dropdown {
