@@ -14,14 +14,9 @@
 <script setup lang="ts">
 import { useDropdownNotifications } from '../../composables/useDropdownNotifications'
 
-const {
-  notifications,
-  markNotificationAsRead,
-  markAllNotificationsAsRead,
-} = useDropdownNotifications()
+const { notifications, markNotificationAsRead, markAllNotificationsAsRead } =
+  useDropdownNotifications()
 </script>
-
-
 
 <style scoped>
 .dropdown {
