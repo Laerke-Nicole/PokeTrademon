@@ -29,4 +29,11 @@
 .about-poketrademon h3 {
   font-size: 30px;
 }
+
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .about-poketrademon {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
 </style>

@@ -61,6 +61,9 @@ export const useAboutUs = () => {
         valueThreeTitle: aboutUsData.valueThreeTitle || 'Default value three title',
         valueThree: aboutUsData.valueThree || 'Default value three',
         imageURL: aboutUsData.imageURL || 'https://picsum.photos/500',
+        openingHours: aboutUsData.openingHours || 'Default opening hours',
+        phoneNumber: aboutUsData.phoneNumber || '1234567890',
+        email: aboutUsData.email || 'mail@mail.com',
         userId,
       }
 

@@ -6,7 +6,7 @@
       <div class="text-center text-red-500" v-else-if="error">{{ error }}</div>
       <div v-else class="flex flex-col gap-18">
         <!-- news -->
-        <div class="grid grid-cols-2 gap-18">
+        <div class="grid grid-cols-2 gap-18 admin-crud">
           <!-- add news -->
           <AddNews />
 
@@ -15,7 +15,7 @@
         </div>
 
         <!-- about us -->
-        <div class="grid grid-cols-2 gap-18">
+        <div class="grid grid-cols-2 gap-18 admin-crud">
           <!-- add about us -->
           <AddAboutUs />
 
@@ -70,4 +70,11 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .admin-crud {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+</style>

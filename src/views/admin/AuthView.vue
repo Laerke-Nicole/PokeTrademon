@@ -2,7 +2,7 @@
   <section class="dark-bg pt-16">
     <div class="flex items-center justify-center">
       <div class="pt-24 flex flex-col gap-4 max-w-md mx-auto">
-        <h3 class="text-xl font-semibold dark-headline text-center">Login to your account</h3>
+        <h3 class="text-xl font-semibold light-headline text-center">Login to your account</h3>
 
         <!-- input fields -->
         <input
@@ -25,7 +25,7 @@
         <button class="btn-1" @click="handleLogin">Login</button>
 
         <!-- router to register page -->
-        <p class="dark-text text-sm pt-2">
+        <p class="light-text text-sm pt-2">
           Don't have an account?
           <RouterLink to="/register"><span class="sign-up underline">Sign up now</span></RouterLink>
         </p>

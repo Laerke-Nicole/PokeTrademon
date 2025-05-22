@@ -2,7 +2,7 @@
   <section class="dark-bg pt-16">
     <div class="flex items-center justify-center">
       <div class="pt-24 flex flex-col gap-4 max-w-md mx-auto">
-        <h3 class="text-xl font-semibold dark-headline text-center">Sign up</h3>
+        <h3 class="text-xl font-semibold light-headline text-center">Sign up</h3>
 
         <input
           type="text"
@@ -28,7 +28,7 @@
 
         <button class="btn-1" @click="handleRegister">Register</button>
 
-        <p class="dark-text text-sm pt-2">
+        <p class="light-text text-sm pt-2">
           Already have an account?
           <RouterLink to="/auth">
             <span class="log-in underline">Log in now</span>
@@ -80,7 +80,7 @@ const handleRegister = async () => {
     await registerUser(username.value, email.value, password.value)
     registrationSuccess.value = true
 
-    // ✅ redirect to login page after success
+    // redirect to login page after success
     router.push('/auth')
   } catch (err: unknown) {
     if (err instanceof Error) {

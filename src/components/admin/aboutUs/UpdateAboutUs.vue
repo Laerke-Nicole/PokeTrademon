@@ -2,7 +2,7 @@
   <!-- the list of about us with just img, title and text -->
   <div>
     <h2 class="pb-4">List of about us</h2>
-    <div v-for="aboutUsItem in aboutUs" :key="aboutUsItem._id" class="flex flex-col gap-4">
+    <div v-for="aboutUsItem in aboutUs" :key="aboutUsItem._id" class="flex flex-col gap-4 about-us-list">
       <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
         <div class="flex flex-col gap-2">
           <h4>{{ aboutUsItem.aboutUsTitle.trim() }}</h4>
@@ -84,6 +84,9 @@ const updateAboutUsHandler = async (aboutUs: AboutUs) => {
       valueThreeTitle: aboutUs.valueThreeTitle,
       valueThree: aboutUs.valueThree,
       imageURL: aboutUs.imageURL,
+      openingHours: aboutUs.openingHours,
+      phoneNumber: aboutUs.phoneNumber,
+      email: aboutUs.email,
     }
     // call the updateAboutUs function from useAboutUs
     await updateAboutUs(aboutUs._id, updatedAboutUs)
@@ -115,5 +118,13 @@ onMounted(() => {
 
 .delete-btn {
   border-radius: 20px;
+}
+
+
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .about-us-list {
+    margin-bottom: 18px;
+  }
 }
 </style>
