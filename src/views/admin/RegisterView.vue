@@ -80,7 +80,7 @@ const handleRegister = async () => {
     await registerUser(username.value, email.value, password.value)
     registrationSuccess.value = true
 
-    // ✅ redirect to login page after success
+    // redirect to login page after success
     router.push('/auth')
   } catch (err: unknown) {
     if (err instanceof Error) {

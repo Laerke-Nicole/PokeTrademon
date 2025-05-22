@@ -4,7 +4,7 @@
       <!-- image side -->
       <div class="flex items-center justify-center" v-motion-fade-slide>
         <img
-          src="../../../public/images/pikachu-img.svg"
+          src="../../../public/images/pikachu-circle.png"
           alt="Pikachu Image"
           class="max-w-full h-auto"
         />
