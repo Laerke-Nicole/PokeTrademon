@@ -1,8 +1,8 @@
 /* color palette */
 :root {
-  --primary-color: #3043CA;
-  --secondary-color: #FDF3EB;
-  --tertiary-color: #FFCC1E;
+  --primary-color: #3043ca;
+  --secondary-color: #fdf3eb;
+  --tertiary-color: #ffcc1e;
   --primary-color-dark: #2534a8;
 
   /* for text */
@@ -12,7 +12,6 @@
   --dark-headline: #383539;
   --dark-text: #5b5b5b;
 }
-
 
 /* fonts */
 :root {
@@ -66,7 +65,6 @@ p {
   font-family: var(--text-font);
 }
 
-
 /* buttons */
 .btn-1 {
   padding: 8px 20px;
@@ -96,7 +94,6 @@ p {
   background-color: var(--primary-color-dark);
 }
 
-
 .btn-3 {
   padding: 8px 20px;
   border: 2px solid var(--tertiary-color);
@@ -110,7 +107,6 @@ p {
 .btn-3:hover {
   background-color: rgb(206, 171, 57);
 }
-
 
 /* rounded corners */
 .round-corner {
@@ -139,11 +135,11 @@ p {
 
 /* background */
 .dark-bg {
-  background-color: var(--primary-color)
+  background-color: var(--primary-color);
 }
 
 .light-bg {
-  background-color: var(--secondary-color)
+  background-color: var(--secondary-color);
 }
 
 .white-bg {
@@ -157,7 +153,6 @@ p {
 .yellow-bg {
   background-color: var(--tertiary-color);
 }
-
 
 /* text color */
 .light-headline {

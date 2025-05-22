@@ -11,24 +11,18 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useNotifications } from "@/modules/globalStates/notifications";
+import { onMounted } from 'vue'
+import { useNotifications } from '@/modules/globalStates/notifications'
 
-const {
-  notifications,
-  loadNotifications,
-  markNotificationAsRead,
-  markAllNotificationsAsRead,
-} = useNotifications();
+const { notifications, loadNotifications, markNotificationAsRead, markAllNotificationsAsRead } =
+  useNotifications()
 
-onMounted(loadNotifications);
+onMounted(loadNotifications)
 
 const markAsRead = (id: string) => {
-  markNotificationAsRead(id);
-};
-
+  markNotificationAsRead(id)
+}
 </script>
 
 <style scoped>
@@ -80,5 +74,4 @@ const markAsRead = (id: string) => {
   cursor: pointer;
   padding: 0;
 }
-
 </style>

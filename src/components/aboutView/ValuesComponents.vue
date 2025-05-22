@@ -1,6 +1,6 @@
 <template>
   <!-- show only the first about us data -->
-    <section v-if="aboutUs.length && aboutUs[0]" class="five-percent pt-18 dark-bg">
+  <section v-if="aboutUs.length && aboutUs[0]" class="five-percent pt-18 dark-bg">
     <div class="flex flex-col justify-center align-center pb-10 ten-percent" v-motion-fade-slide>
       <h2 class="text-center light-headline">Our values</h2>
       <p class="light-text text-center ten-percent">{{ aboutUs[0].valuesSubTitle.trim() }}</p>
@@ -26,23 +26,22 @@
       </div>
     </div>
   </section>
-  
+
   <div v-else>
     <p>Loading...</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useAboutUs } from '../../modules/useAboutUs';
+import { onMounted } from 'vue'
+import { useAboutUs } from '../../modules/useAboutUs'
 
 // AboutUs fetching
-const { aboutUs, fetchAboutUs } = useAboutUs();
-
+const { aboutUs, fetchAboutUs } = useAboutUs()
 
 onMounted(() => {
-  fetchAboutUs();
-});
+  fetchAboutUs()
+})
 </script>
 
 <style scoped>

@@ -11,10 +11,7 @@
           <!-- top section with title and close btn -->
           <div class="flex justify-between items-center pb-6">
             <h2>Edit News</h2>
-            <button
-              @click="toggleNews"
-              class="text-4xl text-red-400 hover:text-red-700"
-            >
+            <button @click="toggleNews" class="text-4xl text-red-400 hover:text-red-700">
               &times;
             </button>
           </div>
@@ -70,11 +67,7 @@
                 />
                 <span>
                   Thumbnail image:
-                  <img
-                    alt="News Image"
-                    :src="editableNews.imageURL"
-                    class="news-thumbnail"
-                  />
+                  <img alt="News Image" :src="editableNews.imageURL" class="news-thumbnail" />
                 </span>
               </div>
 
@@ -105,10 +98,7 @@
               </div>
 
               <div>
-                <input
-                  type="checkbox"
-                  v-model="editableNews.isHidden"
-                />
+                <input type="checkbox" v-model="editableNews.isHidden" />
                 <span class="uppercase font-bold">Hidden News</span>
               </div>
             </div>
@@ -130,11 +120,10 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import { useNews } from '../../../modules/useNews';
-import type { News } from '../../../interfaces/news';
+import { ref, onMounted, watch } from 'vue'
+import { useNews } from '../../../modules/useNews'
+import type { News } from '../../../interfaces/news'
 
 // Props
 const props = defineProps<{ newsItem: News | null }>()
@@ -145,7 +134,7 @@ watch(
   (newVal) => {
     editableNews.value = newVal ? { ...newVal } : null
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Modal visibility
@@ -155,10 +144,10 @@ const toggleNews = (): void => {
   isVisible.value = !isVisible.value
 }
 
-const { fetchNews } = useNews();
+const { fetchNews } = useNews()
 onMounted(() => {
-  fetchNews();
-});
+  fetchNews()
+})
 
 const emit = defineEmits(['updateNews'])
 const updateNewsHandler = () => {
@@ -167,7 +156,6 @@ const updateNewsHandler = () => {
   }
 }
 </script>
-
 
 <style scoped>
 /* add background behind the modal */

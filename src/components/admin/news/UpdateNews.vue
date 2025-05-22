@@ -16,7 +16,12 @@
         <button @click="openModal(newsItem)" class="btn-1">Click to edit news</button>
 
         <!-- delete news -->
-        <button @click="deleteNews(newsItem._id)" class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer">Delete</button>
+        <button
+          @click="deleteNews(newsItem._id)"
+          class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer"
+        >
+          Delete
+        </button>
 
         <!-- display success message -->
         <div v-if="message" class="text-green-600 pt-4 pb-4">
@@ -35,31 +40,27 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useNews } from '../../../modules/useNews';
-import type { News } from '../../../interfaces/news';
-import NewsModal from '../modals/NewsModal.vue';
-
+import { ref, onMounted } from 'vue'
+import { useNews } from '../../../modules/useNews'
+import type { News } from '../../../interfaces/news'
+import NewsModal from '../modals/NewsModal.vue'
 
 // news fetching
-const { news, fetchNews, deleteNews, updateNews } = useNews();
+const { news, fetchNews, deleteNews, updateNews } = useNews()
 
 // for modal to show
-const isNewsVisible = ref(false);
-const selectedNewsItem = ref<News | null>(null);
-
-
+const isNewsVisible = ref(false)
+const selectedNewsItem = ref<News | null>(null)
 
 // Open modal with specific news item
 const openModal = (newsItem: News) => {
-  selectedNewsItem.value = { ...newsItem }; 
-  isNewsVisible.value = true;
-};
+  selectedNewsItem.value = { ...newsItem }
+  isNewsVisible.value = true
+}
 
 // message to show after updating
-const message = ref('');
+const message = ref('')
 
 // handling updating news
 const updateNewsHandler = async (news: News) => {
@@ -76,25 +77,22 @@ const updateNewsHandler = async (news: News) => {
     }
     // call the updateNews function from useNews
     await updateNews(news._id, updatedNews)
-    message.value = 'News updated successfully';
-    isNewsVisible.value = false;
-    fetchNews();
+    message.value = 'News updated successfully'
+    isNewsVisible.value = false
+    fetchNews()
 
     // remove message after 5 seconds
     setTimeout(() => {
-      message.value = '';
-    }, 5000);
+      message.value = ''
+    }, 5000)
+  } catch {
+    throw new Error('Error updating news')
   }
-  catch {
-  throw new Error('Error updating news');
 }
-}
-
 
 onMounted(() => {
-  fetchNews();
-});
-
+  fetchNews()
+})
 </script>
 
 <style scoped>

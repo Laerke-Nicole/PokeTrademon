@@ -1,5 +1,5 @@
-import { test, expect, vi, beforeEach } from 'vitest';
-import { useCollection } from '../../modules/useCollection';
+import { test, expect, vi, beforeEach } from 'vitest'
+import { useCollection } from '../../modules/useCollection'
 
 const mockCollection = [
   {
@@ -7,21 +7,21 @@ const mockCollection = [
     quantity: 1,
     condition: 'Used like new',
     image: 'https://picsum.photos/500/500',
-    name: 'Test Card'
-  }
-];
+    name: 'Test Card',
+  },
+]
 
 beforeEach(() => {
   vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
-    if (key === 'userIDToken') return '1';
-    if (key === 'isToken') return 'test-token';
-    return null;
-  });
-});
-
+    if (key === 'userIDToken') return '1'
+    if (key === 'isToken') return 'test-token'
+    return null
+  })
+})
 
 test('Fetch collections', async () => {
-  global.fetch = vi.fn()
+  global.fetch = vi
+    .fn()
     .mockResolvedValueOnce({
       ok: true,
       json: async () => ({ collection: [] }),
@@ -34,12 +34,12 @@ test('Fetch collections', async () => {
           images: { small: 'https://picsum.photos/500/500' },
         },
       }),
-    });
+    })
 
-  const { fetchCollection, collection } = useCollection();
-  await fetchCollection('1');
-  expect(collection.value).toEqual(mockCollection);
-});
+  const { fetchCollection, collection } = useCollection()
+  await fetchCollection('1')
+  expect(collection.value).toEqual(mockCollection)
+})
 
 test('Fetch collection error', async () => {
   global.fetch = vi.fn().mockResolvedValue({
@@ -47,10 +47,10 @@ test('Fetch collection error', async () => {
     status: 404,
     statusText: 'Not Found',
     json: async () => ({ collection: [] }),
-  });
+  })
 
-  const { fetchCollection, error } = useCollection();
-  const result = await fetchCollection('1');
-  expect(result).toBeUndefined();
-  expect(error.value).toBe('Failed to fetch collection');
-});
+  const { fetchCollection, error } = useCollection()
+  const result = await fetchCollection('1')
+  expect(result).toBeUndefined()
+  expect(error.value).toBe('Failed to fetch collection')
+})

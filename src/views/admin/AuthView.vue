@@ -3,7 +3,7 @@
     <div class="flex items-center justify-center">
       <div class="pt-24 flex flex-col gap-4 max-w-md mx-auto">
         <h3 class="text-xl font-semibold dark-headline text-center">Login to your account</h3>
-    
+
         <!-- input fields -->
         <input
           type="text"
@@ -20,13 +20,16 @@
           placeholder="Password"
           v-model="password"
         />
-    
+
         <!-- login btn -->
         <button class="btn-1" @click="handleLogin">Login</button>
 
         <!-- router to register page -->
-        <p class="dark-text text-sm pt-2">Don't have an account? <RouterLink to="/register"><span class="sign-up underline">Sign up now</span></RouterLink></p>
-    
+        <p class="dark-text text-sm pt-2">
+          Don't have an account?
+          <RouterLink to="/register"><span class="sign-up underline">Sign up now</span></RouterLink>
+        </p>
+
         <!-- handle msg whether user got signed in or not -->
         <p v-if="error" class="text-red-500 text-sm mt-2">{{ error }}</p>
 
@@ -38,81 +41,67 @@
             <div>
               <div v-if="state.isLoggedIn && isUser">
                 <button class="btn-1 mt-2">
-                  <RouterLink to="/collection">
-                    Go to your profile
-                  </RouterLink>
+                  <RouterLink to="/collection"> Go to your profile </RouterLink>
                 </button>
               </div>
 
               <div v-if="state.isLoggedIn && isAdmin">
                 <button class="btn-1 mt-2">
-                  <RouterLink to="/admin">
-                    Go to admin page
-                  </RouterLink>
+                  <RouterLink to="/admin"> Go to admin page </RouterLink>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   </section>
 </template>
-  
+
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
-import { state } from '../../modules/globalStates/state';
-import { useUsers } from '../../modules/auth/userModels';
-import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
-import { useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue'
+import { state } from '../../modules/globalStates/state'
+import { useUsers } from '../../modules/auth/userModels'
+import { scrollToTop } from '../../modules/scrollToTop/TopRouterView'
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
-
+const router = useRouter()
 
 // start at the top of the page
 onMounted(() => {
-  scrollToTop();
+  scrollToTop()
 
-  const storedEmail = localStorage.getItem('prefillEmail');
-  const storedPassword = localStorage.getItem('prefillPassword');
+  const storedEmail = localStorage.getItem('prefillEmail')
+  const storedPassword = localStorage.getItem('prefillPassword')
 
-  if (storedEmail) email.value = storedEmail;
-  if (storedPassword) password.value = storedPassword;
-});
+  if (storedEmail) email.value = storedEmail
+  if (storedPassword) password.value = storedPassword
+})
 
-
-
-const { user, loadUser } = useUsers();
+const { user, loadUser } = useUsers()
 // for input fields to fetch
-const { fetchToken, email, password, error, isLoggedIn } = useUsers();
-
+const { fetchToken, email, password, error, isLoggedIn } = useUsers()
 
 onMounted(async () => {
   if (state.isLoggedIn) {
     await loadUser()
-  } 
+  }
 })
-
-
 
 // logs user in
 const handleLogin = async () => {
-  await fetchToken(email.value, password.value);
+  await fetchToken(email.value, password.value)
 
   if (isLoggedIn.value) {
-    localStorage.removeItem('prefillEmail');
-    localStorage.removeItem('prefillPassword');
-    router.push('/'); // redirect to home page
+    localStorage.removeItem('prefillEmail')
+    localStorage.removeItem('prefillPassword')
+    router.push('/') // redirect to home page
   }
-};
-
+}
 
 // checking if userrole is admin
 const isUser = computed(() => user.value?.userRole === 'user')
 const isAdmin = computed(() => user.value?.userRole === 'admin')
-
-
-
 </script>
 
 <style scoped>
@@ -122,6 +111,6 @@ const isAdmin = computed(() => user.value?.userRole === 'admin')
 }
 
 .sign-up:hover {
-  color: var(--dark-headline)
+  color: var(--dark-headline);
 }
 </style>
