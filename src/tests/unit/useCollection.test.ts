@@ -49,7 +49,6 @@ test('Fetch collections', async () => {
   expect(collection.value).toEqual(mockCollection)
 })
 
-
 test('Fetch collection error', async () => {
   global.fetch = vi.fn().mockResolvedValue({
     ok: false,
