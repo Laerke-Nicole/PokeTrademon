@@ -13,8 +13,20 @@ Object.defineProperty(window, 'scrollTo', {
 
 // ✅ Mock useUsers and getAuthToken
 vi.mock('../../modules/auth/userModels', () => ({
-  useUsers: () => ({ user: { value: { _id: '1' } } }),
-  getAuthToken: () => 'test-token',
+  useUsers: () => ({
+    user: ref({ _id: '1', username: 'TestUser', email: 'test@example.com' }),
+    isLoggedIn: ref(true),
+    token: ref('mock-token'),
+    error: ref(null),
+    username: ref(''),
+    email: ref(''),
+    password: ref(''),
+    logout: vi.fn(),
+    fetchToken: vi.fn(),
+    registerUser: vi.fn(),
+    loadUser: vi.fn(), // ✅ Mock this to avoid API call
+  }),
+  getAuthToken: () => 'mock-token',
 }))
 
 // ✅ Mock collection API

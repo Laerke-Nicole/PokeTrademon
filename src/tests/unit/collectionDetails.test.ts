@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 globalThis.scrollTo = vi.fn()
 
-// make a mock collection
+// ✅ Mock useCollection
 const mockCollection = [
   {
     cardId: '1',
@@ -15,7 +15,6 @@ const mockCollection = [
   },
 ]
 
-// takes useCollection and returns collection, loading, error, and fetchCollection
 vi.mock('../../modules/useCollection', () => ({
   useCollection: () => ({
     collection: ref(mockCollection),
@@ -25,6 +24,25 @@ vi.mock('../../modules/useCollection', () => ({
   }),
 }))
 
+// ✅ Add this block to mock useUsers and loadUser
+vi.mock('../../modules/auth/userModels', () => ({
+  useUsers: () => ({
+    user: ref({ _id: '1', username: 'TestUser' }),
+    isLoggedIn: ref(true),
+    token: ref('mock-token'),
+    error: ref(null),
+    username: ref(''),
+    email: ref(''),
+    password: ref(''),
+    logout: vi.fn(),
+    fetchToken: vi.fn(),
+    registerUser: vi.fn(),
+    loadUser: vi.fn(), // prevents actual fetch call
+  }),
+  getAuthToken: () => 'mock-token',
+}))
+
+// ✅ Mock vue-router
 vi.mock('vue-router', () => ({
   useRoute: () => ({
     params: { id: '1' },
@@ -39,7 +57,6 @@ test('Renders collection details', async () => {
 
   await new Promise((resolve) => setTimeout(resolve, 0))
 
-  // what to expect
   expect(wrapper.text()).toContain('1')
   expect(wrapper.text()).toContain(1)
   expect(wrapper.text()).toContain('Mint')
