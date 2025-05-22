@@ -1,11 +1,11 @@
 <template>
   <section v-if="aboutUs.length && aboutUs[0]" class="pt-38 dark-bg five-percent">
     <div>
-      <h1 class="black-headline pb-6">Contact us</h1>
-      <p>Monday - Friday at 11:00 - 15:00{{ aboutUs[0].openingHours.trim() }}</p>
-      <p class="pb-6">Weekends are closed</p>
-      <p>+45 23 27 21 09{{ aboutUs[0].phoneNumber.trim() }}</p>
-      <p>Support@Poketrademon.com{{ aboutUs[0].email.trim() }}</p>
+      <h1 class="light-headline pb-6">Contact us</h1>
+      <p class="light-text">Monday - Friday at {{ aboutUs[0].openingHours.trim() }}</p>
+      <p class="pb-6 light-text">Weekends are closed</p>
+      <p class="light-text">{{ aboutUs[0].phoneNumber.trim() }}</p>
+      <p class="light-text">{{ aboutUs[0].email.trim() }}</p>
     </div>
   </section>
 
