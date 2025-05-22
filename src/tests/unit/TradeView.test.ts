@@ -88,7 +88,6 @@ test('User picks the card they want to get and submits trade', async () => {
       },
     },
   })
-  
 
   const vm = wrapper.vm as any
 
@@ -107,9 +106,3 @@ test('User picks the card they want to get and submits trade', async () => {
 
   await submitButton.trigger('click')
 })
-
-
-
-
-
-
