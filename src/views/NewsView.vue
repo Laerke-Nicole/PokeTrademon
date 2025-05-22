@@ -4,7 +4,7 @@
       class="news-hero-container five-percent pt-12 grid grid-cols-3 justify-center align-center extra-dark-bg"
     >
       <div v-motion-fade-slide>
-        <img src="../../public/images/cards-left.png" alt="pokemon cards" class="w-10/12" />
+        <img src="../../public/images/cards-left.png" alt="pokemon cards" class="w-10/12 pokemon-cards-img" />
       </div>
 
       <div class="flex flex-col justify-center items-center" v-motion-fade-slide>
@@ -12,7 +12,7 @@
       </div>
 
       <div v-motion-fade-slide>
-        <img src="../../public/images/cards-right.png" alt="pokemon cards" class="w-10/12" />
+        <img src="../../public/images/cards-right.png" alt="pokemon cards" class="w-10/12 pokemon-cards-img-two" />
       </div>
     </article>
 
@@ -20,7 +20,7 @@
       <div v-if="loading" class="text-center">Loading news...</div>
       <div v-else-if="error" class="text-center text-red-500">There's an error.</div>
 
-      <div v-else class="grid grid-cols-3 gap-6 five-percent pt-14" v-motion-fade-slide>
+      <div v-else class="grid grid-cols-3 gap-6 five-percent pt-14 card-container" v-motion-fade-slide>
         <!-- loop of news -->
         <div v-for="newsItem in visibleNews" :key="newsItem._id">
           <!-- btn linking to news detail page  -->
@@ -140,6 +140,25 @@ const loadMore = () => {
   .column-news {
     flex: 50%;
     max-width: 50%;
+  }
+  
+  .news-hero-container {
+    flex-direction: column;
+    padding-top: 130px;
+  }
+
+  .pokemon-cards-img {
+    display: none;
+  }
+
+  .pokemon-cards-img-two {
+    height: 400px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .card-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 
