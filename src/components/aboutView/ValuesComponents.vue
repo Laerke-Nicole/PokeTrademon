@@ -39,6 +39,7 @@ import { useAboutUs } from '../../modules/useAboutUs';
 // AboutUs fetching
 const { aboutUs, fetchAboutUs } = useAboutUs();
 
+
 onMounted(() => {
   fetchAboutUs();
 });

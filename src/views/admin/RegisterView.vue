@@ -77,14 +77,22 @@ const handleRegister = async () => {
   registrationSuccess.value = false;
   error.value = '';
 
-
-
   try {
-        await registerUser(username.value, email.value, password.value);
-        registrationSuccess.value = true;
-      } catch (err: any) {
-        error.value = err.message || 'Something went wrong.';
-      }
+    await registerUser(username.value, email.value, password.value);
+    registrationSuccess.value = true;
+
+    // ✅ redirect to login page after success
+    router.push('/auth');
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      error.value = err.message;
+    } else {
+      error.value = 'Something went wrong.';
+    }
+  }
+};
+
+
 
   /*
   grecaptcha.ready(() => {
@@ -99,7 +107,7 @@ const handleRegister = async () => {
     });
   });
 */
- };
+
 
 </script>
 
