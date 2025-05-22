@@ -1,34 +1,40 @@
 <template>
-    <div>
-        <h2 class="pb-4">List of news</h2>
-        <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4">
-          <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
-            <div class="flex flex-col gap-2">
-              <h4>{{ newsItem.title.trim() }}</h4>
-              <p>{{ newsItem.subTitle.trim() }}</p>
-            </div>
-
-            <div class="pb-4">
-              <img alt="News Image" :src="newsItem.imageURL" class="shadow-lg news-thumbnail">
-            </div>
-            
-            <!-- open modal -->
-            <button @click="openModal(newsItem)" class="btn-1">Click to edit news</button>
-
-            <!-- delete news -->
-            <button @click="deleteNews(newsItem._id)" class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer">Delete</button>
-            
-            <!-- display success message -->
-            <div v-if="message" class="text-green-600 pt-4 pb-4">
-              {{ message }}
-            </div>
-          </div>
-
-          <!-- news modal component -->
-          <NewsModal v-model:isVisible="isNewsVisible" :news-item="selectedNewsItem" @updateNews="updateNewsHandler" @deleteNews="deleteNews" />
+  <div>
+    <h2 class="pb-4">List of news</h2>
+    <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4">
+      <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
+        <div class="flex flex-col gap-2">
+          <h4>{{ newsItem.title.trim() }}</h4>
+          <p>{{ newsItem.subTitle.trim() }}</p>
         </div>
+
+        <div class="pb-4">
+          <img alt="News Image" :src="newsItem.imageURL" class="shadow-lg news-thumbnail" />
+        </div>
+
+        <!-- open modal -->
+        <button @click="openModal(newsItem)" class="btn-1">Click to edit news</button>
+
+        <!-- delete news -->
+        <button @click="deleteNews(newsItem._id)" class="delete-btn bg-red-600 light-headline p-2 hover:bg-red-700 cursor-pointer">Delete</button>
+
+        <!-- display success message -->
+        <div v-if="message" class="text-green-600 pt-4 pb-4">
+          {{ message }}
+        </div>
+      </div>
     </div>
+
+    <!-- NewsModal component -->
+    <NewsModal
+      v-model:isVisible="isNewsVisible"
+      :newsItem="selectedNewsItem"
+      @updateNews="updateNewsHandler"
+      @deleteNews="deleteNews"
+    />
+  </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
@@ -79,9 +85,9 @@ const updateNewsHandler = async (news: News) => {
       message.value = '';
     }, 5000);
   }
-  catch (error) {
-    throw new Error('Error updating news');
-  }
+  catch {
+  throw new Error('Error updating news');
+}
 }
 
 

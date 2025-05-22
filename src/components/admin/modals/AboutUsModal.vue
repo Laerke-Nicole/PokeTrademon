@@ -123,14 +123,12 @@ const toggleAboutUs = ():void => {
 }
 
 // AboutUs fetching
-const { aboutUs, fetchAboutUs, deleteAboutUs, updateAboutUs } = useAboutUs();
+const { fetchAboutUs } = useAboutUs();
 
 onMounted(() => {
   fetchAboutUs();
 });
 
-
-const message = ref('');
 
 // handling updating news
 const emit = defineEmits(['updateAboutUs']);

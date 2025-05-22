@@ -88,7 +88,7 @@ export const useUsers = () => {
       user.value = data;
       isLoggedIn.value = true;
       state.isLoggedIn = true;
-    } catch (err) {
+    } catch {
       user.value = null;
       isLoggedIn.value = false;
       state.isLoggedIn = false;
