@@ -72,6 +72,9 @@ const updateAboutUsHandler = async (aboutUs: AboutUs) => {
       valueThreeTitle: aboutUs.valueThreeTitle,
       valueThree: aboutUs.valueThree,
       imageURL: aboutUs.imageURL,
+      openingHours: aboutUs.openingHours,
+      phoneNumber: aboutUs.phoneNumber,
+      email: aboutUs.email,
     }
     // call the updateAboutUs function from useAboutUs
     await updateAboutUs(aboutUs._id, updatedAboutUs)

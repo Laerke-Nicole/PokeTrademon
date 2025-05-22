@@ -80,6 +80,21 @@
                           <span>About us image: </span>
                           <input type="text" v-model="aboutUsItem.imageURL" placeholder="Image URL" required class="white-bg round-corner p-1" />
                         </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Opening hours: </span>
+                          <input type="text" v-model="aboutUsItem.openingHours" placeholder="Opening hours" required class="white-bg round-corner p-1" />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Phone number: </span>
+                          <input type="text" v-model="aboutUsItem.phoneNumber" placeholder="Phone number" required class="white-bg round-corner p-1" />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <span>Email: </span>
+                          <input type="text" v-model="aboutUsItem.email" placeholder="Email" required class="white-bg round-corner p-1" />
+                        </div>
                     </div>
           
                     <!-- delete and update btns -->

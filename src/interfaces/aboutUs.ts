@@ -12,6 +12,9 @@ export type AboutUs = {
     valueThreeTitle: string;
     valueThree: string;
     imageURL: string;
+    openingHours: string;
+    phoneNumber: string;
+    email: string;
     userId: string;
 }
 
@@ -28,5 +31,8 @@ export type newAboutUs = {
     valueThreeTitle: string;
     valueThree: string;
     imageURL: string;
+    openingHours: string;
+    phoneNumber: string;
+    email: string;
     userId: string;
 }

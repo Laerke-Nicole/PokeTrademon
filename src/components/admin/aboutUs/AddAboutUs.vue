@@ -58,6 +58,21 @@
               <input type="text" v-model="newAboutUs.imageURL" placeholder="Image URL" required class="white-bg round-corner p-1" />
             </div>
 
+            <div class="flex flex-col gap-2">
+              <span>Opening hours: </span>
+              <input type="text" v-model="newAboutUs.openingHours" placeholder="Opening hours" minlength="2" maxlength="100" required class="white-bg round-corner p-1"></input>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <span>Phone number: </span>
+              <input type="text" v-model="newAboutUs.phoneNumber" placeholder="Phone number" minlength="2" maxlength="100" required class="white-bg round-corner p-1"></input>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <span>Email: </span>
+              <input type="text" v-model="newAboutUs.email" placeholder="email" minlength="2" maxlength="100" required class="white-bg round-corner p-1"></input>
+            </div>
+
         </div>
 
         <div class="pt-4">
@@ -98,6 +113,9 @@ const newAboutUs = ref({
     valueThreeTitle: '',
     valueThree: '',
     imageURL: '',
+    openingHours: '',
+    phoneNumber: '',
+    email: '',
     userId: '',
 });
 
@@ -127,6 +145,9 @@ const addAboutUsHandler = async () => {
         valueThreeTitle: '',
         valueThree: '',
         imageURL: '',
+        openingHours: '',
+        phoneNumber: '',
+        email: '',
         userId: '',
     }
 
