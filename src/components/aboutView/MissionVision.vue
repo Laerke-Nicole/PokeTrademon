@@ -8,7 +8,7 @@
       <h2 class="text-center light-headline" v-motion-fade-slide>Mission & vision</h2>
     </div>
 
-    <div class="grid grid-cols-2 gap-6 ten-percent" v-motion-fade-slide>
+    <div class="grid grid-cols-2 gap-6 ten-percent mision-value-container" v-motion-fade-slide>
       <div class="white-bg shadow round-corner p-10">
         <img
           src="../../../public/images/alakazam.png"
@@ -70,5 +70,13 @@ onMounted(() => {
   margin-right: auto;
   margin-left: auto;
   height: 300px;
+}
+
+
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .mision-value-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 </style>

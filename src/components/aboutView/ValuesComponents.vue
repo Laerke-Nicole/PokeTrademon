@@ -6,7 +6,7 @@
       <p class="light-text text-center ten-percent">{{ aboutUs[0].valuesSubTitle.trim() }}</p>
     </div>
 
-    <div class="grid grid-cols-3 gap-6 ten-percent" v-motion-fade-slide>
+    <div class="grid grid-cols-3 gap-6 ten-percent values-container" v-motion-fade-slide>
       <div class="white-bg shadow round-corner p-10">
         <p class="number-text text-center blue-text text-6xl pb-4">01</p>
         <h4 class="text-center pb-4 dark-headline">{{ aboutUs[0].valueOneTitle.trim() }}</h4>
@@ -47,5 +47,13 @@ onMounted(() => {
 <style scoped>
 .number-text {
   font-weight: bold;
+}
+
+
+/* responsive design */
+@media screen and (max-width: 800px) {
+  .values-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 </style>
