@@ -19,36 +19,34 @@
     </div>
 
     <div v-else>
-        <p>Loading details for the news...</p>
+      <p>Loading details for the news...</p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { scrollToTop } from '../modules/scrollToTop/TopRouterView';
-import { useNews } from '../modules/useNews';
-import type { News } from '../interfaces/news';
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
+import { useNews } from '../modules/useNews'
+import type { News } from '../interfaces/news'
 
-const route = useRoute();
-const news = ref<News | null>(null);
+const route = useRoute()
+const news = ref<News | null>(null)
 
-const { fetchNewsById } = useNews();
+const { fetchNewsById } = useNews()
 
 // when the html is being rendered, then collect the data
 onMounted(async () => {
-  const newsId = route.params.id as string;
-  const fetched = await fetchNewsById(newsId);
-  news.value = Array.isArray(fetched) ? fetched[0] : fetched;
-});
-
-
+  const newsId = route.params.id as string
+  const fetched = await fetchNewsById(newsId)
+  news.value = Array.isArray(fetched) ? fetched[0] : fetched
+})
 
 // start at the top of the page
 onMounted(() => {
-  scrollToTop(); 
-});
+  scrollToTop()
+})
 </script>
 
 <style scoped>

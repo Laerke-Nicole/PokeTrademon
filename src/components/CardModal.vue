@@ -1,8 +1,8 @@
 <template>
-  <div
-    v-if="visible" class="fixed inset-0 z-50 modal-bg flex items-center justify-center">
-    <div class="light-bg dark:bg-gray-800 p-6 round-corner w-11/12 max-w-md relative max-h-[90vh] overflow-y-auto">
-      
+  <div v-if="visible" class="fixed inset-0 z-50 modal-bg flex items-center justify-center">
+    <div
+      class="light-bg dark:bg-gray-800 p-6 round-corner w-11/12 max-w-md relative max-h-[90vh] overflow-y-auto"
+    >
       <button class="absolute top-2 right-2 dark-headline cursor-pointer" @click="close">✖</button>
       <h2 class="text-xl font-bold pb-4">{{ card.name.trim() }}</h2>
 
@@ -56,40 +56,38 @@
     </div>
   </div>
 </template>
-  
-  <script setup lang="ts">
-  import type { PokemonCard } from '../interfaces/card';
-  
-  const props = defineProps<{
-    visible: boolean;
-    card: PokemonCard;
-  }>();
-  
-  const emit = defineEmits(['close', 'add-to-collection']);
-  
-  const close = () => emit('close');
-  
-  const handleAdd = () => {
-    emit('add-to-collection', props.card.id);
-  };
-  </script>
 
-  
+<script setup lang="ts">
+import type { PokemonCard } from '../interfaces/card'
+
+const props = defineProps<{
+  visible: boolean
+  card: PokemonCard
+}>()
+
+const emit = defineEmits(['close', 'add-to-collection'])
+
+const close = () => emit('close')
+
+const handleAdd = () => {
+  emit('add-to-collection', props.card.id)
+}
+</script>
+
 <style scoped>
 /* bg color behind card */
 .modal-bg {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-
 /* css for card hover effect */
 .container {
   position: relative;
   width: 100%;
   height: auto;
-  aspect-ratio: 190 / 254; 
-  max-width: 270px; 
-  margin: 0 auto; 
+  aspect-ratio: 190 / 254;
+  max-width: 270px;
+  margin: 0 auto;
   transition: 200ms;
 }
 
@@ -122,7 +120,7 @@
   content: '';
 }
 
- .canvas {
+.canvas {
   perspective: 800px;
   position: absolute;
   inset: 0;
@@ -131,11 +129,11 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-template-areas:
-    "tr-1 tr-2 tr-3 tr-4 tr-5"
-    "tr-6 tr-7 tr-8 tr-9 tr-10"
-    "tr-11 tr-12 tr-13 tr-14 tr-15"
-    "tr-16 tr-17 tr-18 tr-19 tr-20"
-    "tr-21 tr-22 tr-23 tr-24 tr-25";
+    'tr-1 tr-2 tr-3 tr-4 tr-5'
+    'tr-6 tr-7 tr-8 tr-9 tr-10'
+    'tr-11 tr-12 tr-13 tr-14 tr-15'
+    'tr-16 tr-17 tr-18 tr-19 tr-20'
+    'tr-21 tr-22 tr-23 tr-24 tr-25';
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -377,17 +375,16 @@
 
 .noselect {
   -webkit-touch-callout: none;
-   /* iOS Safari */
+  /* iOS Safari */
   -webkit-user-select: none;
-   /* Safari */
-   /* Konqueror HTML */
+  /* Safari */
+  /* Konqueror HTML */
   -moz-user-select: none;
-   /* Old versions of Firefox */
+  /* Old versions of Firefox */
   -ms-user-select: none;
-   /* Internet Explorer/Edge */
+  /* Internet Explorer/Edge */
   user-select: none;
-   /* Non-prefixed version, currently
+  /* Non-prefixed version, currently
 									supported by Chrome, Edge, Opera and Firefox */
 }
-  </style>
-  
+</style>

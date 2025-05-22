@@ -6,7 +6,7 @@
 import { onMounted, ref } from 'vue'
 import * as THREE from 'three'
 
-// components 
+// components
 import { createCamera } from './camera'
 import { createLights } from './light'
 import { createFloor } from './floor'

@@ -1,5 +1,4 @@
 <template>
-    
   <section class="five-percent dark-bg pt-18">
     <div class="flex flex-col justify-center align-center pb-8" v-motion-fade-slide>
       <h2 class="light-headline text-center">What's new at PokeTrademon</h2>
@@ -8,22 +7,26 @@
 
     <div>
       <div v-if="loading" class="text-center">Loading...</div>
-      <div v-else-if="error" class="text-center text-red-500">There's an error.</div> 
+      <div v-else-if="error" class="text-center text-red-500">There's an error.</div>
 
       <div v-else class="grid grid-cols-3 gap-x-6" v-motion-fade-slide>
         <!-- loop with news -->
-        <div v-for="(newsItem, index) in news.filter(n => !n.isHidden).slice(0, 6)" :key="newsItem._id" 
-          :class="[ 
+        <div
+          v-for="(newsItem, index) in news.filter((n) => !n.isHidden).slice(0, 6)"
+          :key="newsItem._id"
+          :class="[
             'w-full',
             // first column in every row gets extra padding
             index % 3 === 0 ? 'pt-12' : '',
             // third column in every row gets extra padding
-            index % 3 === 2 ? 'pt-6' : ''
-          ]">
-
+            index % 3 === 2 ? 'pt-6' : '',
+          ]"
+        >
           <!-- btn linking to news detail page -->
           <RouterLink :to="`/news/${newsItem._id}`" class="block no-underline">
-            <div class="round-corner light-bg shadow hover:shadow-lg transition-shadow duration-300">
+            <div
+              class="round-corner light-bg shadow hover:shadow-lg transition-shadow duration-300"
+            >
               <img :src="newsItem.imageURL" class="round-corner-top w-full h-72 object-cover" />
               <div class="p-4 flex items-center justify-center h-[6.5rem]">
                 <h4 class="dark-headline text-center line-clamp-3">{{ newsItem.title.trim() }}</h4>
@@ -43,15 +46,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useNews } from '../../modules/useNews';
-
+import { onMounted } from 'vue'
+import { useNews } from '../../modules/useNews'
 
 // fetch the data from news
-const { loading, error, news, fetchNews } = useNews();
+const { loading, error, news, fetchNews } = useNews()
 
 onMounted(() => {
-  fetchNews();
+  fetchNews()
 })
 </script>
 
@@ -74,7 +76,6 @@ onMounted(() => {
   vertical-align: middle;
   width: 100%;
 }
-
 
 /* responsive design */
 @media screen and (max-width: 800px) {

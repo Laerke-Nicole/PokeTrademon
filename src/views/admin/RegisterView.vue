@@ -48,42 +48,62 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUsers } from '../../modules/auth/userModels';
-import { scrollToTop } from '../../modules/scrollToTop/TopRouterView';
+// // declare const grecaptcha: any;
+// interface Grecaptcha {
+//   ready(callback: () => void): void;
+//   execute(siteKey: string, options: { action: string }): Promise<string>;
+// }
 
+// declare const grecaptcha: Grecaptcha;
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUsers } from '../../modules/auth/userModels'
+import { scrollToTop } from '../../modules/scrollToTop/TopRouterView'
 
 // start at the top of the page
 onMounted(() => {
-  scrollToTop(); 
-});
+  scrollToTop()
+})
 
 // fetch the functions needed for the register page
-const { registerUser, username, email, password } = useUsers();
-const router = useRouter();
-const error = ref('');
-const registrationSuccess = ref(false);
+const { registerUser, username, email, password } = useUsers()
+const router = useRouter()
+const error = ref('')
+const registrationSuccess = ref(false)
 
 // register user function
 const handleRegister = async () => {
-  registrationSuccess.value = false;
-  error.value = '';
+  registrationSuccess.value = false
+  error.value = ''
 
   try {
-    await registerUser(username.value, email.value, password.value);
-    registrationSuccess.value = true;
+    await registerUser(username.value, email.value, password.value)
+    registrationSuccess.value = true
 
-    // redirect to login page after success
-    router.push('/auth');
+    // ✅ redirect to login page after success
+    router.push('/auth')
   } catch (err: unknown) {
     if (err instanceof Error) {
-      error.value = err.message;
+      error.value = err.message
     } else {
-      error.value = 'Something went wrong.';
+      error.value = 'Something went wrong.'
     }
   }
-};
+}
+
+/*
+  grecaptcha.ready(() => {
+    grecaptcha.execute('6Le8ID8rAAAAAOQL7iuZd5qt8TyU1oyM0XvlOegX', { action: 'submit' }).then(async (token: string) => {
+      try {
+        await registerUser(username.value, email.value, password.value, token);
+        console.log(token)
+        registrationSuccess.value = true;
+      } catch (err: any) {
+        error.value = err.message || 'Something went wrong.';
+      }
+    });
+  });
+*/
 </script>
 
 <style scoped>
@@ -93,6 +113,6 @@ const handleRegister = async () => {
 }
 
 .log-in:hover {
-  color: var(--dark-headline)
+  color: var(--dark-headline);
 }
 </style>

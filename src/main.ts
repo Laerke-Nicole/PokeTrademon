@@ -14,24 +14,23 @@ app.use(router)
 
 // custom animation named fade-slide
 app.use(MotionPlugin, {
-    directives: {
-      'fade-slide': {
-        initial: {
-          opacity: 0,
-          y: 100,
-        },
-        visibleOnce: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 500,
-            type: 'keyframes',
-            ease: 'linear',
-          },
+  directives: {
+    'fade-slide': {
+      initial: {
+        opacity: 0,
+        y: 100,
+      },
+      visibleOnce: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 500,
+          type: 'keyframes',
+          ease: 'linear',
         },
       },
     },
-  })
-  
+  },
+})
 
 app.mount('#app')
