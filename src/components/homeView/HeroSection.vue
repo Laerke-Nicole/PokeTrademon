@@ -25,7 +25,9 @@
 
       <!-- right side with welcome text -->
       <div v-if="!state.isLoggedIn" class="w-1/3 hero-text">
-        <button class="btn-2" v-motion-fade-slide>Start trading with us</button>
+        <RouterLink to="/guide"
+          ><button class="btn-2" v-motion-fade-slide>Start trading with us</button></RouterLink
+        >
       </div>
     </div>
   </section>

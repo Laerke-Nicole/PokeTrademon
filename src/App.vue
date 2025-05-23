@@ -91,6 +91,7 @@
       <RouterLink to="/about"><p class="dark-text">About PokeTrademon</p></RouterLink>
       <RouterLink to="/news"><p class="dark-text">News</p></RouterLink>
       <RouterLink to="/contact"><p class="dark-text">Contact us</p></RouterLink>
+      <RouterLink to="/guide"><p class="dark-text">Guide to start</p></RouterLink>
       <p class="dark-text">Careers</p>
     </div>
 
