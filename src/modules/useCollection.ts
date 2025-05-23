@@ -1,9 +1,6 @@
 import { ref } from 'vue'
-import { getAuthToken } from './auth/userModels'
-
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004'
-const COLLECTION_URL = `${BASE_URL}/collections`
-const CARD_URL = `${BASE_URL}/pokemon/cards`
+import { fetchUserCollection, addCard, updateCard, deleteCard } from '../modules/api/collectionAPI'
+import { enrichCollectionWithCardData } from './helpers/cardEnricher'
 
 export interface CollectionItem {
   cardId: string
@@ -19,138 +16,47 @@ export const useCollection = () => {
   const error = ref<string | null>(null)
 
   const fetchCollection = async (userId: string) => {
-    const token = getAuthToken()
-    if (!userId || !token) {
-      console.warn('No user ID or token found. Are you logged in?')
-      return
-    }
-
     try {
       loading.value = true
-      const res = await fetch(`${COLLECTION_URL}/${userId}`, {
-        headers: {
-          'auth-token': token,
-        },
-      })
-
-      if (!res.ok) throw new Error('Failed to fetch collection')
-
-      const data = await res.json()
-
-      const enrichedCollection = await Promise.all(
-        data.collection.map(
-          async (entry: { cardId: string; quantity: number; condition: string }) => {
-            try {
-              const cardRes = await fetch(`${CARD_URL}/${entry.cardId}`)
-              const cardData = await cardRes.json()
-              return {
-                ...entry,
-                name: cardData.data?.name || entry.cardId,
-                image: cardData.data?.images?.small || '',
-              }
-            } catch (err) {
-              console.warn(`Failed to fetch card ${entry.cardId}`, err)
-              return {
-                ...entry,
-                name: entry.cardId,
-                image: '',
-              }
-            }
-          },
-        ),
-      )
-
-      collection.value = enrichedCollection.filter((c) => c.quantity > 0)
+      const raw = await fetchUserCollection(userId)
+      const enriched = await enrichCollectionWithCardData(raw.collection)
+      collection.value = enriched.filter((c) => c.quantity > 0)
     } catch (err) {
-      error.value = (err as Error).message || 'Failed to load collection'
-      console.error('Error fetching collection:', error.value)
+      error.value = (err as Error).message
     } finally {
       loading.value = false
     }
   }
 
-  const addCardToCollection = async (cardId: string) => {
-    const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '')
-    const authToken = localStorage.getItem('isToken')
-
-    if (!userId || !authToken) {
-      alert('Login required')
-      return
-    }
-
+  const addCardToCollection = async (userId: string, cardId: string) => {
     try {
-      await fetch(COLLECTION_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'auth-token': authToken,
-        },
-        body: JSON.stringify({ userId, cardId }),
-      })
-
+      await addCard(userId, cardId)
       await fetchCollection(userId)
     } catch (err) {
-      error.value = (err as Error).message || 'Failed to add card'
-      console.error('Error adding card:', error.value)
+      error.value = (err as Error).message
     }
   }
 
-  const updateCardInCollection = async (cardId: string, quantity: number, condition: string) => {
-    const token = getAuthToken()
-    const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '')
-
-    if (!userId || !token) {
-      console.warn('Missing userId or token in updateCardInCollection')
-      return
-    }
+  const updateCardInCollection = async (
+    userId: string,
+    cardId: string,
+    quantity: number,
+    condition: string,
+  ) => {
     try {
-      const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'auth-token': token,
-        },
-        body: JSON.stringify({ quantity, condition }),
-      })
-
-      const json = await res.json()
-      if (!res.ok) {
-        console.error('PATCH failed:', json)
-        return
-      }
-
+      await updateCard(userId, cardId, quantity, condition)
       await fetchCollection(userId)
-    } catch (error) {
-      throw new Error(`Failed to update card: ${String(error)}`)
+    } catch (err) {
+      error.value = (err as Error).message
     }
   }
 
-  const deleteCardFromCollection = async (cardId: string) => {
-    const token = getAuthToken()
-    const userId = localStorage.getItem('userIDToken')?.replace(/"/g, '')
-
-    if (!userId || !token) {
-      console.warn('Missing userId or token in deleteCardFromCollection')
-      return
-    }
-
+  const deleteCardFromCollection = async (userId: string, cardId: string) => {
     try {
-      const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
-        method: 'DELETE',
-        headers: {
-          'auth-token': token,
-        },
-      })
-
-      const json = await res.json()
-      if (!res.ok) {
-        console.error('DELETE failed:', json)
-        return
-      }
-
+      await deleteCard(userId, cardId)
       await fetchCollection(userId)
-    } catch (error) {
-      console.error('deleteCardFromCollection error:', error)
+    } catch (err) {
+      error.value = (err as Error).message
     }
   }
 

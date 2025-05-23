@@ -1,5 +1,5 @@
-import type { TradeOffer, TradeCard, CreateTradeOfferPayload } from '../interfaces/trade'
-import { getAuthToken } from './auth/userModels'
+import type { TradeOffer, TradeCard, CreateTradeOfferPayload } from '../../interfaces/trade'
+import { getAuthToken } from '../auth/userModels'
 
 // use dynamic base URL
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004'

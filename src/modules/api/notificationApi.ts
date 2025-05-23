@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { getAuthToken } from '../modules/auth/userModels'
+import { getAuthToken } from '../auth/userModels'
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004'
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004/api'
 
 const config = () => ({
   headers: { 'auth-token': getAuthToken() },

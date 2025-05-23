@@ -57,7 +57,6 @@ onMounted(() => {
   border-radius: 10px 0 0 10px;
 }
 
-
 /* responsive design */
 @media screen and (max-width: 800px) {
   .about-us-container {

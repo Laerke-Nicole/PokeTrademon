@@ -19,13 +19,12 @@ import { onMounted } from 'vue'
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
 import { useAboutUs } from '../modules/useAboutUs'
 
-
 // AboutUs fetching
-const { aboutUs, fetchAboutUs } = useAboutUs();
+const { aboutUs, fetchAboutUs } = useAboutUs()
 
 onMounted(() => {
-  fetchAboutUs();
-});
+  fetchAboutUs()
+})
 
 // start at the top of the page
 onMounted(() => {

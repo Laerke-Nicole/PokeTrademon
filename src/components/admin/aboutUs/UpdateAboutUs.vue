@@ -2,7 +2,11 @@
   <!-- the list of about us with just img, title and text -->
   <div>
     <h2 class="pb-4">List of about us</h2>
-    <div v-for="aboutUsItem in aboutUs" :key="aboutUsItem._id" class="flex flex-col gap-4 about-us-list">
+    <div
+      v-for="aboutUsItem in aboutUs"
+      :key="aboutUsItem._id"
+      class="flex flex-col gap-4 about-us-list"
+    >
       <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4">
         <div class="flex flex-col gap-2">
           <h4>{{ aboutUsItem.aboutUsTitle.trim() }}</h4>
@@ -119,7 +123,6 @@ onMounted(() => {
 .delete-btn {
   border-radius: 20px;
 }
-
 
 /* responsive design */
 @media screen and (max-width: 800px) {

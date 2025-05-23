@@ -1,13 +1,15 @@
 <template>
   <div class="market-wrapper">
-    <CardSelector mode="view" @card-selected="openModal" />
+    <ToastView ref="toastRef" />
 
-    <!-- Modal Component -->
+    <CardSelector mode="view" @card-selected="openModal" @notify="handleToast" />
+
     <CardModal
       v-if="showModal && selectedCard"
       :visible="showModal"
       :card="selectedCard"
       @close="closeModal"
+      @notify="handleToast"
     />
   </div>
 </template>
@@ -17,9 +19,10 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
 import type { PokemonCard } from '../interfaces/card'
-import CardSelector from '../components/CardSelector.vue'
-import CardModal from '../components/CardModal.vue'
+import CardSelector from '../components/cards/CardSelector.vue'
+import CardModal from '../components/cards/CardModal.vue'
 import { state } from '../modules/globalStates/state'
+import ToastView from '../components/shared/ToastView.vue'
 
 const selectedCard = ref<PokemonCard | null>(null)
 const showModal = ref(false)
@@ -27,6 +30,12 @@ const showModal = ref(false)
 const openModal = (card: PokemonCard) => {
   selectedCard.value = card
   showModal.value = true
+}
+
+const toastRef = ref<InstanceType<typeof ToastView> | undefined>()
+
+const handleToast = (message: string) => {
+  toastRef.value?.showToast(message, 'success')
 }
 
 const closeModal = () => {

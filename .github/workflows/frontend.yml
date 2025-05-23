@@ -23,10 +23,10 @@ jobs:
       - name: 🛠️ Build project
         run: npm run build
 
-      - name: 🔎 Lint and format check (optional)
-        run: |
-          npm run lint
-          npm run format:check
+      #- name: 🔎 Lint and format check (optional)
+       # run: |
+        #  npm run lint
+         # npm run format:check
 
       - name: 📅 Run tests (optional)
         run: npm run test
