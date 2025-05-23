@@ -65,13 +65,22 @@ const props = defineProps<{
   card: PokemonCard
 }>()
 
-const emit = defineEmits(['close', 'add-to-collection'])
-
-const close = () => emit('close')
+const emit = defineEmits<{
+  (e: 'close'): void
+  (e: 'add-to-collection', id: string): void
+  (e: 'notify', message: string): void
+}>()
 
 const handleAdd = () => {
   emit('add-to-collection', props.card.id)
+  emit('notify', '✅ Added to collection!')
 }
+
+
+
+const close = () => emit('close')
+
+
 </script>
 
 <style scoped>

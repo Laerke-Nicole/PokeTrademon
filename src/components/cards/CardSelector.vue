@@ -74,6 +74,7 @@
       :card="selectedCard"
       @close="showModal = false"
       @add-to-collection="handleAddToCollection"
+      @notify="emit('notify', $event)"
     />
   </div>
 </div>
@@ -101,6 +102,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'card-selected', card: PokemonCard): void
   (e: 'card-removed', cardId: string): void
+  (e: 'notify', message: string): void
 }>()
 
 const mode = props.mode || 'view'
