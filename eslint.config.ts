@@ -1,12 +1,10 @@
 import pluginVue from 'eslint-plugin-vue'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
+import { defineConfigWithVueTs } from '@vue/eslint-config-typescript'
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import css from '@eslint/css'
 
-// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
-// import { configureVueProject } from '@vue/eslint-config-typescript'
-// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+const vueEssential = pluginVue.configs['flat/essential'][0]; // Get the config object
 
 export default defineConfigWithVueTs(
   {
@@ -19,12 +17,32 @@ export default defineConfigWithVueTs(
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
 
-  pluginVue.configs['flat/essential'],
-  vueTsConfigs.recommended,
-  
+  {
+    name: 'vue-rules',
+    files: ['**/*.vue'],
+    languageOptions: vueEssential.languageOptions,
+    plugins: vueEssential.plugins,
+    rules: {
+      ...vueEssential.rules,
+      'vue/multi-word-component-names': 'off',
+    },
+  },
+
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
-  skipFormatting,
+
+  {
+    name: 'css-rules',
+    files: ['**/*.css'],
+    plugins: {
+      css,
+    },
+    rules: {
+      ...css.configs.recommended.rules,
+    },
+  },
+
+  skipFormatting
 )
