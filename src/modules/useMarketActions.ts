@@ -6,7 +6,7 @@ export const useMarketActions = () => {
   const handleAddToCollection = async (cardId: string) => {
     const uid = localStorage.getItem('userIDToken')?.replace(/"/g, '')
     if (!uid) return alert('Login required')
-    await addCardToCollection(cardId)
+    await addCardToCollection( uid, cardId)
   }
 
   return {

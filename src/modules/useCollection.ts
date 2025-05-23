@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { fetchUserCollection, addCard, updateCard, deleteCard } from '../api/collectionAPI'
+import { fetchUserCollection, addCard, updateCard, deleteCard } from '../modules/api/collectionAPI'
 import { enrichCollectionWithCardData } from './helpers/cardEnricher'
 
 export interface CollectionItem {
