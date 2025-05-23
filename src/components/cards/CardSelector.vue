@@ -4,7 +4,8 @@
     <div
       v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0"
       class="pb-6"
-    >
+    >     
+
       <h3 class="text-md font-semibold dark-headline pb-2" v-motion-fade-slide></h3>
       <div class="flex flex-wrap gap-3">
         <div
@@ -22,79 +23,49 @@
         </div>
       </div>
     </div>
+  
 
     <!-- Only show the toggle if on TradeView -->
     <div class="pb-4" v-if="route.name === 'trade'">
       <button
         class="text-sm text-blue-600 hover:text-blue-700 cursor-pointer pb-2"
         @click="showGrid = !showGrid"
+        aria-label="Toggle card list visibility"
       >
         {{ showGrid ? 'Hide card list' : 'Show card list' }}
       </button>
     </div>
 
-    <div v-if="showGrid">
+    <div v-if="showGrid" class="pt-6">
       <!-- Search & Filters -->
       <CardFilterBar
         :searchQuery="searchQuery"
         :selectedSupertype="selectedSupertype"
         :sortBy="sortBy"
-        @update:searchQuery="
-          (val) => {
-            searchQuery = val
-            fetchFilteredCards()
-          }
-        "
-        @update:selectedSupertype="
-          (val) => {
-            selectedSupertype = val
-            fetchFilteredCards()
-          }
-        "
+        @update:searchQuery="(val) => updateAndFetch('searchQuery', val)"
+        @update:selectedSupertype="(val) => updateAndFetch('selectedSupertype', val)"
       />
-      <!--   @update:sortBy="(val) => { sortBy = val; fetchFilteredCards() }"-->
+        <!-- @update:sortBy="(val) => updateAndFetch('sortBy', val)" -->
 
-      <!-- Card Grid -->
-      <div>
-        <div v-if="loading">Loading...</div>
-        <div v-else-if="error">{{ error }}</div>
-        <div v-else-if="!cards.length">No cards found.</div>
-        <div v-else class="flex flex-wrap -mx-2">
-          <div
-            v-for="card in cards"
-            :key="card.id"
-            class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2 cursor-pointer relative"
-            v-motion-fade-slide
-          >
-            <div class="p-4 rounded-lg shadow hover:shadow-lg transition light-bg">
-              <img :src="card.images.small" :alt="card.name" class="w-full" />
-              <span
-                v-if="mode === 'select' && props.selectedCards?.[card.id]"
-                class="absolute top-3 left-3 bg-blue-500 light-headline text-xs px-2 py-0.5 round-corner"
-              >
-                x{{ props.selectedCards[card.id] }}
-              </span>
-              <div class="pt-4 flex justify-between items-center">
-                <button
-                  class="btn-1"
-                  @click="handleCardClick(card)"
-                  data-testid="select-card-button"
-                >
-                  {{ mode === 'select' ? 'Select Card' : 'See Card'.trim() }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Pagination -->
-      <div class="flex justify-center gap-4 pt-6" v-if="cards.length > 0">
-        <button class="btn-1" @click="prevPage" :disabled="page <= 1">Prev</button>
-        <span>Page {{ page }} of {{ totalPages }}</span>
-        <button class="btn-1" @click="nextPage" :disabled="page >= totalPages">Next</button>
-      </div>
-    </div>
+     <!-- Card Grid -->
+<CardGridState
+  :loading="loading"
+  :error="error"
+  :cards="cards"
+  :selectedCards="props.selectedCards"
+  :mode="mode"
+  @card-click="handleCardClick"
+/>
+
+<!-- Pagination -->
+<CardPagination
+  :currentPage="page"
+  :totalPages="totalPages"
+  @prev="prevPage"
+  @next="nextPage"
+/>
+
 
     <!-- Modal Preview -->
     <CardModal
@@ -105,19 +76,21 @@
       @add-to-collection="handleAddToCollection"
     />
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
-import type { PokemonCard } from '../interfaces/card'
-import { useCards } from '../modules/useCards'
-import { useMarketActions } from '@/modules/useMarketActions'
+import type { PokemonCard } from '../../interfaces/card'
+import { useCards } from '../../modules/useCards'
+import { useMarketActions } from '../../modules/useMarketActions'
 import CardModal from './CardModal.vue'
 import CardFilterBar from './CardFilterBar.vue'
+import CardPagination from './CardPagination.vue'
+import CardGridState from './CardGridState.vue'
 import { useRoute } from 'vue-router'
 
 const { handleAddToCollection } = useMarketActions()
-
 const route = useRoute()
 
 const props = defineProps<{
@@ -150,6 +123,14 @@ const fetchFilteredCards = () => {
   fetchCards(searchQuery.value, selectedSupertype.value, page.value, sortBy.value)
 }
 
+const updateAndFetch = (key: 'searchQuery' | 'selectedSupertype' | 'sortBy', val: string) => {
+  if (key === 'searchQuery') searchQuery.value = val
+  if (key === 'selectedSupertype') selectedSupertype.value = val
+  if (key === 'sortBy') sortBy.value = val
+  page.value = 1
+  fetchFilteredCards()
+}
+
 const nextPage = () => {
   if (page.value < totalPages.value) {
     page.value++
@@ -178,11 +159,6 @@ const handleCardClick = (card: PokemonCard) => {
 }
 
 onMounted(fetchFilteredCards)
-
-watch([searchQuery, selectedSupertype], () => {
-  page.value = 1
-  fetchFilteredCards()
-})
 
 watch(
   () => props.mode,

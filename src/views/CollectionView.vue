@@ -24,7 +24,7 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCollection } from '../modules/useCollection'
-import CollectionCard from '../components/CollectionCard.vue'
+import CollectionCard from '../components/cards/CollectionCard.vue'
 import { state } from '../modules/globalStates/state'
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
 import { useUsers } from '../modules/auth/userModels'

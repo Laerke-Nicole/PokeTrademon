@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PokemonCard } from '../interfaces/card'
+import type { PokemonCard } from '../../interfaces/card'
 
 const props = defineProps<{
   visible: boolean

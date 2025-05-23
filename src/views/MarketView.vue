@@ -17,8 +17,8 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
 import type { PokemonCard } from '../interfaces/card'
-import CardSelector from '../components/CardSelector.vue'
-import CardModal from '../components/CardModal.vue'
+import CardSelector from '../components/cards/CardSelector.vue'
+import CardModal from '../components/cards/CardModal.vue'
 import { state } from '../modules/globalStates/state'
 
 const selectedCard = ref<PokemonCard | null>(null)
