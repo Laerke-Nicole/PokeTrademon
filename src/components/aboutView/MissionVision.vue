@@ -72,7 +72,6 @@ onMounted(() => {
   height: 300px;
 }
 
-
 /* responsive design */
 @media screen and (max-width: 800px) {
   .mision-value-container {

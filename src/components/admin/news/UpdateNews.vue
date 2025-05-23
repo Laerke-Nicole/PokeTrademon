@@ -110,7 +110,6 @@ onMounted(() => {
   border-radius: 20px;
 }
 
-
 /* responsive design */
 @media screen and (max-width: 800px) {
   .news-list {

@@ -49,7 +49,6 @@ onMounted(() => {
   font-weight: bold;
 }
 
-
 /* responsive design */
 @media screen and (max-width: 800px) {
   .values-container {
