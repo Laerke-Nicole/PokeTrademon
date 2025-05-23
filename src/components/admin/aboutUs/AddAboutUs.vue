@@ -1,11 +1,11 @@
 <template>
   <!-- add about us -->
   <div>
-    <h2 class="pb-4">Add about us</h2>
+    <h2 class="pb-4 light-headline">Add about us</h2>
     <form @submit.prevent="addAboutUsHandler">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2">
-          <span>Title: </span>
+          <span class="light-text">Title: </span>
           <input
             type="text"
             v-model="newAboutUs.aboutUsTitle"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>About us text: </span>
+          <span class="light-text">About us text: </span>
           <textarea
             type="text"
             v-model="newAboutUs.aboutUsText"
@@ -31,7 +31,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>Mission: </span>
+          <span class="light-text">Mission: </span>
           <textarea
             type="text"
             v-model="newAboutUs.mission"
@@ -44,7 +44,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>Vision: </span>
+          <span class="light-text">Vision: </span>
           <textarea
             type="text"
             v-model="newAboutUs.vision"
@@ -56,7 +56,7 @@
           ></textarea>
         </div>
         <div class="flex flex-col gap-2">
-          <span>Values sub title: </span>
+          <span class="light-text">Values sub title: </span>
           <textarea
             type="text"
             v-model="newAboutUs.valuesSubTitle"
@@ -68,7 +68,7 @@
           ></textarea>
         </div>
         <div class="flex flex-col gap-2">
-          <span>Value one title: </span>
+          <span class="light-text">Value one title: </span>
           <input
             type="text"
             v-model="newAboutUs.valueOneTitle"
@@ -80,7 +80,7 @@
           />
         </div>
         <div class="flex flex-col gap-2">
-          <span>Value one: </span>
+          <span class="light-text">Value one: </span>
           <textarea
             type="text"
             v-model="newAboutUs.valueOne"
@@ -92,7 +92,7 @@
           ></textarea>
         </div>
         <div class="flex flex-col gap-2">
-          <span>Value two title: </span>
+          <span class="light-text">Value two title: </span>
           <input
             type="text"
             v-model="newAboutUs.valueTwoTitle"
@@ -104,7 +104,7 @@
           />
         </div>
         <div class="flex flex-col gap-2">
-          <span>Value two: </span>
+          <span class="light-text">Value two: </span>
           <textarea
             type="text"
             v-model="newAboutUs.valueTwo"
@@ -116,7 +116,7 @@
           ></textarea>
         </div>
         <div class="flex flex-col gap-2">
-          <span>Value three title: </span>
+          <span class="light-text">Value three title: </span>
           <input
             type="text"
             v-model="newAboutUs.valueThreeTitle"
@@ -128,7 +128,7 @@
           />
         </div>
         <div class="flex flex-col gap-2">
-          <span>Value three: </span>
+          <span class="light-text">Value three: </span>
           <textarea
             type="text"
             v-model="newAboutUs.valueThree"
@@ -141,7 +141,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>About us image: </span>
+          <span class="light-text">About us image: </span>
           <input
             type="text"
             v-model="newAboutUs.imageURL"
@@ -152,7 +152,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>Opening hours: </span>
+          <span class="light-text">Opening hours: </span>
           <input 
             type="text" 
             v-model="newAboutUs.openingHours" 
@@ -165,7 +165,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>Phone number: </span>
+          <span class="light-text">Phone number: </span>
           <input 
             type="text" 
             v-model="newAboutUs.phoneNumber" 
@@ -178,7 +178,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>Email: </span>
+          <span class="light-text">Email: </span>
           <input 
             type="text" 
             v-model="newAboutUs.email" 

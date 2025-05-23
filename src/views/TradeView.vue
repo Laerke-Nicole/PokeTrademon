@@ -4,14 +4,14 @@
 
     <div class="max-w-screen-xl mx-auto px-4">
       <h1
-        class="text-3xl text-center dark-headline pb-10 w-full"
+        class="text-3xl text-center light-headline pb-10 w-full"
         data-testid="my-trade-offers"
         v-motion-fade-slide
       >
         My Trade Offers
       </h1>
 
-      <div v-if="loadingTrades" class="text-center dark-text py-20">Loading Offers...</div>
+      <div v-if="loadingTrades" class="text-center light-text py-20">Loading Offers...</div>
       <div v-else>
         <!-- Tabs -->
         <div class="flex justify-center pb-6 space-x-4 items-center" v-motion-fade-slide>
@@ -34,9 +34,9 @@
 
         <!-- Marketplace -->
         <div v-if="activeTab === 'marketplace'">
-          <div v-if="openLoading" class="text-center py-10 dark-text">Loading open offers...</div>
+          <div v-if="openLoading" class="text-center py-10 light-text">Loading open offers...</div>
           <div v-else-if="openError" class="text-center text-red-600 py-10">{{ openError }}</div>
-          <div v-else-if="openOffers.length === 0" class="text-center dark-text">
+          <div v-else-if="openOffers.length === 0" class="text-center light-text">
             No open offers available.
           </div>
 
@@ -99,7 +99,7 @@
 
         <!-- Incoming -->
         <div v-if="activeTab === 'incoming'">
-          <div v-if="incoming.length === 0" class="text-center dark-text">
+          <div v-if="incoming.length === 0" class="text-center light-text">
             No incoming offers yet.
           </div>
           <div class="grid md:grid-cols-2 gap-6">
@@ -148,7 +148,7 @@
 
         <!-- Outgoing -->
         <div v-else-if="activeTab === 'outgoing'">
-          <div v-if="outgoing.length === 0" class="text-center dark-text">
+          <div v-if="outgoing.length === 0" class="text-center light-text">
             No outgoing offers yet.
           </div>
           <div class="grid md:grid-cols-2 gap-6">
@@ -185,15 +185,15 @@
         <div v-else-if="activeTab === 'completed'">
           <!-- Filter Dropdown (only visible in Completed tab) -->
           <div class="flex justify-start items-center mb-4 pb-3">
-            <label class="text-sm font-semibold text-white mr-2">Filter:</label>
-            <select v-model="completedFilter" class="border p-2 rounded-md text-white text-sm mt-6">
+            <label class="text-sm font-semibold text-white pr-2">Filter:</label>
+            <select v-model="completedFilter" class="border p-2 rounded-md text-sm mt-6 white-bg">
               <option value="all">All</option>
               <option value="accepted">Accepted</option>
               <option value="declined">Declined</option>
             </select>
           </div>
 
-          <div v-if="completed.length === 0" class="text-center dark-text">
+          <div v-if="completed.length === 0" class="text-center light-text">
             No completed offers yet.
           </div>
           <div class="grid md:grid-cols-2 gap-6">

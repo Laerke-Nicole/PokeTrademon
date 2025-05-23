@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="pb-4">List of news</h2>
+    <h2 class="pb-4 light-headline">List of news</h2>
     <div v-for="newsItem in news" :key="newsItem._id" class="flex flex-col gap-4 news-list">
       <div class="grid grid-cols-2 gap-4 light-bg round-corner shadow-lg p-4 news-list">
         <div class="flex flex-col gap-2">
