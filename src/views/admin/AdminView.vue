@@ -1,8 +1,8 @@
 <template>
   <div v-if="state.isLoggedIn && isAdmin" class="five-percent dark-bg pt-30">
     <div>
-      <h1 class="pb-6">Admin dashboard</h1>
-      <div class="text-center" v-if="loading">Loading...</div>
+      <h1 class="pb-6 light-headline">Admin dashboard</h1>
+      <div class="text-center light-text" v-if="loading">Loading...</div>
       <div class="text-center text-red-500" v-else-if="error">{{ error }}</div>
       <div v-else class="flex flex-col gap-18">
         <!-- news -->
@@ -28,8 +28,8 @@
 
   <!-- make sure if user isnt admin they cant see the page -->
   <div v-else class="five-percent dark-bg pt-30">
-    <h1>Access Denied</h1>
-    <p>You do not have permission to access this page.</p>
+    <h1 class="light-headline">Access Denied</h1>
+    <p class="light-text">You do not have permission to access this page.</p>
     <button>
       <RouterLink to="/"><button class="btn-1">Go to Home</button></RouterLink>
     </button>

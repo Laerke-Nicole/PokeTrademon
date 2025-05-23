@@ -2,11 +2,11 @@
   <div class="pt-30 five-percent dark-bg">
     <ToastView ref="toastRef" />
 
-    <h2 class="text-xl font-bold pb-6 dark-headline">Your Collection</h2>
+    <h2 class="text-xl font-bold pb-6 light-headline">Your Collection</h2>
 
-    <div v-if="loading" class="dark-text">Loading your cards...</div>
-    <div v-else-if="error" class="dark-text">{{ error }}</div>
-    <div v-else-if="collection.length === 0" class="dark-text">
+    <div v-if="loading" class="light-text">Loading your cards...</div>
+    <div v-else-if="error" class="light-text">{{ error }}</div>
+    <div v-else-if="collection.length === 0" class="light-text">
       You have no cards in your collection.
     </div>
 

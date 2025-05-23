@@ -1,11 +1,11 @@
 <template>
   <!-- add news -->
   <div>
-    <h2 class="pb-4">Add News</h2>
+    <h2 class="pb-4 light-headline">Add News</h2>
     <form @submit.prevent="addNewsHandler">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2">
-          <span>News title: </span>
+          <span class="light-text">News title: </span>
           <input
             type="text"
             v-model="newNews.title"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>News sub title: </span>
+          <span class="light-text">News sub title: </span>
           <input
             type="text"
             v-model="newNews.subTitle"
@@ -31,7 +31,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>News text: </span>
+          <span class="light-text">News text: </span>
           <textarea
             type="text"
             v-model="newNews.text"
@@ -43,7 +43,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>News image: </span>
+          <span class="light-text">News image: </span>
           <input
             type="text"
             v-model="newNews.imageURL"
@@ -54,7 +54,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>News date: </span>
+          <span class="light-text">News date: </span>
           <input
             type="text"
             v-model="newNews.date"
@@ -67,7 +67,7 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <span>News theme: </span>
+          <span class="light-text">News theme: </span>
           <input
             type="text"
             v-model="newNews.theme"
@@ -81,7 +81,7 @@
 
         <div>
           <input type="checkbox" v-model="newNews.isHidden" />
-          <span class="uppercase font-bold">Hidden News</span>
+          <span class="uppercase font-bold light-text">Hidden News</span>
         </div>
       </div>
 
