@@ -4,8 +4,7 @@
     <div
       v-if="mode === 'select' && props.selectedCards && Object.keys(props.selectedCards).length > 0"
       class="pb-6"
-    >     
-
+    >
       <h3 class="text-md font-semibold dark-headline pb-2" v-motion-fade-slide></h3>
       <div class="flex flex-wrap gap-3">
         <div
@@ -23,7 +22,6 @@
         </div>
       </div>
     </div>
-  
 
     <!-- Only show the toggle if on TradeView -->
     <div class="pb-4" v-if="route.name === 'trade'">
@@ -45,39 +43,37 @@
         @update:searchQuery="(val) => updateAndFetch('searchQuery', val)"
         @update:selectedSupertype="(val) => updateAndFetch('selectedSupertype', val)"
       />
-        <!-- @update:sortBy="(val) => updateAndFetch('sortBy', val)" -->
+      <!-- @update:sortBy="(val) => updateAndFetch('sortBy', val)" -->
 
+      <!-- Card Grid -->
+      <CardGridState
+        :loading="loading"
+        :error="error"
+        :cards="cards"
+        :selectedCards="props.selectedCards"
+        :mode="mode"
+        @card-click="handleCardClick"
+      />
 
-     <!-- Card Grid -->
-<CardGridState
-  :loading="loading"
-  :error="error"
-  :cards="cards"
-  :selectedCards="props.selectedCards"
-  :mode="mode"
-  @card-click="handleCardClick"
-/>
+      <!-- Pagination -->
+      <CardPagination
+        :currentPage="page"
+        :totalPages="totalPages"
+        @prev="prevPage"
+        @next="nextPage"
+      />
 
-<!-- Pagination -->
-<CardPagination
-  :currentPage="page"
-  :totalPages="totalPages"
-  @prev="prevPage"
-  @next="nextPage"
-/>
-
-
-    <!-- Modal Preview -->
-    <CardModal
-      v-if="mode === 'view' && showModal && selectedCard"
-      :visible="showModal"
-      :card="selectedCard"
-      @close="showModal = false"
-      @add-to-collection="handleAddToCollection"
-      @notify="emit('notify', $event)"
-    />
+      <!-- Modal Preview -->
+      <CardModal
+        v-if="mode === 'view' && showModal && selectedCard"
+        :visible="showModal"
+        :card="selectedCard"
+        @close="showModal = false"
+        @add-to-collection="handleAddToCollection"
+        @notify="emit('notify', $event)"
+      />
+    </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">

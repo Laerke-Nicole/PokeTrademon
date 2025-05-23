@@ -42,7 +42,7 @@ const {
   error,
   fetchCollection,
   updateCardInCollection,
-  deleteCardFromCollection
+  deleteCardFromCollection,
 } = useCollection()
 
 const updateCard = async (cardId: string, quantity: number, condition: string) => {
@@ -79,4 +79,3 @@ onMounted(async () => {
   await fetchCollection(user.value._id)
 })
 </script>
-

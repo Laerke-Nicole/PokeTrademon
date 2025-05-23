@@ -4,7 +4,7 @@ const CARD_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5004'}/pok
 const cardCache: Record<string, { name: string; image: string }> = {}
 
 export const enrichCollectionWithCardData = async (
-  collectionData: { cardId: string; quantity: number; condition: string }[]
+  collectionData: { cardId: string; quantity: number; condition: string }[],
 ) => {
   return await Promise.all(
     collectionData.map(async ({ cardId, quantity, condition }) => {
@@ -31,6 +31,6 @@ export const enrichCollectionWithCardData = async (
       } catch {
         return { cardId, quantity, condition, name: cardId, image: '' }
       }
-    })
+    }),
   )
 }

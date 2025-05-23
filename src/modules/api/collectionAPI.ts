@@ -29,8 +29,12 @@ export const addCard = async (userId: string, cardId: string, quantity = 1, cond
   }
 }
 
-
-export const updateCard = async (userId: string, cardId: string, quantity: number, condition: string) => {
+export const updateCard = async (
+  userId: string,
+  cardId: string,
+  quantity: number,
+  condition: string,
+) => {
   const token = getAuthToken()
   const res = await fetch(`${COLLECTION_URL}/${userId}/${cardId}`, {
     method: 'PATCH',

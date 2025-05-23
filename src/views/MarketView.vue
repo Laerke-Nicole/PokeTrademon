@@ -5,18 +5,14 @@
     <CardSelector mode="view" @card-selected="openModal" @notify="handleToast" />
 
     <CardModal
-  v-if="showModal && selectedCard"
-  :visible="showModal"
-  :card="selectedCard"
-  @close="closeModal"
-  @notify="handleToast"
-/>
-
-
-
+      v-if="showModal && selectedCard"
+      :visible="showModal"
+      :card="selectedCard"
+      @close="closeModal"
+      @notify="handleToast"
+    />
   </div>
 </template>
-
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
@@ -37,13 +33,10 @@ const openModal = (card: PokemonCard) => {
 }
 
 const toastRef = ref<InstanceType<typeof ToastView> | undefined>()
- 
-  const handleToast = (message: string) => {
+
+const handleToast = (message: string) => {
   toastRef.value?.showToast(message, 'success')
 }
-
-
-
 
 const closeModal = () => {
   showModal.value = false

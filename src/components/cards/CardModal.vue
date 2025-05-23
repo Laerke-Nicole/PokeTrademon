@@ -76,11 +76,7 @@ const handleAdd = () => {
   emit('notify', '✅ Added to collection!')
 }
 
-
-
 const close = () => emit('close')
-
-
 </script>
 
 <style scoped>

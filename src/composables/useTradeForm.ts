@@ -4,14 +4,13 @@ import type { PokemonCard } from '../interfaces/card'
 import { createTradeOffer } from '../modules/api/tradeApi'
 import { debounce } from '../modules/helpers/debounce'
 
-
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004'
 
 export const useTradeForm = (
   userId: string,
   showToast: (msg: string, type?: 'success' | 'error') => void,
   reloadTrades: () => Promise<void>,
-  userCollection: { cardId: string; quantity: number }[]
+  userCollection: { cardId: string; quantity: number }[],
 ) => {
   const username = ref('')
   const userExists = ref<null | boolean>(null)
@@ -84,7 +83,7 @@ export const useTradeForm = (
   // Debounced username check
   function debounce<T extends (...args: any[]) => void>(
     fn: T,
-    delay: number
+    delay: number,
   ): (...args: Parameters<T>) => void {
     let timer: ReturnType<typeof setTimeout>
     return (...args: Parameters<T>) => {
@@ -103,9 +102,8 @@ export const useTradeForm = (
       } else {
         userExists.value = null
       }
-    }, 500)
+    }, 500),
   )
-  
 
   return {
     username,

@@ -20,7 +20,7 @@ export const useCollection = () => {
       loading.value = true
       const raw = await fetchUserCollection(userId)
       const enriched = await enrichCollectionWithCardData(raw.collection)
-      collection.value = enriched.filter(c => c.quantity > 0)
+      collection.value = enriched.filter((c) => c.quantity > 0)
     } catch (err) {
       error.value = (err as Error).message
     } finally {
@@ -37,7 +37,12 @@ export const useCollection = () => {
     }
   }
 
-  const updateCardInCollection = async (userId: string, cardId: string, quantity: number, condition: string) => {
+  const updateCardInCollection = async (
+    userId: string,
+    cardId: string,
+    quantity: number,
+    condition: string,
+  ) => {
     try {
       await updateCard(userId, cardId, quantity, condition)
       await fetchCollection(userId)

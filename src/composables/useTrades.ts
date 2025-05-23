@@ -1,15 +1,14 @@
 import { ref, computed } from 'vue'
 import type { TradeOffer, TradeCard } from '../interfaces/trade'
-import {
-  fetchTradesForUser,
-  acceptTradeOffer,
-  declineTradeOffer,
-} from '../modules/api/tradeApi'
+import { fetchTradesForUser, acceptTradeOffer, declineTradeOffer } from '../modules/api/tradeApi'
 import { getAuthToken } from '../modules/auth/userModels'
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5004'
 
-export const useTrades = (userId: string, showToast: (msg: string, type?: 'success' | 'error') => void) => {
+export const useTrades = (
+  userId: string,
+  showToast: (msg: string, type?: 'success' | 'error') => void,
+) => {
   const allTrades = ref<TradeOffer[]>([])
   const loadingTrades = ref(true)
   const openOffers = ref<TradeOffer[]>([])
@@ -30,30 +29,27 @@ export const useTrades = (userId: string, showToast: (msg: string, type?: 'succe
     }),
   )
 
-
-
   const completed = computed(() => {
     return allTrades.value
       .filter((t) => {
         const sender = typeof t.senderId === 'string' ? t.senderId : t.senderId?._id
         const receiver = typeof t.receiverId === 'string' ? t.receiverId : t.receiverId?._id
-        return (sender === userId || receiver === userId) &&
-               (t.status === 'accepted' || t.status === 'declined')
+        return (
+          (sender === userId || receiver === userId) &&
+          (t.status === 'accepted' || t.status === 'declined')
+        )
       })
       .sort((a, b) => new Date(b.updatedAt || '').getTime() - new Date(a.updatedAt || '').getTime())
-    })
-  
+  })
 
   const completedFilter = ref<'all' | 'accepted' | 'declined'>('all')
 
-const filteredCompleted = computed(() => {
-  return completed.value.filter(t => {
-    if (completedFilter.value === 'all') return true
-    return t.status === completedFilter.value
+  const filteredCompleted = computed(() => {
+    return completed.value.filter((t) => {
+      if (completedFilter.value === 'all') return true
+      return t.status === completedFilter.value
+    })
   })
-})
-
-  
 
   const isSender = (t: TradeOffer): boolean => {
     const sid = typeof t.senderId === 'string' ? t.senderId : t.senderId?._id
@@ -134,11 +130,13 @@ const filteredCompleted = computed(() => {
       await fetchOpenOffers()
       await loadTrades()
     } catch (err: any) {
-      const message = err instanceof Error ? err.message : (err?.response?.data?.message || 'Trade acceptance failed.')
+      const message =
+        err instanceof Error
+          ? err.message
+          : err?.response?.data?.message || 'Trade acceptance failed.'
       showToast(`Failed to accept open trade: ${message}`, 'error')
     }
   }
-  
 
   return {
     allTrades,

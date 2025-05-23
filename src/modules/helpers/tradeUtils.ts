@@ -17,9 +17,7 @@ export const isTradeSender = (trade: TradeOffer, userId: string): boolean => {
 /**
  * Get safe username from string or object
  */
-export const extractUsername = (
-  u: string | { username?: string } | null | undefined
-): string => {
+export const extractUsername = (u: string | { username?: string } | null | undefined): string => {
   if (!u) return ''
   if (typeof u === 'string') return u
   return u.username || ''
