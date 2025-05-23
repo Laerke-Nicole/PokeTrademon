@@ -160,8 +160,8 @@
             minlength="2" 
             maxlength="100" 
             required 
-            class="white-bg round-corner p-1">
-          </input>
+            class="white-bg round-corner p-1"
+          />
         </div>
 
         <div class="flex flex-col gap-2">
@@ -173,8 +173,8 @@
             minlength="2" 
             maxlength="100" 
             required 
-            class="white-bg round-corner p-1">
-          </input>
+            class="white-bg round-corner p-1"
+          />
         </div>
 
         <div class="flex flex-col gap-2">
@@ -186,8 +186,8 @@
             minlength="2" 
             maxlength="100" 
             required 
-            class="white-bg round-corner p-1">
-          </input>
+            class="white-bg round-corner p-1"
+          />
         </div>
       </div>
 
