@@ -1,5 +1,7 @@
 <template>
   <div class="pt-30 five-percent dark-bg">
+    <ToastView ref="toastRef" />
+
     <h2 class="text-xl font-bold pb-6 dark-headline">Your Collection</h2>
 
     <div v-if="loading" class="dark-text">Loading your cards...</div>
@@ -21,42 +23,52 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCollection } from '../modules/useCollection'
 import CollectionCard from '../components/cards/CollectionCard.vue'
+import ToastView from '../components/shared/ToastView.vue'
 import { state } from '../modules/globalStates/state'
 import { scrollToTop } from '../modules/scrollToTop/TopRouterView'
 import { useUsers } from '../modules/auth/userModels'
 
 const router = useRouter()
-const { user, loadUser } = useUsers()
+const toastRef = ref<InstanceType<typeof ToastView> | null>(null)
 
+const { user, loadUser } = useUsers()
 const {
   collection,
   loading,
   error,
   fetchCollection,
   updateCardInCollection,
-  deleteCardFromCollection,
+  deleteCardFromCollection
 } = useCollection()
 
-const updateCard = (cardId: string, quantity: number, condition: string) => {
+const updateCard = async (cardId: string, quantity: number, condition: string) => {
   if (user.value?._id) {
-    updateCardInCollection(cardId, quantity, condition)
+    try {
+      await updateCardInCollection(user.value._id, cardId, quantity, condition)
+      toastRef.value?.showToast('Card updated successfully', 'success')
+    } catch {
+      toastRef.value?.showToast('Failed to update card', 'error')
+    }
   }
 }
 
-const deleteCard = (cardId: string) => {
+const deleteCard = async (cardId: string) => {
   if (user.value?._id) {
-    deleteCardFromCollection(cardId)
+    try {
+      await deleteCardFromCollection(user.value._id, cardId)
+      toastRef.value?.showToast('Card deleted successfully', 'success')
+    } catch {
+      toastRef.value?.showToast('Failed to delete card', 'error')
+    }
   }
 }
 
-// main setup
 onMounted(async () => {
   scrollToTop()
-
   await loadUser()
 
   if (!state.isLoggedIn || !user.value?._id) {
@@ -67,3 +79,4 @@ onMounted(async () => {
   await fetchCollection(user.value._id)
 })
 </script>
+
