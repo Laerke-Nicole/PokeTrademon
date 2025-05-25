@@ -59,7 +59,7 @@
       </div>
 
       <div>
-        <div v-if="isAdmin">
+        <div v-if="readyToShowLinks && isAdmin">
           <RouterLink to="/admin">
             <li class="w-full px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin page</li>
           </RouterLink>

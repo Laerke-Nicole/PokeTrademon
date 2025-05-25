@@ -43,7 +43,6 @@
         v-model:isVisible="isAboutUsVisible"
         :AboutUsItem="selectedaboutUsItem"
         @updateAboutUs="updateAboutUsHandler"
-        @deleteAboutUs="deleteAboutUs"
       />
     </div>
   </div>

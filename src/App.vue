@@ -21,7 +21,7 @@
             >
             <RouterLink v-if="readyToShowLinks && isUser" to="/trades">Trade</RouterLink>
             <!-- only admins can accesss -->
-            <RouterLink v-if="isAdmin" to="/admin">Admin</RouterLink>
+            <RouterLink v-if="readyToShowLinks && isAdmin" to="/admin">Admin</RouterLink>
           </div>
         </div>
 

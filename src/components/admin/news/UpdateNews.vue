@@ -35,7 +35,6 @@
       v-model:isVisible="isNewsVisible"
       :newsItem="selectedNewsItem"
       @updateNews="updateNewsHandler"
-      @deleteNews="deleteNews"
     />
   </div>
 </template>
