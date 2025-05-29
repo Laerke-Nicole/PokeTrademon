@@ -134,7 +134,6 @@ onMounted(async () => {
 })
 
 // checking if user is admin or just user
-
 const isUser = computed(() => user.value?.userRole === 'user' || state.userRole === 'user')
 const isAdmin = computed(() => user.value?.userRole === 'admin' || state.userRole === 'admin')
 
