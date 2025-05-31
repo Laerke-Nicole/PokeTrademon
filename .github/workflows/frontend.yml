@@ -23,7 +23,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Run tests
+      - name: Run unit tests
         run: npm run test
 
   deploy_to_render:
