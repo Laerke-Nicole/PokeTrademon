@@ -10,7 +10,7 @@
   </section>
 
   <div v-else>
-    <p>Loading...</p>
+    <p>Loading contact information...</p>
   </div>
 </template>
 
