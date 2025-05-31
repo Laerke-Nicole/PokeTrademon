@@ -4,7 +4,7 @@
       <h1 class="light-headline pb-6">Contact us</h1>
       <p class="light-text">Monday - Friday at {{ aboutUs[0].openingHours.trim() }}</p>
       <p class="pb-6 light-text">Weekends are closed</p>
-      <p class="light-text">{{ aboutUs.phoneNumber.trim() }}</p>
+      <p class="light-text">{{ aboutUs[0].phoneNumber.trim() }}</p>
       <p class="light-text">{{ aboutUs[0].email.trim() }}</p>
     </div>
   </section>
